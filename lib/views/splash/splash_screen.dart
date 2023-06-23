@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/views/auth/login/login_screen.dart';
+import 'package:infinity/views/onboarding/welcome_screen.dart';
 
 import '../../core/utils/app_assets.dart';
 class SplashScreen extends StatefulWidget  {
@@ -55,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>  LoginScreen(),
+        builder: (context) =>  WelcomeScreen(),
       ),
     );
   }

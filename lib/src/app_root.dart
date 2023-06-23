@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/views/auth/login/login_screen.dart';
 
 import '../views/splash/splash_screen.dart';
 

@@ -3,8 +3,8 @@ import 'package:infinity/core/utils/media_query.dart';
 
 import '../core/utils/app_color.dart';
 
-class CustomInsuranceTypeButton extends StatelessWidget {
-  CustomInsuranceTypeButton({Key? key, this.onTap, required this.text,
+class CustomTypeButton extends StatelessWidget {
+  CustomTypeButton({Key? key, this.onTap, required this.text,
   this.buttonColor,this.textColor=Colors.white,this.width, this.isLoading}) : super(key: key);
   final void Function()? onTap;
   final String text;

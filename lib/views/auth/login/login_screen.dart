@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/widgets/CustomTextField.dart';
 
 import '../../../core/utils/app_color.dart';
 import '../../../widgets/check_box.dart';
-import '../../../widgets/custom_insurace_type_button.dart';
+import '../../../widgets/custom_type_button.dart';
 import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
 import '../../../widgets/toast/enum.dart';
 import '../../../widgets/toast/toast.dart';
@@ -141,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ],
                                         ),
-                                        CustomInsuranceTypeButton(
+                                        CustomTypeButton(
                                           text: "Login Now",
                                           isLoading: false,
                                           textColor: Colors.white,
