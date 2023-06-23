@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_color.dart';
+import '../../../provider/login_type/login_type_provider.dart';
 import '../../../widgets/check_box.dart';
 import '../../../widgets/custom_type_button.dart';
 import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
@@ -75,13 +78,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Column(
                                       children: [
                                         const SizedBox(height: 8,),
-                                        SizedBox( width: context.width*0.6,
+                                        if(context.read<LoginTypeProvider>().isAdmin)
+                                          Container( width: context.width*0.6,
                                           child: Text(
-                                            maxLines: 2,"welcome Login",
+                                            maxLines: 2,"welcome Login Admin",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,color: Colors.white),
                                           ),
                                         ),
+                                        if(!context.read<LoginTypeProvider>().isAdmin)
+                                          Container( width: context.width*0.6,
+                                            child: Text(
+                                              maxLines: 2,"welcome Login member",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,color: Colors.white),
+                                            ),
+                                          ),
                                         SizedBox(height: context.height*0.025,),
                                         CustomTextFromField(
                                           backgroundColor: Colors.white,
@@ -142,18 +154,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         CustomTypeButton(
                                           text: "Login Now",
-                                          isLoading: false,
+                                          isLoading:
+                                          context.read<LoginTypeProvider>().isAdmin?
+                                          context.watch<AdminLoginProvider>().isLoading:
+                                          // todo context.watch<MemberLoginProvider>().isLoading
+                                          false,
                                           textColor: Colors.white,
                                           buttonColor:AppColor.primary.withOpacity(0.7),
 
                                           onTap: () async {
                                             if (_formKey.currentState!.validate()){
-                                                ToastConfig.showToast(context: context,msg:"Success",
-                                                  toastStates: ToastStates.Success,);
+                                                // TODO CHECK ADMIN LOGIN
+                                              if(context.read<LoginTypeProvider>().isAdmin)
+                                                {
+                                                  // todo firebase
+                                                  // todo sucess--> no do
+                                                  // todo falid--> MyToast
+                                                  //  //context.read<LoginTypeProvider>().setIsAdmin(false)
+                                                  await context.read<AdminLoginProvider>().loginAdmin(email: email.text, password: password.text);
 
+                                                }
+                                              else{
+                                                // todo check member login
                                               }
-
-
+                                              }
                                             else {
                                               ToastConfig.showToast(context: context, msg: "please enter required data", toastStates: ToastStates.Error,);
                                             }

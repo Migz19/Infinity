@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/provider/login_type/login_type_provider.dart';
+import 'package:provider/provider.dart';
 
+import '../../views/auth/login/login_screen.dart';
 import '../custom_type_button.dart';
 
 class WelcomeBottomSheet extends StatelessWidget {
@@ -10,39 +13,50 @@ class WelcomeBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height * 0.5,
-      color: AppColor.primary,
-      decoration: const BoxDecoration(
+      height: context.height * 0.4,
+      width: context.width,
+      alignment: Alignment.center,
+      decoration:  BoxDecoration(
+          color: Colors.white.withOpacity(0.5),
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-      child: Column(
-        children: [
-          CustomTypeButton(
-            text: "Admin",
-            isLoading: false,
-            textColor: Colors.white,
-            buttonColor:AppColor.primary.withOpacity(0.7),
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox( width: context.width*0.6,
+              child:const Padding(
+                padding:  EdgeInsets.symmetric(vertical: 18.0),
+                child: Text(
+                  maxLines: 2,"welcome Infinity Club",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,),
+                ),
+              ),
+            ),
+            CustomTypeButton(
+              text: "Admin",
+              isLoading: false,
+              textColor: Colors.white,
+              buttonColor:AppColor.primary.withOpacity(0.7),
+              onTap: () async {
+                context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+              },),
+            CustomTypeButton(
+              text: "Member",
+              isLoading: false,
+              textColor: Colors.white,
+              buttonColor:AppColor.primary.withOpacity(0.7),
 
-            onTap: () async {
-
-
-
-
-            },),
-          const SizedBox(height: 16,),
-          CustomTypeButton(
-            text: "Member",
-            isLoading: false,
-            textColor: Colors.white,
-            buttonColor:AppColor.primary.withOpacity(0.7),
-
-            onTap: () async {
-
-
-
-
-            },),
-        ],
+              onTap: () async {
+                context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+              },),
+          ],
+        ),
       ),
     );
   }
