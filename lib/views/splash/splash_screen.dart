@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
     super.initState();
      init();
   }
+
   Future<void>init() async {
     loginType=await CacheHelper.getData(key: "loginType");
   }
