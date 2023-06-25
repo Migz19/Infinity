@@ -4,6 +4,7 @@ import 'package:infinity/models/user/user_model.dart';
 
 class FirebaseHelper{
   static  FirebaseHelper? _firebaseHelper;
+   Map<String,dynamic>admin={};
   FirebaseHelper._();
 
   factory FirebaseHelper() {
@@ -48,21 +49,29 @@ class FirebaseHelper{
 
 
 
+UserModel ?userModel;
 
 
 
 
-
-  Future<dynamic> getUserData(String UId) async {
+  Future<dynamic> getUserData({required String UId, required String collectionName})
+  async {
     try {
-      FirebaseFirestore.instance
-          .collection('users')
+      print("getUserData");
+      DocumentSnapshot<Map<String, dynamic>> value= await FirebaseFirestore.instance
+          .collection(collectionName)
           .doc(UId)
-          .get()
-          .then((value) {
-        return UserModel.fromJson(json: value.data()!);
-      });
+          .get();
+          print("${value.data()}");
+          if(collectionName=='admin')
+          admin=value.data()!;
+          else {
+            userModel=UserModel.fromJson(json: value.data()!);
+          }
+        return value;
+
     } catch (error) {
+      print("error1: ${error}");
       return error;
     }
   }

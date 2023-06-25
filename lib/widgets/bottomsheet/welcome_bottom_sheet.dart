@@ -38,7 +38,7 @@ class WelcomeBottomSheet extends StatelessWidget {
             ),
             CustomTypeButton(
               text: "Admin",
-              isLoading: false,
+              isLoading: context.watch<LoginTypeProvider>().isLoading,
               textColor: Colors.white,
               buttonColor:AppColor.primary.withOpacity(0.7),
               onTap: () async {
@@ -47,7 +47,7 @@ class WelcomeBottomSheet extends StatelessWidget {
               },),
             CustomTypeButton(
               text: "Member",
-              isLoading: false,
+              isLoading: context.watch<LoginTypeProvider>().isLoading,
               textColor: Colors.white,
               buttonColor:AppColor.primary.withOpacity(0.7),
 

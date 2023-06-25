@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
+import 'package:infinity/provider/authentication/login/member_login_provider.dart';
+import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_color.dart';
@@ -136,6 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               },
                                               size: 24,
                                               isSelected: isSelected,
+
                                               borderColor:Colors.white,
 
                                             ),
@@ -171,11 +175,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   // todo sucess--> no do
                                                   // todo falid--> MyToast
                                                   //  //context.read<LoginTypeProvider>().setIsAdmin(false)
-                                                  await context.read<AdminLoginProvider>().loginAdmin(email: email.text, password: password.text);
+                                                  await context.read<AdminLoginProvider>()
+                                                      .loginAdmin(email: email.text, password: password.text,isSelected: isSelected);
+                                                  if(!mounted)
+                                                   return;
+                                                  if(context.read<AdminLoginProvider>().isLogin) {
+                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  NavigationScreen(),));
+                                                    ToastConfig.showToast(context: context, msg: "Admin Login Succeeded", toastStates: ToastStates.Success,);
+                                                  }
+                                                  else{
+                                                    ToastConfig.showToast(context: context, msg: "Admin Login Failed", toastStates: ToastStates.Error,);
+
+                                                  }
+
 
                                                 }
                                               else{
                                                 // todo check member login
+                                                await context.read<MemberLoginProvider>().loginMember(email: email.text, password: password.text,isSelected: isSelected);
+                                                if(context.read<MemberLoginProvider>().isLogin) {
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  NavigationScreen(),));
+                                                  ToastConfig.showToast(context: context, msg: "Member Login Succeeded", toastStates: ToastStates.Success,);
+                                                }
+                                                else{
+                                                  ToastConfig.showToast(context: context, msg: "Member Login Failed", toastStates: ToastStates.Error,);
+                                                }
                                               }
                                               }
                                             else {
@@ -204,5 +228,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+  void cacheUser(String? email,String? password){
+    if(email==null||password==null)
+      return;
+   // CacheHelper.init();
+
+    print("11111111111cached");
   }
 }

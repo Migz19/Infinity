@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/data/local/cache_helper.dart';
+import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/views/auth/login/login_screen.dart';
+import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
 class SplashScreen extends StatefulWidget  {
@@ -13,12 +17,16 @@ class SplashScreen extends StatefulWidget  {
 }
 
 class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixin {
-
+  String? loginType;
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
 
+    super.initState();
+     init();
+  }
+  Future<void>init() async {
+    loginType=await CacheHelper.getData(key: "loginType");
   }
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 4000),
@@ -53,12 +61,21 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
     // Start Animation of logo
     await _logoController.forward();
     await Future.delayed(Duration(seconds: 1));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>  WelcomeScreen(),
-      ),
-    );
+    if(loginType==null)
+      {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen(),));
+      }
+    else
+      {
+        if(loginType=='admin')
+          context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
+        if(loginType=='member')
+          context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => NavigationScreen(),));
+
+      }
+
   }
   @override
   Widget build(BuildContext context) {
@@ -109,5 +126,12 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
         ],
       ),
     );
+  }
+  bool checkCachedData(){
+    CacheHelper.init();
+   if(CacheHelper.getData(key: "email")!=null&&CacheHelper.getData(key: "password")){
+     return true;
+   }
+     return false;
   }
 }
