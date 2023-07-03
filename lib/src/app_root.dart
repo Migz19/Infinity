@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinity/views/add_member/add_member_screen.dart';
 
 import '../views/splash/splash_screen.dart';
 

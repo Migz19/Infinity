@@ -4,6 +4,7 @@ import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/authentication/login/member_login_provider.dart';
+import 'package:infinity/views/admin_options/admin_option_screen.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   if(!mounted)
                                                    return;
                                                   if(context.read<AdminLoginProvider>().isLogin) {
-                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  NavigationScreen(),));
+                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const AdminOptionsScreen(),));
                                                     ToastConfig.showToast(context: context, msg: "Admin Login Succeeded", toastStates: ToastStates.Success,);
                                                   }
                                                   else{

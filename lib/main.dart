@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity/data/local/cache_helper.dart';
+import 'package:infinity/provider/add_member/add_member_provider.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
@@ -25,6 +26,9 @@ void main() async {
             ChangeNotifierProvider<AdminLoginProvider>(
                 create: (_) => AdminLoginProvider(),
             ),
+          ChangeNotifierProvider<AddMemberProvider>(
+            create: (_) => AddMemberProvider(),
+          ),
         ],
         child: const AppRoot()));
 }

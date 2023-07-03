@@ -16,11 +16,10 @@ class FirebaseHelper{
 
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-        email: user.email!, password: user.password!)
+        email: user.email, password: user.password)
         .then((value) {
-
       user.id = value.user!.uid;
-      return UserCreate(user, value.user!.uid);
+      return _UserCreate(user, value.user!.uid);
 
       //   return true;
     }).catchError((error) {
@@ -29,7 +28,7 @@ class FirebaseHelper{
     return false;
   }
 
-  Future<bool> UserCreate(UserModel user, String UId) async {
+  Future<bool> _UserCreate(UserModel user, String UId) async {
     user.id = UId;
     try{
       await FirebaseFirestore.instance
@@ -37,9 +36,11 @@ class FirebaseHelper{
           .doc(UId)
           .set(user.toJson())
           .then((value) {
+            print("User added  $UId");
         return true;
       });
     }catch(error){
+      print(error);
       return false;
     }
     return false;

@@ -3,6 +3,7 @@ import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
+import 'package:infinity/views/admin_options/admin_option_screen.dart';
 import 'package:infinity/views/auth/login/login_screen.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
@@ -68,12 +69,16 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
       }
     else
       {
-        if(loginType=='admin')
+        if (!mounted)
+          return;
+        if(loginType=='admin') {
           context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
-        if(loginType=='member')
+        }
+        if(loginType=='member') {
           context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
+        }
         Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => NavigationScreen(),));
+          builder: (context) => const AdminOptionsScreen(),));
 
       }
 

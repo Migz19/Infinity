@@ -4,14 +4,18 @@ import 'package:infinity/models/user/user_model.dart';
 
 class AddMemberProvider extends ChangeNotifier{
  FirebaseHelper  _firebaseHelper=FirebaseHelper();
- bool? isLoadding;
+ bool? isLoading;
  bool isAdded=false;
+ String? committee;
  Future<void> addNewMember({required UserModel userModel})
  async {
-   isLoadding=true;
+   isLoading=true;
    notifyListeners();
    isAdded=await _firebaseHelper.UserRegister(userModel);
-   isLoadding=false;
+   isLoading=false;
    notifyListeners();
  }
+ List<String>committeesList=['Hr','Media','Pr','Events','HighBoard','Marketing'];
+ List<String>rolesList=['Head','Vice Head','Highboard','Member'];
+
 }
