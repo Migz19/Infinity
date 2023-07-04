@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/core/utils/app_assets.dart';
 
 class CustomCard extends StatelessWidget {
   double width, height;
