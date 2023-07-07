@@ -11,7 +11,7 @@ class AddMemberProvider extends ChangeNotifier{
  async {
    isLoading=true;
    notifyListeners();
-   isAdded=await _firebaseHelper.UserRegister(userModel);
+   isAdded=await _firebaseHelper.userRegister(userModel);
    isLoading=false;
    notifyListeners();
  }

@@ -22,7 +22,6 @@ class UserModel {
   });
 
   factory UserModel.fromJson({required dynamic json}) => UserModel(
-
         username: json['username'] ?? '',
         committee: json['committee'] ?? '',
         role: json['role'] ?? '',

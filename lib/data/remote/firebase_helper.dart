@@ -1,25 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:infinity/data/remote/helpers/events_helper.dart';
+import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/models/user/user_model.dart';
 
 class FirebaseHelper{
   static  FirebaseHelper? _firebaseHelper;
    Map<String,dynamic>admin={};
   FirebaseHelper._();
-
+  EventsHelper _eventsHelper=EventsHelper();
   factory FirebaseHelper() {
     _firebaseHelper ??= FirebaseHelper._();
     return _firebaseHelper!;
   }
 
-  Future<bool> UserRegister(UserModel user) async {
+  Future<bool> userRegister(UserModel user) async {
 
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
         email: user.email, password: user.password)
         .then((value) {
       user.id = value.user!.uid;
-      return _UserCreate(user, value.user!.uid);
+      return _userCreate(user, value.user!.uid);
 
       //   return true;
     }).catchError((error) {
@@ -28,7 +30,7 @@ class FirebaseHelper{
     return false;
   }
 
-  Future<bool> _UserCreate(UserModel user, String UId) async {
+  Future<bool> _userCreate(UserModel user, String UId) async {
     user.id = UId;
     try{
       await FirebaseFirestore.instance
@@ -77,5 +79,17 @@ UserModel ?userModel;
     }
   }
 
+  Future<List<EventModel>> getUpcomingEvents() async {
+   return await _eventsHelper.getUpcomingEvents();
+
+  }
+  Future<List<EventModel>> getAllEvents() async {
+    return await _eventsHelper.getAllEvents();
+
+  }
+
+  Future<void>addEvent(EventModel eventModel) {
+    _eventsHelper.addEvent(eventModel);
+  }
 
 }

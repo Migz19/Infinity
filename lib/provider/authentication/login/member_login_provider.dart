@@ -14,7 +14,6 @@ class MemberLoginProvider extends ChangeNotifier {
   Future<void> loginMember(
       {required String email, required String password,required bool isSelected}) async {
     isLoading = true;
-
     notifyListeners();
     try{
       await FirebaseAuth.instance

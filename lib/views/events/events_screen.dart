@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:infinity/models/event/event_model.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({Key? key}) : super(key: key);
-
+ const EventScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(color: Colors.black87,
-      child: Text("EventScreen"),);
+      child: Text("Events Screen"),);
   }
+
+
 }

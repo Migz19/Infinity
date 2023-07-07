@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/views/add_member/add_member_screen.dart';
+import 'package:infinity/views/admin_options/add_event/add_event_screen.dart';
 import 'package:infinity/widgets/card_admin_options.dart';
 
 import '../../core/utils/app_assets.dart';
 import '../../core/utils/app_color.dart';
+import 'add_member/add_member_screen.dart';
 
 class AdminOptionsScreen extends StatelessWidget {
   const AdminOptionsScreen({Key? key}) : super(key: key);
@@ -38,14 +39,29 @@ class AdminOptionsScreen extends StatelessWidget {
             children: [
               GestureDetector(
                 child: AdminCardOptions(
-                  imageUrl: AppAssets.addMember,
-                  title: "Add new member",
-                  onTap:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMemberScreen()));
-
-                  }
-                ),
-              )
+                    imageUrl: AppAssets.addMember,
+                    title: "Add new member",
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddMemberScreen()));
+                    }),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              GestureDetector(
+                child: AdminCardOptions(
+                    imageUrl: AppAssets.addMember,
+                    title: "Add new event",
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddEventScreen()));
+                    }),
+              ),
             ],
           ),
         ],

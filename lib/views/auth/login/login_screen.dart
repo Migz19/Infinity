@@ -17,52 +17,61 @@ import '../../../widgets/toast/enum.dart';
 import '../../../widgets/toast/toast.dart';
 
 class LoginScreen extends StatefulWidget {
-   LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController email=TextEditingController();
+  TextEditingController email = TextEditingController();
 
-  TextEditingController password=TextEditingController();
+  TextEditingController password = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  bool hidePassword=true;
+  bool hidePassword = true;
 
-  bool isSelected=false;
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: Alignment.topCenter,
         fit: StackFit.expand,
         children: [
-
-          Image.asset(AppAssets.backgroundLogo,fit: BoxFit.cover,width: double.infinity,height: double.infinity,alignment: Alignment.center, ),
+          Image.asset(
+            AppAssets.backgroundLogo,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.center,
+          ),
           //SvgPicture.asset(AppAssets.gradiant,fit: BoxFit.fill),
           Container(
             width: context.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 32,),
+                const SizedBox(
+                  height: 32,
+                ),
                 Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Hero(
-                          child: Image.asset(AppAssets.logo,height: 200,width: 200,),
+                          child: Image.asset(
+                            AppAssets.logo,
+                            height: 200,
+                            width: 200,
+                          ),
                           tag: 'logo'),
                       Stack(
                         alignment: Alignment.topCenter,
                         children: [
-
                           Card(
                             color: AppColor.second.withOpacity(0.6),
                             elevation: 1,
@@ -74,142 +83,230 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 12),
                               child: SizedBox(
-                                width: context.width * 0.8,height:
-                              context.height * 0.4,
+                                width: context.width * 0.8,
+                                height: context.height * 0.4,
                                 child: SingleChildScrollView(
                                   child: Form(
                                     key: _formKey,
                                     child: Column(
                                       children: [
-                                        const SizedBox(height: 8,),
-                                        if(context.read<LoginTypeProvider>().isAdmin)
-                                          Container( width: context.width*0.6,
-                                          child: Text(
-                                            maxLines: 2,"welcome Login Admin",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,color: Colors.white),
-                                          ),
+                                        const SizedBox(
+                                          height: 8,
                                         ),
-                                        if(!context.read<LoginTypeProvider>().isAdmin)
-                                          Container( width: context.width*0.6,
+                                        if (context
+                                            .read<LoginTypeProvider>()
+                                            .isAdmin)
+                                          Container(
+                                            width: context.width * 0.6,
                                             child: Text(
-                                              maxLines: 2,"welcome Login member",
+                                              maxLines: 2,
+                                              "welcome Login Admin",
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,color: Colors.white),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
                                             ),
                                           ),
-                                        SizedBox(height: context.height*0.025,),
+                                        if (!context
+                                            .read<LoginTypeProvider>()
+                                            .isAdmin)
+                                          Container(
+                                            width: context.width * 0.6,
+                                            child: Text(
+                                              maxLines: 2,
+                                              "welcome Login member",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        SizedBox(
+                                          height: context.height * 0.025,
+                                        ),
                                         CustomTextFromField(
-                                          backgroundColor: Colors.white,
-                                            hintColor: AppColor.primary.withOpacity(0.6),
-                                            textInputType: TextInputType.emailAddress,
+                                            backgroundColor: Colors.white,
+                                            hintColor: AppColor.primary
+                                                .withOpacity(0.6),
+                                            textInputType:
+                                                TextInputType.emailAddress,
                                             validator: (value) {
-
-                                              if(value!.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 return '';
                                               }
                                               return null;
                                             },
-                                            textEditingController: email, hint:" enter email", label: "email"),
+                                            textEditingController: email,
+                                            hint: " enter email",
+                                            label: "email"),
                                         CustomTextFromField(
                                             obscureText: hidePassword,
                                             backgroundColor: Colors.white,
-                                            hintColor: AppColor.primary.withOpacity(0.6),
+                                            hintColor: AppColor.primary
+                                                .withOpacity(0.6),
                                             suffixIcon: IconButton(
-
-                                                icon: Icon(hidePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,color:  AppColor.primary.withOpacity(0.6)),
-                                                onPressed: (){
+                                                icon: Icon(
+                                                    hidePassword
+                                                        ? Icons
+                                                            .visibility_off_outlined
+                                                        : Icons
+                                                            .visibility_outlined,
+                                                    color: AppColor.primary
+                                                        .withOpacity(0.6)),
+                                                onPressed: () {
                                                   setState(() {
-                                                    hidePassword =! hidePassword;
+                                                    hidePassword =
+                                                        !hidePassword;
                                                   });
                                                 }),
-                                            validator: (value){
-                                              if(value!.isEmpty)
-                                                return '';
+                                            validator: (value) {
+                                              if (value!.isEmpty) return '';
 
                                               return null;
                                             },
-                                            textEditingController: password, hint: "enter password", label: "password"),
+                                            textEditingController: password,
+                                            hint: "enter password",
+                                            label: "password"),
                                         Row(
                                           children: [
                                             CustomCheckBox(
-                                              onTap:  (){
+                                              onTap: () {
                                                 setState(() {
-                                                  isSelected=!isSelected;
+                                                  isSelected = !isSelected;
                                                 });
                                               },
                                               size: 24,
                                               isSelected: isSelected,
-
-                                              borderColor:Colors.white,
-
+                                              borderColor: Colors.white,
                                             ),
-                                            const SizedBox(width: 4,),
-                                            Text("remember me",
-
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text(
+                                              "remember me",
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.w500,),
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                             const Spacer(),
-                                            Text("forget password",
+                                            Text(
+                                              "forget password",
                                               textAlign: TextAlign.center,
-                                              style:TextStyle(fontSize: 14,color: AppColor.primary,fontWeight: FontWeight.w200,),
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: AppColor.primary,
+                                                fontWeight: FontWeight.w200,
+                                              ),
                                             ),
                                           ],
                                         ),
                                         CustomTypeButton(
                                           text: "Login Now",
-                                          isLoading:
-                                          context.read<LoginTypeProvider>().isAdmin?
-                                          context.watch<AdminLoginProvider>().isLoading:
-                                          // todo context.watch<MemberLoginProvider>().isLoading
-                                          false,
+                                          isLoading: context
+                                                  .read<LoginTypeProvider>()
+                                                  .isAdmin
+                                              ? context
+                                                  .watch<AdminLoginProvider>()
+                                                  .isLoading
+                                              :
+                                              // todo context.watch<MemberLoginProvider>().isLoading
+                                              false,
                                           textColor: Colors.white,
-                                          buttonColor:AppColor.primary.withOpacity(0.7),
-
+                                          buttonColor:
+                                              AppColor.primary.withOpacity(0.7),
                                           onTap: () async {
-                                            if (_formKey.currentState!.validate()){
-                                                // TODO CHECK ADMIN LOGIN
-                                              if(context.read<LoginTypeProvider>().isAdmin)
-                                                {
-                                                  // todo firebase
-                                                  // todo sucess--> no do
-                                                  // todo falid--> MyToast
-                                                  //  //context.read<LoginTypeProvider>().setIsAdmin(false)
-                                                  await context.read<AdminLoginProvider>()
-                                                      .loginAdmin(email: email.text, password: password.text,isSelected: isSelected);
-                                                  if(!mounted)
-                                                   return;
-                                                  if(context.read<AdminLoginProvider>().isLogin) {
-                                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const AdminOptionsScreen(),));
-                                                    ToastConfig.showToast(context: context, msg: "Admin Login Succeeded", toastStates: ToastStates.Success,);
-                                                  }
-                                                  else{
-                                                    ToastConfig.showToast(context: context, msg: "Admin Login Failed", toastStates: ToastStates.Error,);
-
-                                                  }
-
-
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              // TODO CHECK ADMIN LOGIN
+                                              if (context
+                                                  .read<LoginTypeProvider>()
+                                                  .isAdmin) {
+                                                // todo firebase
+                                                // todo sucess--> no do
+                                                // todo falid--> MyToast
+                                                //  //context.read<LoginTypeProvider>().setIsAdmin(false)
+                                                await context
+                                                    .read<AdminLoginProvider>()
+                                                    .loginAdmin(
+                                                        email: email.text,
+                                                        password: password.text,
+                                                        isSelected: isSelected);
+                                                if (!mounted) return;
+                                                if (context
+                                                    .read<AdminLoginProvider>()
+                                                    .isLogin) {
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NavigationScreen(),
+                                                      ));
+                                                  ToastConfig.showToast(
+                                                    context: context,
+                                                    msg:
+                                                        "Admin Login Succeeded",
+                                                    toastStates:
+                                                        ToastStates.Success,
+                                                  );
+                                                } else {
+                                                  ToastConfig.showToast(
+                                                    context: context,
+                                                    msg: "Admin Login Failed",
+                                                    toastStates:
+                                                        ToastStates.Error,
+                                                  );
                                                 }
-                                              else{
+                                              } else {
                                                 // todo check member login
-                                                await context.read<MemberLoginProvider>().loginMember(email: email.text, password: password.text,isSelected: isSelected);
-                                                if(context.read<MemberLoginProvider>().isLogin) {
-                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  NavigationScreen(),));
-                                                  ToastConfig.showToast(context: context, msg: "Member Login Succeeded", toastStates: ToastStates.Success,);
-                                                }
-                                                else{
-                                                  ToastConfig.showToast(context: context, msg: "Member Login Failed", toastStates: ToastStates.Error,);
+                                                await context
+                                                    .read<MemberLoginProvider>()
+                                                    .loginMember(
+                                                        email: email.text,
+                                                        password: password.text,
+                                                        isSelected: isSelected);
+                                                if (context
+                                                    .read<MemberLoginProvider>()
+                                                    .isLogin) {
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NavigationScreen(),
+                                                      ));
+                                                  ToastConfig.showToast(
+                                                    context: context,
+                                                    msg:
+                                                        "Member Login Succeeded",
+                                                    toastStates:
+                                                        ToastStates.Success,
+                                                  );
+                                                } else {
+                                                  ToastConfig.showToast(
+                                                    context: context,
+                                                    msg: "Member Login Failed",
+                                                    toastStates:
+                                                        ToastStates.Error,
+                                                  );
                                                 }
                                               }
-                                              }
-                                            else {
-                                              ToastConfig.showToast(context: context, msg: "please enter required data", toastStates: ToastStates.Error,);
+                                            } else {
+                                              ToastConfig.showToast(
+                                                context: context,
+                                                msg:
+                                                    "please enter required data",
+                                                toastStates: ToastStates.Error,
+                                              );
                                             }
-
-                                          },),
-                                        SizedBox(height: context.height*0.025,),
-
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: context.height * 0.025,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -217,7 +314,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-
                         ],
                       )
                     ],
@@ -230,10 +326,10 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  void cacheUser(String? email,String? password){
-    if(email==null||password==null)
-      return;
-   // CacheHelper.init();
+
+  void cacheUser(String? email, String? password) {
+    if (email == null || password == null) return;
+    // CacheHelper.init();
 
     print("11111111111cached");
   }

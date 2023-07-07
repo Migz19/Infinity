@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
-import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +16,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<NavigatorProvider>(
-      builder: (context, provider, _) => Scaffold(
+      builder: (context, provider , _) => Scaffold(
         appBar: AppBar(
           title:  Text(
             "Infinity",
