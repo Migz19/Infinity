@@ -146,37 +146,7 @@ class AddEventScreen extends StatelessWidget {
                                             hint:
                                             "",
                                             label: "Event description"),
-                                        CustomTypeButton(
-                                          text: "Add new event",
-                                          isLoading: !context
-                                              .read<AddEventProvider>()
-                                              .isAdded
-                                              ? context
-                                              .watch<AddEventProvider>()
-                                              .isLoading
-                                              : false,
-                                          textColor: Colors.white,
-                                          buttonColor:
-                                          AppColor.primary.withOpacity(0.7),
-                                          onTap: () async {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              addNewEvent();
-                                              ToastConfig.showToast(
-                                                  context: context,
-                                                  msg: "Add member successfully",
-                                                  toastStates: ToastStates
-                                                      .Success);
-                                            } else {
-                                              ToastConfig.showToast(
-                                                context: context,
-                                                msg:
-                                                "Please enter required data",
-                                                toastStates: ToastStates.Error,
-                                              );
-                                            }
-                                          },
-                                        ),
+
                                         SizedBox(
                                           height: context.height * 0.025,
                                         ),
@@ -200,13 +170,5 @@ class AddEventScreen extends StatelessWidget {
     );
   }
 
-  Future<void> addNewEvent() async {
-    EventModel event = EventModel(title: title.text,
-        photoUri: AppAssets.backgroundLogo,
-        date: date.text,
-        location: location.text,
-        description: description.text,
-        id: "");
-    await context.read<AddEventProvider>().addNewEvent(event: event);
-  }
+
 }

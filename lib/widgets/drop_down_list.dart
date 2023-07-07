@@ -32,9 +32,9 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(5)),
       child: DropdownButton<String>(
+
         // borderRadius: const BorderRadius.all(Radius.circular(10)),
         focusColor: AppColor.second,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
         items: widget.list.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

@@ -8,10 +8,4 @@ class EventsProvider extends ChangeNotifier {
   late List<EventModel> pastEvents;
   FirebaseHelper firebaseHelper = FirebaseHelper();
 
-  Future<List<EventModel>> getUpcomingEvents()async {
-   return await firebaseHelper.getUpcomingEvents().then((value) => upcomingEvents);
-  }
-  Future<List<EventModel>>getAllEvents()async {
-   return await firebaseHelper.getAllEvents().then((value) => pastEvents);
-  }
 }
