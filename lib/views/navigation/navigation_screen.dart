@@ -17,27 +17,27 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     return Consumer<NavigatorProvider>(
       builder: (context, provider , _) => Scaffold(
-        appBar: AppBar(
-          title:  Text(
-            "Infinity",
-            textAlign: TextAlign.start,
-            style: TextStyle(fontWeight: FontWeight.w500,color: AppColor.primary),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Image.asset(
-                AppAssets.logo,
-                width: 100,
-                height: 100,
-                alignment: Alignment.topRight,
-              ),
-            ),
-
-          ],
-          elevation: 0,
-          backgroundColor: Colors.white,
-        ),
+        // appBar: AppBar(
+        //   title:  Text(
+        //     "Infinity",
+        //     textAlign: TextAlign.start,
+        //     style: TextStyle(fontWeight: FontWeight.w500,color: AppColor.primary),
+        //   ),
+        //   actions: [
+        //     Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        //       child: Image.asset(
+        //         AppAssets.logo,
+        //         width: 100,
+        //         height: 100,
+        //         alignment: Alignment.topRight,
+        //       ),
+        //     ),
+        //
+        //   ],
+        //   elevation: 0,
+        //   backgroundColor: Colors.white,
+        // ),
         body: provider.screens[provider.currentIndex],
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(
