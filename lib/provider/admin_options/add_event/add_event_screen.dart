@@ -12,7 +12,7 @@ class AddMemberProvider extends ChangeNotifier{
   async {
     isLoading=true;
     notifyListeners();
-    isAdded=await _firebaseHelper.addEvent(eventModel);
+    //isAdded=await _firebaseHelper.addEvent(eventModel);
     isLoading=false;
     notifyListeners();
   }

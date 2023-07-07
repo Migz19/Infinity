@@ -10,11 +10,8 @@ class HomeProvider extends ChangeNotifier{
   FirebaseHelper firebaseHelper=FirebaseHelper();
 
   HomeProvider(){
-    getEventsList();
+
   }
 
-  Future <void>getEventsList() async{
-    firebaseHelper.getUpcomingEvents().then((value) => upcomingEvents);
 
-}
 }

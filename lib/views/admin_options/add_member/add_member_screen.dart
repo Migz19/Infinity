@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/user/user_model.dart';
-import 'package:infinity/provider/add_member/add_member_provider.dart';
+import 'package:infinity/provider/admin_options/add_member/add_member_provider.dart';
 import 'package:infinity/widgets/drop_down_list.dart';
 import 'package:provider/provider.dart';
 
