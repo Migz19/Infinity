@@ -7,6 +7,7 @@ import 'package:infinity/provider/authentication/login/admin_login_provider.dart
 import 'package:infinity/provider/home/home_provider.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
+import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/src/app_root.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,12 @@ void main() async {
             ChangeNotifierProvider<LoginTypeProvider>(
                 create: (_) => LoginTypeProvider(),
             ),
+          ChangeNotifierProvider<HomeProvider>(
+            create: (_) => HomeProvider(),
+          ),
+          ChangeNotifierProvider<ProfileProvider>(
+            create: (_) => ProfileProvider(),
+          ),
           ChangeNotifierProvider<NavigatorProvider>(
             create: (_) => NavigatorProvider(),
           ),

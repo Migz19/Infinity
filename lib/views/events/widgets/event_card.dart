@@ -4,9 +4,6 @@ import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';
-
-import 'package:provider/provider.dart';
-import 'package:timeago/timeago.dart' as timeago;
 class EventCard extends StatefulWidget {
   final Color? color;
   final EventModel? event;
@@ -37,7 +34,7 @@ class _EventCardState extends State<EventCard> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor.withOpacity(.05),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(
           20.0,
         ),
@@ -61,24 +58,21 @@ class _EventCardState extends State<EventCard> {
                   itemBuilder: (context, index) {
                     return Stack(
                       children: [
-                        Hero(
-                          child: CachedNetworkImage(
-                            width: context.width,
-                            height: context.height,
-                            imageUrl: '${_event.images![index]}',
-                            fit: BoxFit.fill,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) => Align(
-                              alignment: Alignment.bottomCenter,
-                              child: LinearProgressIndicator(
-                                value: downloadProgress.progress,
-                                backgroundColor: Colors.grey.shade100,
-                              ),
+                        CachedNetworkImage(
+                          width: context.width,
+                          height: context.height,
+                          imageUrl: '${_event.images![index]}',
+                          fit: BoxFit.fill,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Align(
+                            alignment: Alignment.bottomCenter,
+                            child: LinearProgressIndicator(
+                              value: downloadProgress.progress,
+                              backgroundColor: Colors.grey.shade100,
                             ),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
                           ),
-                          tag: 0,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -90,7 +84,7 @@ class _EventCardState extends State<EventCard> {
                                 Colors.grey.withOpacity(0.0),
                                 Colors.black,
                               ],
-                              stops: [0.0, 1.0],
+                              stops:const  [0.0, 1.0],
                             ),
                           ),
                         ),
@@ -102,19 +96,20 @@ class _EventCardState extends State<EventCard> {
                     : Image.asset(
                   AppAssets.logo,
                 ),
-                Positioned(
-                  right: 8,
-                  left: 8,
-                  bottom: 8,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: List.generate(
-                      _event.images!.length < 2
-                          ? 0
-                          : _event.images!.length,
-                          (index) => CustomIndicator(
-                        isSelected: index == _selectedIndex,
-                        size: 12.0,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        _event.images!.length < 2
+                            ? 0
+                            : _event.images!.length,
+                            (index) => CustomIndicator(
+                          isSelected: index == _selectedIndex,
+                          size: 10.0,
+                        ),
                       ),
                     ),
                   ),
@@ -207,9 +202,7 @@ class _EventCardState extends State<EventCard> {
                               ),
                               Flexible(
                                 child: Text(
-                                  timeago.format(
-                                    DateTime.parse(_event.date!),
-                                  ),
+                                    _event.date,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)

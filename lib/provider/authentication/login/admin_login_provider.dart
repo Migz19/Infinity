@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/data/remote/firebase_helper.dart';
 
 import '../../../data/local/cache_helper.dart';
-import '../../../models/user/user_model.dart';
 
 class AdminLoginProvider extends ChangeNotifier {
   bool? isLoading;

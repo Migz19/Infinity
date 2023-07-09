@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
@@ -25,7 +24,7 @@ class EventScreen extends StatelessWidget {
         color: Colors.white,
         width: context.width,height: context.height,
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: ServiceList(eventList: [
+        child: EventsList(eventList: [
           EventModel(title: "Event Cairo",
               images:[
                 'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',

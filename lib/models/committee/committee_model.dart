@@ -1,10 +1,10 @@
 import '../user/user_model.dart';
 
 class CommitteeModel{
-  String _name;
-  String _imgUri;
-  List<UserModel>_members;
+  String name;
+  String imgUri;
+  List<UserModel>members;
 
-  CommitteeModel.committee(this._name, this._imgUri, this._members);
+  CommitteeModel.committee({ required this.name,required this.imgUri,required this.members});
 
 }

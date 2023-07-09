@@ -3,10 +3,9 @@ import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/views/events/widgets/event_card.dart';
 import 'package:infinity/views/events/widgets/event_details_screen.dart';
 import 'package:infinity/widgets/naviagtion.dart';
-import 'package:provider/provider.dart';
 
-class ServiceList extends StatelessWidget {
-  const ServiceList({Key? key, required this.eventList}) : super(key: key);
+class EventsList extends StatelessWidget {
+  const EventsList({Key? key, required this.eventList}) : super(key: key);
   final List<EventModel>eventList;
   @override
   Widget build(BuildContext context) {

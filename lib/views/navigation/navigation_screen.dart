@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
+import 'package:infinity/views/admin_options/admin_option_screen.dart';
+import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -17,27 +18,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     return Consumer<NavigatorProvider>(
       builder: (context, provider , _) => Scaffold(
-        // appBar: AppBar(
-        //   title:  Text(
-        //     "Infinity",
-        //     textAlign: TextAlign.start,
-        //     style: TextStyle(fontWeight: FontWeight.w500,color: AppColor.primary),
-        //   ),
-        //   actions: [
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        //       child: Image.asset(
-        //         AppAssets.logo,
-        //         width: 100,
-        //         height: 100,
-        //         alignment: Alignment.topRight,
-        //       ),
-        //     ),
-        //
-        //   ],
-        //   elevation: 0,
-        //   backgroundColor: Colors.white,
-        // ),
+
         body: provider.screens[provider.currentIndex],
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(
@@ -85,10 +66,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
         floatingActionButton: context.read<LoginTypeProvider>().isAdmin
             ? FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  AppNavigator.customNavigator(context: context, screen: AdminOptionsScreen(), finish: false);
+                },
                 backgroundColor: AppColor.primary,
                 child: const Icon(
-                  Icons.add,
+                  Icons.admin_panel_settings_outlined,
                   color: Colors.white,
                 ),
               )

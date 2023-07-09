@@ -19,12 +19,12 @@ class CustomIndicator extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? Colors.white : Colors.transparent,
           border: Border.all(
-            color: Colors.white10,
+            color: Colors.white.withOpacity(0.6),
             width: 1.5,
           ),
           borderRadius: BorderRadius.circular(16),
         ),
-        duration: Duration(milliseconds: 500),
+        duration:const  Duration(milliseconds: 500),
       ),
     );
   }

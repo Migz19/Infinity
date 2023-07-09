@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/models/user/user_model.dart';
 
 class FirebaseHelper{
@@ -64,9 +63,9 @@ UserModel ?userModel;
           .doc(UId)
           .get();
           print("${value.data()}");
-          if(collectionName=='admin')
-          admin=value.data()!;
-          else {
+          if(collectionName=='admin') {
+            admin=value.data()!;
+          } else {
             userModel=UserModel.fromJson(json: value.data()!);
           }
         return value;

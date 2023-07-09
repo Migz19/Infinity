@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/models/event/event_model.dart';
+import 'package:infinity/widgets/custom_type_button.dart';
 
 import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
-import '../../../widgets/custom_type_button.dart';
-import '../../../widgets/toast/toast.dart';
 
 class AddEventScreen extends StatelessWidget {
   TextEditingController title = TextEditingController();
@@ -78,7 +76,7 @@ class AddEventScreen extends StatelessWidget {
                                           width: context.width * 0.6,
                                           child: const Text(
                                             maxLines: 2,
-                                            "Add new member",
+                                            "Add new event",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -93,24 +91,23 @@ class AddEventScreen extends StatelessWidget {
                                         //Username
                                         CustomTextFromField(
                                           backgroundColor: Colors.white,
-                                          hintColor: AppColor.primary
-                                              .withOpacity(0.6),
+                                          hintColor:
+                                              AppColor.primary.withOpacity(0.6),
                                           validator: (value) {
                                             if (value!.isEmpty) return '';
 
                                             return null;
                                           },
                                           textEditingController: title,
-
                                           label: "Title",
-                                          hint: '',),
+                                          hint: 'Title',
+                                        ),
                                         //Email
                                         CustomTextFromField(
                                             backgroundColor: Colors.white,
                                             hintColor: AppColor.primary
                                                 .withOpacity(0.6),
-                                            textInputType:
-                                            TextInputType.number,
+                                            textInputType: TextInputType.number,
                                             validator: (value) {
                                               if (value!.isEmpty) {
                                                 return '';
@@ -118,7 +115,7 @@ class AddEventScreen extends StatelessWidget {
                                               return null;
                                             },
                                             textEditingController: date,
-                                            hint: "20",
+                                            hint: "Event day ex:20",
                                             label: "Event day"),
                                         //Phone
                                         CustomTextFromField(
@@ -131,7 +128,7 @@ class AddEventScreen extends StatelessWidget {
                                               return null;
                                             },
                                             textEditingController: location,
-                                            hint: "",
+                                            hint: "Event Location",
                                             label: "Event location"),
                                         //Phone
                                         CustomTextFromField(
@@ -143,13 +140,18 @@ class AddEventScreen extends StatelessWidget {
                                               return null;
                                             },
                                             textEditingController: description,
-                                            hint:
-                                            "",
+                                            hint: "Description",
                                             label: "Event description"),
 
                                         SizedBox(
                                           height: context.height * 0.025,
                                         ),
+                                        CustomTypeButton(
+                                          text: "Add new event",
+                                          textColor: Colors.white,
+                                          buttonColor: Colors.transparent
+                                              .withOpacity(0.2),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -169,6 +171,4 @@ class AddEventScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

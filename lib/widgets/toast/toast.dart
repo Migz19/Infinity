@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 import '../../core/utils/hex_color.dart';
 import 'enum.dart';
 
@@ -63,6 +61,9 @@ Color chooseToastColor(ToastStates state) {
     case ToastStates.Warning:
       color = HexColor('#E5B61B');
       break;
+    case ToastStates.Warning:
+      color = HexColor('#E5B61B');
+      break;
   }
   return color;
 }
@@ -88,13 +89,13 @@ String chooseToastTitle(
   late String title;
   switch (state) {
     case ToastStates.Success:
-      title = "success";
+      title = "Success";
       break;
     case ToastStates.Error:
-      title = "error";
+      title = "Error";
       break;
     case ToastStates.Warning:
-      title = "warning";
+      title = "Warning";
       break;
   }
   return title;
