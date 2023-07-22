@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/authentication/login/member_login_provider.dart';
-import 'package:infinity/views/admin_options/admin_option_screen.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_color.dart';
 import '../../../provider/login_type/login_type_provider.dart';
 import '../../../widgets/check_box.dart';
-import '../../../widgets/custom_type_button.dart';
 import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
+import '../../../widgets/custom_type_button.dart';
 import '../../../widgets/toast/enum.dart';
 import '../../../widgets/toast/toast.dart';
 
@@ -63,12 +61,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Hero(
+                          tag: 'logo',
                           child: Image.asset(
                             AppAssets.logo,
                             height: 200,
                             width: 200,
-                          ),
-                          tag: 'logo'),
+                          )),
                       Stack(
                         alignment: Alignment.topCenter,
                         children: [
@@ -113,9 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             .isAdmin)
                                           Container(
                                             width: context.width * 0.6,
-                                            child: Text(
+                                            child: const Text(
                                               maxLines: 2,
-                                              "welcome Login member",
+                                              "Welcome Login member",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 20,
@@ -184,8 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(
-                                              "remember me",
+                                            const Text(
+                                              "Remember me",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -195,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                             const Spacer(),
                                             Text(
-                                              "forget password",
+                                              "Forgot password",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -213,23 +211,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ? context
                                                   .watch<AdminLoginProvider>()
                                                   .isLoading
-                                              :
-                                              // todo context.watch<MemberLoginProvider>().isLoading
-                                              false,
+                                              :context.watch<MemberLoginProvider>().isLoading,
                                           textColor: Colors.white,
                                           buttonColor:
                                               AppColor.primary.withOpacity(0.7),
                                           onTap: () async {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              // TODO CHECK ADMIN LOGIN
                                               if (context
                                                   .read<LoginTypeProvider>()
                                                   .isAdmin) {
-                                                // todo firebase
-                                                // todo sucess--> no do
-                                                // todo falid--> MyToast
-                                                //  //context.read<LoginTypeProvider>().setIsAdmin(false)
+                                               // context.read<LoginTypeProvider>().setISAdmin( isAdmin: false);
                                                 await context
                                                     .read<AdminLoginProvider>()
                                                     .loginAdmin(
@@ -269,29 +261,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         email: email.text,
                                                         password: password.text,
                                                         isSelected: isSelected);
-                                                if (context
-                                                    .read<MemberLoginProvider>()
-                                                    .isLogin) {
-                                                  Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            NavigationScreen(),
-                                                      ));
-                                                  ToastConfig.showToast(
-                                                    context: context,
-                                                    msg:
-                                                        "Member Login Succeeded",
-                                                    toastStates:
-                                                        ToastStates.Success,
-                                                  );
-                                                } else {
-                                                  ToastConfig.showToast(
-                                                    context: context,
-                                                    msg: "Member Login Failed",
-                                                    toastStates:
-                                                        ToastStates.Error,
-                                                  );
+                                                if(mounted) {
+                                                  if (context
+                                                      .read<
+                                                      MemberLoginProvider>()
+                                                      .isLogin) {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              NavigationScreen(),
+                                                        ));
+                                                    ToastConfig.showToast(
+                                                      context: context,
+                                                      msg:
+                                                      "Member Login Succeeded",
+                                                      toastStates:
+                                                      ToastStates.Success,
+                                                    );
+                                                  } else {
+                                                    ToastConfig.showToast(
+                                                      context: context,
+                                                      msg: "Member Login Failed",
+                                                      toastStates:
+                                                      ToastStates.Error,
+                                                    );
+                                                  }
                                                 }
                                               }
                                             } else {

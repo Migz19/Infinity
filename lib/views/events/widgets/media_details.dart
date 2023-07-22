@@ -83,7 +83,6 @@ class _MediaDetailsState extends State<MediaDetails> {
                   },
                 ),
 
-                ///Indicator
                 images.length > 1
                     ? Align(
                         alignment: Alignment.bottomCenter,

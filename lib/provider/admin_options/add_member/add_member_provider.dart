@@ -7,15 +7,21 @@ class AddMemberProvider extends ChangeNotifier{
  bool? isLoading;
  bool isAdded=false;
  String? committee;
+ String?role;
+ bool isAdmin=false;
  Future<void> addNewMember({required UserModel userModel})
  async {
    isLoading=true;
    notifyListeners();
-   isAdded=await _firebaseHelper.userRegister(userModel);
+
+   if(role!='Role'&&role!='Member') {
+     isAdmin=true;
+   }
+   isAdded=await _firebaseHelper.userRegister(userModel,isAdmin);
    isLoading=false;
    notifyListeners();
  }
- List<String>committeesList=['Hr','Media','Pr','Events','HighBoard','Marketing'];
- List<String>rolesList=['Head','Vice Head','Highboard','Member'];
+ List<String>committeesList=['Committee','HR','Media','PR','Events','HighBoard','Marketing','FR','AC','Platform'];
+ List<String>rolesList=['Role','Head','Vice Head','Highboard','Member'];
 
 }

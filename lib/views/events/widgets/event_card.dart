@@ -61,7 +61,7 @@ class _EventCardState extends State<EventCard> {
                         CachedNetworkImage(
                           width: context.width,
                           height: context.height,
-                          imageUrl: '${_event.images![index]}',
+                          imageUrl: _event.images![index],
                           fit: BoxFit.fill,
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) => Align(

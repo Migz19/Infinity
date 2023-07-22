@@ -11,11 +11,9 @@ extension PasswordErrorExtension on ConfirmedPasswordValidationError {
   }
 }
 
-/// Form input for a confirmed password input.
 class ConfirmedPassword {
   ConfirmedPassword({required this.password});
 
-  /// The original password.
   final String password;
 
   ConfirmedPasswordValidationError? validator(String? value) {

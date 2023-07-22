@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
 enum PasswordValidationError {
-  /// Generic invalid error.
   empty,
   smallLength,
   containSpaces,

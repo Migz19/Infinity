@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-/// Validation errors for the [Username] [FormzInput].
 enum UsernameValidationError {
-  /// Generic invalid error.
   empty,
   smallLength,
   largeLength,

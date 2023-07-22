@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/utils/app_color.dart';
-
 class CustomCheckBox extends StatefulWidget {
   CustomCheckBox({Key? key, required this.size, required this.borderColor,
   required this.onTap, required this.isSelected}) : super(key: key);

@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:infinity/core/utils/app_assets.dart';
+
 
 class EventModel {
   String title;

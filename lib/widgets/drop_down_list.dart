@@ -3,7 +3,7 @@ import 'package:infinity/core/utils/app_color.dart';
 
 class CustomDropDownButton extends StatefulWidget {
   late List<String> list;
-  late String currentIndex;
+
   double width = 20, height = 1;
   final Function(String) onItemSelected;
 
@@ -12,7 +12,7 @@ class CustomDropDownButton extends StatefulWidget {
       required this.onItemSelected,
       required this.width,
       required this.height}) {
-    currentIndex = list.first;
+
   }
 
   @override
@@ -24,6 +24,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
 
   @override
   Widget build(BuildContext context) {
+    String  currentIndex = widget.list.first;
     return Container(
       width: widget.width,
       height: widget.height,
@@ -44,11 +45,11 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         }).toList(),
         elevation: 5,
         isExpanded: true,
-        value: widget.currentIndex,
+        value: currentIndex,
         underline: const SizedBox(),
         onChanged: (String? value) {
           setState(() {
-            widget.currentIndex = value!;
+            currentIndex = value!;
             widget.onItemSelected(value);
           });
         },

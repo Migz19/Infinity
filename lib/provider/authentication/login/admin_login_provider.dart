@@ -20,8 +20,6 @@ class AdminLoginProvider extends ChangeNotifier {
         print("Login Admin Success : ${value.user!.uid}");
         //
         try{
-           // _fireHelper
-           //  .getUserData(UId: value.user!.uid, collectionName: "admin") ;
           await _fireHelper
               .getUserData(UId: value.user!.uid, collectionName: "admin");
             print("val : ${_fireHelper.admin}");

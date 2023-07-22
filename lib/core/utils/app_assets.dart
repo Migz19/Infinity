@@ -19,6 +19,9 @@ class AppAssets{
   static String removeMember="${pngPath}remove_member.png";
   static String removePost="${pngPath}removePost.png";
   static String cancelEvent="${pngPath}cancelEvent.png";
+  static String acIcon="${pngPath}AC.png";
+  static String platformsIcon="${pngPath}Platforms.png";
+  static String eventsIcon="${pngPath}event.png";
   // Svg Images
   //static String logo="${svgPath}.....";
 

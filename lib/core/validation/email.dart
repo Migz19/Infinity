@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 enum EmailValidationError {
-  /// Generic invalid error.
   empty,
   containSpace,
   invalid,

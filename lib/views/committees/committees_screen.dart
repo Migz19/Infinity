@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
-import 'package:infinity/core/utils/app_color.dart';
+import 'package:infinity/views/committees/details_committess_screen.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
 import 'package:infinity/views/committees/widgets/committee_card.dart';
-import 'package:infinity/views/committees/widgets/details_committess_screen.dart';
 import 'package:infinity/widgets/naviagtion.dart';
 
 class CommitteeScreen extends StatelessWidget {
-  CommitteeScreen({Key? key}) : super(key: key);
+
   List<CommitteeModel> committeesList = [
     CommitteeModel(
         name: "HR", description: "HR Committee", photoUri: AppAssets.hrIcon),
@@ -20,9 +19,9 @@ class CommitteeScreen extends StatelessWidget {
         description: "Marketing Committee",
         photoUri: AppAssets.marketingIcon),
     CommitteeModel(
-        name: "Sales",
-        description: "Sales Committee",
-        photoUri: AppAssets.salesIcon),
+        name: "Platforms",
+        description: "Platforms Committee",
+        photoUri: AppAssets.platformsIcon),
     CommitteeModel(
         name: "HighBoard",
         description: "HighBoard Committee",
@@ -30,43 +29,38 @@ class CommitteeScreen extends StatelessWidget {
     CommitteeModel(
         name: "FR",
         description: "Fund Raising Committee",
-        photoUri: AppAssets.mediaIcon),
+        photoUri: AppAssets.fundIcon),
     CommitteeModel(
-        name: "Marketing",
-        description: "HR Committee",
-        photoUri: AppAssets.marketingIcon),
+        name: "AC",
+        description: "AC Committee",
+        photoUri: AppAssets.acIcon),
+    CommitteeModel(
+        name: "PR",
+        description: "PR Committee",
+        photoUri: AppAssets.prIcon),
+    CommitteeModel(
+        name: "Events",
+        description: "Events Committee",
+        photoUri: AppAssets.eventsIcon),
   ];
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Committees",
-          textAlign: TextAlign.start,
-          style:
-              TextStyle(fontWeight: FontWeight.w500, color: AppColor.tertiary),
-        ),
-        toolbarHeight: 0.0,
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SearchBar(
-              controller: searchController,
-            ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 3,
                 scrollDirection: Axis.vertical,
-                physics: const AlwaysScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 20,
                 children: committeesList
                     .map(

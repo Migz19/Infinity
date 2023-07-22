@@ -11,31 +11,49 @@ class FirebaseHelper{
     return _firebaseHelper!;
   }
 
-  Future<bool> userRegister(UserModel user) async {
+  Future<bool> userRegister(UserModel user,bool isAdmin) async {
 
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
         email: user.email, password: user.password)
         .then((value) {
       user.id = value.user!.uid;
-      return _userCreate(user, value.user!.uid);
-
+      if(isAdmin) {
+        return _createAdmin(user, value.user!.uid);
+      }else {
+       return _createUser(user, value.user!.uid);
+      }
       //   return true;
-    }).catchError((error) {
-       return false;
     });
     return false;
   }
 
-  Future<bool> _userCreate(UserModel user, String UId) async {
-    user.id = UId;
+  Future<bool> _createUser(UserModel user, String uId) async {
+    user.id = uId;
     try{
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(UId)
+          .doc(uId)
           .set(user.toJson())
           .then((value) {
-            print("User added  $UId");
+            print("User added  $uId");
+        return true;
+      });
+    }catch(error){
+      print(error);
+      return false;
+    }
+    return false;
+  }
+  Future<bool> _createAdmin(UserModel user, String uId) async {
+    user.id = uId;
+    try{
+      await FirebaseFirestore.instance
+          .collection('admin')
+          .doc(uId)
+          .set(user.toJson())
+          .then((value) {
+        print("Admin added  $uId");
         return true;
       });
     }catch(error){
@@ -64,10 +82,9 @@ UserModel ?userModel;
           .get();
           print("${value.data()}");
           if(collectionName=='admin') {
-            admin=value.data()!;
-          } else {
-            userModel=UserModel.fromJson(json: value.data()!);
+            admin = value.data()!;
           }
+            userModel=UserModel.fromJson(json: value.data()!);
         return value;
 
     } catch (error) {
@@ -76,5 +93,7 @@ UserModel ?userModel;
     }
   }
 
-
+Future <void>userLogOut()async{
+    await FirebaseAuth.instance.signOut();
+}
 }

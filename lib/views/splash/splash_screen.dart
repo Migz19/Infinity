@@ -3,7 +3,6 @@ import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
-import 'package:infinity/views/admin_options/admin_option_screen.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
   String? loginType;
   @override
   void initState() {
-    // TODO: implement initState
+
 
     super.initState();
      init();

@@ -6,8 +6,8 @@ import 'package:infinity/views/profile/profile_screen.dart';
 
 class NavigatorProvider extends ChangeNotifier{
 int currentIndex=0;
+List<String> screenTitles=['Home',"Committees","Events","Profile"];
 List<Widget>screens=[
-
   HomeScreen(),
   CommitteeScreen(),
   EventScreen(),

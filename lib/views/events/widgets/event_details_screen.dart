@@ -35,7 +35,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).bottomAppBarColor,
-
         title:  Text(
           "Event Details",
           style: TextStyle(color: Colors.black87),
@@ -59,7 +58,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             flexibleSpace: FlexibleSpaceBar(
               background: MediaDetails(
                 images: _event.images!,
-                //todo nour add event id
                 eventID: 0,
               ),
             ),

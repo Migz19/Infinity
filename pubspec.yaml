@@ -38,7 +38,6 @@ dependencies:
   flutter_svg: ^1.1.6
   shared_preferences: ^2.0.15
   provider: ^6.0.5
-  timeago: ^3.3.0
   cached_network_image: ^3.2.3
   # Firebase dependencies
   firebase_core: ^2.4.1
@@ -46,6 +45,7 @@ dependencies:
   cloud_firestore: ^4.3.1
   firebase_auth: ^4.6.3
   firebase_storage: ^11.0.10
+  image_picker: ^1.0.1
 
 dev_dependencies:
   flutter_test:

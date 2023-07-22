@@ -53,7 +53,7 @@ class WelcomeBottomSheet extends StatelessWidget {
 
               onTap: () async {
                 context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
               },),
           ],
         ),

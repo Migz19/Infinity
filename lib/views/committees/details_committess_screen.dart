@@ -3,17 +3,22 @@ import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
 import 'package:infinity/widgets/expandable_text_widget.dart';
 
+import '../../widgets/custom_type_button.dart';
+import '../../widgets/naviagtion.dart';
+import 'members_screen.dart';
 
 class DetailsCommitteeScreen extends StatelessWidget {
-  const DetailsCommitteeScreen({Key? key, required this.committeeModel}) : super(key: key);
+  const DetailsCommitteeScreen({Key? key, required this.committeeModel})
+      : super(key: key);
   final CommitteeModel committeeModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).bottomAppBarColor,
-        title:  const Text(
+        title: const Text(
           "Committee Details",
           style: TextStyle(color: Colors.black87),
         ),
@@ -50,7 +55,6 @@ class DetailsCommitteeScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
@@ -60,13 +64,35 @@ class DetailsCommitteeScreen extends StatelessWidget {
                       children: [
                         ExpandableTextWidget(
                           lengthText: 150,
-                          //todo add to localization
-                          text: committeeModel.description.isEmpty ? 'No Description':committeeModel.description,
+                          text:  committeeModel.description,
                         ),
                         const SizedBox(
                           height: 20.0,
                         ),
-
+                        Row(
+                          children: [
+                            CustomTypeButton(
+                              text: "Members",
+                              buttonColor: Colors.yellow.withOpacity(0.3),
+                              textColor: Colors.black,
+                              isLoading: false,
+                              width: 150,
+                           onTap:() {
+                             AppNavigator.customNavigator(context: context,
+                                 screen: MembersScreen(),
+                                 finish: false);
+                           }),
+                            SizedBox(width: 20,),
+                            CustomTypeButton(
+                              text: "Tasks",
+                              isLoading: false,
+                              buttonColor: Colors.yellow.withOpacity(0.3),
+                              textColor: Colors.black,
+                              width: 150,
+                              //     onTap: AppNavigator.customNavigator(context: context, screen:CommitteeScreen() , finish: false),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
