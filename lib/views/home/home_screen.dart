@@ -5,7 +5,7 @@ import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/home/home_provider.dart';
 import 'package:infinity/views/events/widgets/event_card.dart';
-import 'package:infinity/widgets/expandable_text_widget.dart';
+import 'package:infinity/widgets/dynamic_text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/event/event_model.dart';

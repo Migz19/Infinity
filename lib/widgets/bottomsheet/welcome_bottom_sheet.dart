@@ -30,7 +30,7 @@ class WelcomeBottomSheet extends StatelessWidget {
               child:const Padding(
                 padding:  EdgeInsets.symmetric(vertical: 18.0),
                 child: Text(
-                  maxLines: 2,"welcome Infinity Club",
+                  maxLines: 2,"Welcome Infinity Club",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20,fontWeight:FontWeight.bold,),
                 ),

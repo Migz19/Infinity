@@ -1,18 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class ExpandableTextWidget extends StatefulWidget {
-  const ExpandableTextWidget(
-      {Key? key, required this.text, required this.lengthText})
+class DynamicTextWidget extends StatefulWidget {
+  const DynamicTextWidget(
+      {Key? key, required this.text, required this.length})
       : super(key: key);
   final String text;
-  final int lengthText;
+  final int length;
 
   @override
-  State<ExpandableTextWidget> createState() => _ExpandableTextWidgetState();
+  State<DynamicTextWidget> createState() => _DynamicTextWidgetState();
 }
 
-class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
+class _DynamicTextWidgetState extends State<DynamicTextWidget> {
   late String firstHalf;
   late String secondHalf;
   late bool isExpanded;
@@ -20,10 +20,10 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.text.length > widget.lengthText) {
-      firstHalf = widget.text.substring(0, widget.lengthText);
+    if (widget.text.length > widget.length) {
+      firstHalf = widget.text.substring(0, widget.length);
       secondHalf =
-          widget.text.substring((widget.lengthText + 1), widget.text.length);
+          widget.text.substring((widget.length + 1), widget.text.length);
       isExpanded = false;
     } else {
       firstHalf = widget.text;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
-import 'package:infinity/widgets/expandable_text_widget.dart';
+import 'package:infinity/widgets/dynamic_text_widget.dart';
 
 import '../../widgets/custom_type_button.dart';
 import '../../widgets/naviagtion.dart';
@@ -62,8 +62,8 @@ class DetailsCommitteeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ExpandableTextWidget(
-                          lengthText: 150,
+                        DynamicTextWidget(
+                          length: 150,
                           text:  committeeModel.description,
                         ),
                         const SizedBox(

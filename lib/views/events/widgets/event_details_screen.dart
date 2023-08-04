@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/views/events/widgets/media_details.dart';
-import 'package:infinity/widgets/expandable_text_widget.dart';
+import 'package:infinity/widgets/dynamic_text_widget.dart';
 
 class ServiceDetailsScreen extends StatefulWidget {
   const ServiceDetailsScreen({Key? key, required this.event})
@@ -83,8 +83,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ExpandableTextWidget(
-                          lengthText: 150,
+                        DynamicTextWidget(
+                          length: 150,
                           //todo add to localization
                           text: _event.description.isEmpty ? 'No Description':_event.description,
                         ),
