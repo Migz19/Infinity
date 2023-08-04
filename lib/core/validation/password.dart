@@ -22,7 +22,6 @@ extension PasswordErrorExtension on PasswordValidationError {
   }
 }
 
-/// Form input for an password input.
 class PasswordValidation {
   static PasswordValidationError? validator(String value) {
     if (value.isEmpty) {

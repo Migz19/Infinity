@@ -9,7 +9,6 @@ class EventsList extends StatelessWidget {
   final List<EventModel>eventList;
   @override
   Widget build(BuildContext context) {
-    print('Service list build');
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 8.0,

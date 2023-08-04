@@ -26,7 +26,6 @@ extension EmailErrorExtension on EmailValidationError {
   }
 }
 
-/// Form input for an email input.
 class EmailValidation {
   static final RegExp _emailRegExp = RegExp(
       r'^[a-zA-Z0-9.a-zA-Z0-9.]+@[a-zA-Z]+.{1}[a-zA-Z]+(.{0,1}[a-zA-Z]+)$');

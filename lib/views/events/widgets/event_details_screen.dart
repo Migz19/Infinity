@@ -29,8 +29,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('service details screen build');
-    // print('service saved1: ${_serviceSet.saved}');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

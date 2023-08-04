@@ -326,6 +326,5 @@ class _LoginScreenState extends State<LoginScreen> {
     if (email == null || password == null) return;
     // CacheHelper.init();
 
-    print("11111111111cached");
   }
 }

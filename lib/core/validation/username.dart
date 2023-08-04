@@ -13,11 +13,11 @@ extension UsernameErrorExtension on UsernameValidationError {
     switch (this) {
       case UsernameValidationError.empty:
         return "required";
-      case UsernameValidationError.smallLength: //with
+      case UsernameValidationError.smallLength:
         return "small length";
-      case UsernameValidationError.largeLength: //with
+      case UsernameValidationError.largeLength:
         return "large length";
-      case UsernameValidationError.containSpaces: //with
+      case UsernameValidationError.containSpaces:
         return "contain space";
       case UsernameValidationError.invalid:
         return "invalid username";
@@ -25,7 +25,6 @@ extension UsernameErrorExtension on UsernameValidationError {
   }
 }
 
-/// Form input for an password input.
 class UsernameValidation {
   static UsernameValidationError? validator({
     required String value,

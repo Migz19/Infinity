@@ -18,7 +18,6 @@ class AdminLoginProvider extends ChangeNotifier {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
         print("Login Admin Success : ${value.user!.uid}");
-        //
         try{
           await _fireHelper
               .getUserData(UId: value.user!.uid, collectionName: "admin");

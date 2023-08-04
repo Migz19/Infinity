@@ -4,6 +4,7 @@ import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';
+
 class EventCard extends StatefulWidget {
   final Color? color;
   final EventModel? event;
@@ -12,7 +13,6 @@ class EventCard extends StatefulWidget {
     Key? key,
     // this.text,
     this.color,
-
     required this.event,
   }) : super(key: key);
 
@@ -39,7 +39,7 @@ class _EventCardState extends State<EventCard> {
           20.0,
         ),
         border: Border.all(
-          color:  Colors.grey[300]!,
+          color: Colors.grey[300]!,
           width: 1.0,
         ),
       ),
@@ -52,50 +52,50 @@ class _EventCardState extends State<EventCard> {
               children: [
                 _event!.images!.isNotEmpty
                     ? PageView.builder(
-                  onPageChanged: (index) => setState(() {
-                    _selectedIndex = index;
-                  }),
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        CachedNetworkImage(
-                          width: context.width,
-                          height: context.height,
-                          imageUrl: _event.images![index],
-                          fit: BoxFit.fill,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => Align(
-                            alignment: Alignment.bottomCenter,
-                            child: LinearProgressIndicator(
-                              value: downloadProgress.progress,
-                              backgroundColor: Colors.grey.shade100,
-                            ),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            gradient: LinearGradient(
-                              begin: FractionalOffset.topCenter,
-                              end: FractionalOffset.bottomCenter,
-                              colors: [
-                                Colors.grey.withOpacity(0.0),
-                                Colors.black,
-                              ],
-                              stops:const  [0.0, 1.0],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  itemCount: _event.images?.length,
-                )
+                        onPageChanged: (index) => setState(() {
+                          _selectedIndex = index;
+                        }),
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              CachedNetworkImage(
+                                width: context.width,
+                                height: context.height,
+                                imageUrl: _event.images![index],
+                                fit: BoxFit.fill,
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: LinearProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    backgroundColor: Colors.grey.shade100,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  gradient: LinearGradient(
+                                    begin: FractionalOffset.topCenter,
+                                    end: FractionalOffset.bottomCenter,
+                                    colors: [
+                                      Colors.grey.withOpacity(0.0),
+                                      Colors.black,
+                                    ],
+                                    stops: const [0.0, 1.0],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        itemCount: _event.images?.length,
+                      )
                     : Image.asset(
-                  AppAssets.logo,
-                ),
+                        AppAssets.logo,
+                      ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -103,10 +103,8 @@ class _EventCardState extends State<EventCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        _event.images!.length < 2
-                            ? 0
-                            : _event.images!.length,
-                            (index) => CustomIndicator(
+                        _event.images!.length < 2 ? 0 : _event.images!.length,
+                        (index) => CustomIndicator(
                           isSelected: index == _selectedIndex,
                           size: 10.0,
                         ),
@@ -142,8 +140,8 @@ class _EventCardState extends State<EventCard> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 8.0,
-                      ),
+                            fontSize: 8.0,
+                          ),
                     ),
                     // const SizedBox(
                     //   height: 8.0,
@@ -151,12 +149,12 @@ class _EventCardState extends State<EventCard> {
                     Spacer(),
                     Text(
                       // 'Ultra-absorbent microfiber hand towel in good state.',
-                      _event.description ,
+                      _event.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: 12.0,
-                      ),
+                            fontSize: 12.0,
+                          ),
                     ),
                     Spacer(),
                     Row(
@@ -174,16 +172,15 @@ class _EventCardState extends State<EventCard> {
                               ),
                               Flexible(
                                 child: Text(
-                                  _event.location ??
-                                      'No location',
+                                  _event.location ?? 'No location',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                    fontSize: 12.0,
-                                  ),
+                                        fontSize: 12.0,
+                                      ),
                                 ),
                               ),
                             ],
@@ -202,15 +199,15 @@ class _EventCardState extends State<EventCard> {
                               ),
                               Flexible(
                                 child: Text(
-                                    _event.date,
+                                  _event.date,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                    fontSize: 10.0,
-                                  ),
+                                        fontSize: 10.0,
+                                      ),
                                 ),
                               ),
                             ],
@@ -226,4 +223,3 @@ class _EventCardState extends State<EventCard> {
     );
   }
 }
-

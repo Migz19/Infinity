@@ -23,7 +23,6 @@ class FirebaseHelper{
       }else {
        return _createUser(user, value.user!.uid);
       }
-      //   return true;
     });
     return false;
   }

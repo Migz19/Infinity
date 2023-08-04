@@ -29,7 +29,6 @@ class _MediaDetailsState extends State<MediaDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print('Media Details build');
     return Container(
       width: double.infinity,
       child: images.isNotEmpty
