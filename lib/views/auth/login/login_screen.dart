@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             width: context.width * 0.6,
                                             child: Text(
                                               maxLines: 2,
-                                              "welcome Login Admin",
+                                              "Welcome Login Admin",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 20,

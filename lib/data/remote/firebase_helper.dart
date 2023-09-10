@@ -1,27 +1,38 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:infinity/data/remote/helpers/event_handler.dart';
+import 'package:infinity/data/remote/helpers/firebase_storage_handler.dart';
+import 'package:infinity/data/remote/helpers/posts_handler.dart';
+import 'package:infinity/models/event/event_model.dart';
+import 'package:infinity/models/post/post_model.dart';
 import 'package:infinity/models/user/user_model.dart';
 
-class FirebaseHelper{
-  static  FirebaseHelper? _firebaseHelper;
-   Map<String,dynamic>admin={};
+class FirebaseHelper {
+  static FirebaseHelper? _firebaseHelper;
+
+  Map<String, dynamic> admin = {};
+
   FirebaseHelper._();
+
   factory FirebaseHelper() {
     _firebaseHelper ??= FirebaseHelper._();
+
     return _firebaseHelper!;
   }
 
-  Future<bool> userRegister(UserModel user,bool isAdmin) async {
-
+  Future<bool> userRegister(UserModel user, bool isAdmin) async {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
         email: user.email, password: user.password)
         .then((value) {
       user.id = value.user!.uid;
-      if(isAdmin) {
+      if (isAdmin) {
         return _createAdmin(user, value.user!.uid);
-      }else {
-       return _createUser(user, value.user!.uid);
+      } else {
+        return _createUser(user, value.user!.uid);
       }
     });
     return false;
@@ -29,24 +40,25 @@ class FirebaseHelper{
 
   Future<bool> _createUser(UserModel user, String uId) async {
     user.id = uId;
-    try{
+    try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uId)
           .set(user.toJson())
           .then((value) {
-            print("User added  $uId");
+        print("User added  $uId");
         return true;
       });
-    }catch(error){
+    } catch (error) {
       print(error);
       return false;
     }
     return false;
   }
+
   Future<bool> _createAdmin(UserModel user, String uId) async {
     user.id = uId;
-    try{
+    try {
       await FirebaseFirestore.instance
           .collection('admin')
           .doc(uId)
@@ -55,44 +67,98 @@ class FirebaseHelper{
         print("Admin added  $uId");
         return true;
       });
-    }catch(error){
+    } catch (error) {
       print(error);
       return false;
     }
     return false;
   }
 
+  UserModel? userModel;
 
-
-
-
-UserModel ?userModel;
-
-
-
-
-  Future<dynamic> getUserData({required String UId, required String collectionName})
-  async {
+  Future<dynamic> getUserData(
+      {required String UId, required String collectionName}) async {
     try {
       print("getUserData");
-      DocumentSnapshot<Map<String, dynamic>> value= await FirebaseFirestore.instance
+      DocumentSnapshot<Map<String, dynamic>> value = await FirebaseFirestore
+          .instance
           .collection(collectionName)
           .doc(UId)
           .get();
-          print("${value.data()}");
-          if(collectionName=='admin') {
-            admin = value.data()!;
-          }
-            userModel=UserModel.fromJson(json: value.data()!);
-        return value;
-
+      print("${value.data()}");
+      if (collectionName == 'admin') {
+        admin = value.data()!;
+      }
+      userModel = UserModel.fromJson(json: value.data()!);
+      return value;
     } catch (error) {
       print("error1: ${error}");
       return error;
     }
   }
 
-Future <void>userLogOut()async{
+  Future<void> userLogOut() async {
+    userModel = null;
     await FirebaseAuth.instance.signOut();
-}
+  }
+
+//upload profile image and save url to user collection
+  Future<void> uploadProfileImage(File file) async {
+    String collectionName;
+    if (userModel?.role == "member") {
+      collectionName = "users";
+    } else {
+      collectionName = "admin";
+    }
+    uploadImage(
+        imageFile: file,
+        collectionName: collectionName,
+        docId: FirebaseAuth.instance.currentUser!.uid);
+  }
+
+
+  Future<void> uploadImage({required File imageFile,
+    required String collectionName,
+    String? docId}) async {
+    final image_url = await FirebaseStorageHandler.instance().uploadImage(
+        image: imageFile, id: docId, collectionName: collectionName);
+    await FirebaseFirestore.instance
+        .collection(collectionName)
+        .doc(docId)
+        .update({"photo": image_url});
+  }
+
+  Future<Reference> fetchProfileImage() async {
+
+    return await FirebaseStorageHandler.instance()
+        .getProfImg(FirebaseAuth.instance.currentUser!.uid);
+  }
+
+  Future <void> addEvent(EventModel model) async {
+
+    await FirebaseFirestore.instance.collection("event").doc(model.id).set(model.toJson());
+
+    try {
+      await FirebaseFirestore.instance.collection("event").doc(model.id).update({
+        'Files url': model.imagesUrls,
+      });
+    } catch (error){
+      print(error);
+    }
+  }
+  Future<void> addPost(PostModel model)async{
+
+      await FirebaseFirestore.instance.collection("posts").doc(model.postId).set(
+          {
+            'Post details': model.postDetails,
+          });
+
+    try {
+      await FirebaseFirestore.instance.collection("posts").doc(model.postId).update({
+        'Files url': model.filesDownloadUrl,
+      });
+    } catch (error){
+      print(error);
+    }
+  }
 }

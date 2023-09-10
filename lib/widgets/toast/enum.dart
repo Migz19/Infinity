@@ -6,3 +6,6 @@ enum DatesStates {
   pastDay,
   pastMonth,
 }
+enum CurrentUserState{
+  admin,member,visitor
+}

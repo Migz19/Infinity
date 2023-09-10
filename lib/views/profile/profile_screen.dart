@@ -11,26 +11,24 @@ import 'package:provider/provider.dart';
 import '../../core/utils/app_assets.dart';
 
 class ProfileScreen extends StatefulWidget {
-   ProfileScreen({super.key});
+  ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String email="5645";
+  String email = "5645";
 
   @override
   Widget build(BuildContext context) {
     setState(() {
-    context.watch<ProfileProvider>().getUserEmail().then((value) {
-      email=value.toString();
+      context.watch<ProfileProvider>().getUserEmail().then((value) {
+        email = value.toString();
+      });
     });
-    });
-
 
     return Scaffold(
-
       body: Stack(
         children: [
           Container(
@@ -80,11 +78,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-
-                   Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                     email ,
+                      email,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -92,7 +89,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const Text(
-
                     'Email',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -149,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onPressed: () {
                             context
                                 .read<ProfileProvider>()
-                                .fetchImage("camera");
+                                .uploadImage("camera");
                             Navigator.pop(context);
                           },
                           focusColor: Colors.grey,
@@ -170,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onPressed: () {
                             context
                                 .read<ProfileProvider>()
-                                .fetchImage("gallery");
+                                .uploadImage("gallery");
                             Navigator.pop(context);
                           },
                           focusColor: Colors.grey,

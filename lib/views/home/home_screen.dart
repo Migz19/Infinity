@@ -4,8 +4,6 @@ import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/home/home_provider.dart';
-import 'package:infinity/views/events/widgets/event_card.dart';
-import 'package:infinity/widgets/dynamic_text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/event/event_model.dart';
@@ -48,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 18.0),
-                            child: CachedNetworkImage(imageUrl: events[index].images!.first,width: 300,height: 100,),
+                            child: CachedNetworkImage(imageUrl: events[index].imagesUrls!.first,width: 300,height: 100,),
                           ),
                           Container(
                             width: 50,
@@ -89,19 +87,11 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
-                              child: Text(context
-                                  .read<HomeProvider>()
-                                  .postsList[index]
-                                  .title,style: const TextStyle(fontWeight: FontWeight.w700,),textAlign: TextAlign.start),
-                            ),
-
-                            Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(context
                                   .read<HomeProvider>()
                                   .postsList[index]
-                                  .description,maxLines: 7,
+                                  .postDetails,maxLines: 7,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -126,12 +116,7 @@ class HomeScreen extends StatelessWidget {
   List<EventModel> events = [
     EventModel(
         title: "Event Cairo",
-        images: [
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://brisbanekids.com.au/wp-content/uploads/2022/05/Lifeline-Bookfest-Books.jpg',
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85kkd4AtEaVGkngwGjz2UjlfaqLsvLffRCzFDotXhzVX46SF5L8fJ1KIINB3B5QknJQE&usqp=CAU',
-        ],
+
         date: DateTime.now().toString(),
         location: "Cairo,Naser City",
         description:
@@ -139,12 +124,7 @@ class HomeScreen extends StatelessWidget {
                 20),
     EventModel(
         title: "Event Cairo",
-        images: [
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://brisbanekids.com.au/wp-content/uploads/2022/05/Lifeline-Bookfest-Books.jpg',
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85kkd4AtEaVGkngwGjz2UjlfaqLsvLffRCzFDotXhzVX46SF5L8fJ1KIINB3B5QknJQE&usqp=CAU',
-        ],
+
         date: DateTime.now().toString(),
         location: "Cairo,Naser City",
         description:
@@ -152,12 +132,6 @@ class HomeScreen extends StatelessWidget {
                 10),
     EventModel(
         title: "Event Cairo",
-        images: [
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://brisbanekids.com.au/wp-content/uploads/2022/05/Lifeline-Bookfest-Books.jpg',
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85kkd4AtEaVGkngwGjz2UjlfaqLsvLffRCzFDotXhzVX46SF5L8fJ1KIINB3B5QknJQE&usqp=CAU',
-        ],
         date: DateTime.now().toString(),
         location: "Cairo,Naser City",
         description:
@@ -165,12 +139,6 @@ class HomeScreen extends StatelessWidget {
                 10),
     EventModel(
         title: "Event Cairo",
-        images: [
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://brisbanekids.com.au/wp-content/uploads/2022/05/Lifeline-Bookfest-Books.jpg',
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85kkd4AtEaVGkngwGjz2UjlfaqLsvLffRCzFDotXhzVX46SF5L8fJ1KIINB3B5QknJQE&usqp=CAU',
-        ],
         date: DateTime.now().toString(),
         location: "Cairo,Naser City",
         description:
@@ -178,12 +146,6 @@ class HomeScreen extends StatelessWidget {
                 10),
     EventModel(
         title: "Event Cairo",
-        images: [
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://brisbanekids.com.au/wp-content/uploads/2022/05/Lifeline-Bookfest-Books.jpg',
-          'https://www.masseycollege.ca/wp-content/uploads/2023/06/Book-Club-April-2023.-Group-photo.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ85kkd4AtEaVGkngwGjz2UjlfaqLsvLffRCzFDotXhzVX46SF5L8fJ1KIINB3B5QknJQE&usqp=CAU',
-        ],
         date: DateTime.now().toString(),
         location: "Cairo,Naser City",
         description:

@@ -21,10 +21,7 @@ class MemberLoginProvider extends ChangeNotifier {
         print("Login Member Success : ${value.user!.uid}");
 
         try{
-          // _fireHelper
-          //  .getUserData(UId: value.user!.uid, collectionName: "admin") ;
-          await _fireHelper
-              .getUserData(UId: value.user!.uid, collectionName: "users");
+          await _fireHelper.getUserData(UId: value.user!.uid, collectionName: "users");
           print("val : ${_fireHelper.admin}");
           if(_fireHelper.admin.isEmpty){
             isLogin=false;
@@ -44,7 +41,7 @@ class MemberLoginProvider extends ChangeNotifier {
 
 
         catch(error){
-          print("Login FireStore Admin Error: ${error}");
+          print("Login FireStore Member Error: ${error}");
         }
 
       });
@@ -52,7 +49,7 @@ class MemberLoginProvider extends ChangeNotifier {
       notifyListeners();
     }catch(error)
     {
-      print("Login Auth Admin Error: ${error}");
+      print("Login Auth Member Error: ${error}");
       isLoading = false;
       notifyListeners();
     }

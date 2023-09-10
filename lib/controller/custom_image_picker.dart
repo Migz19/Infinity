@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class CustomImagePicker {
-
    Future <File?> pickImage(String imageProvider) async{
      switch(imageProvider){
        case ("gallery"):

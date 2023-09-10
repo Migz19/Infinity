@@ -97,6 +97,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 child: const Icon(
                   Icons.admin_panel_settings_outlined,
                   color: Colors.white,
+
                 ),
               )
             : Container(),

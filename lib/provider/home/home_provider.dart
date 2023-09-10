@@ -11,40 +11,6 @@ class HomeProvider extends ChangeNotifier {
   FirebaseHelper firebaseHelper = FirebaseHelper();
 
   List<PostModel> postsList = [
-    PostModel(
-        title: "Welcome to infinity",
-        description:
 
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club"
-            "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club",
-        isPublic: true),
-    PostModel(
-        title: "Welcome to infinity",
-        description:
-
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club"
-            "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club",
-        isPublic: true),
-    PostModel(
-        title: "Welcome to infinity",
-        description:
-
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club"
-            "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club",
-        isPublic: true),
-    PostModel(
-        title: "Welcome to infinity",
-        description:
-
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club"
-            "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club",
-        isPublic: true),
-    PostModel(
-        title: "Welcome to infinity",
-        description:
-
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club"
-        "Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club Welcome to Infinity student club v Welcome to Infinity student club",
-        isPublic: true),
   ];
 }

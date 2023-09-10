@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/admin_options/add_member/add_member_provider.dart';
+import 'package:infinity/provider/admin_options/add_post/add_post_provider.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/authentication/login/member_login_provider.dart';
 import 'package:infinity/provider/home/home_provider.dart';
@@ -43,6 +44,9 @@ void main() async {
             ),
           ChangeNotifierProvider<AddMemberProvider>(
             create: (_) => AddMemberProvider(),
+          ),
+          ChangeNotifierProvider<AddPostProvider>(
+            create: (_) => AddPostProvider(),
           ),
         ],
         child: const AppRoot()));

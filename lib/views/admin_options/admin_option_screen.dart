@@ -12,12 +12,12 @@ import '../committees/widgets/committee_card.dart';
 
 class AdminOptionsScreen extends StatelessWidget {
   Map<int, MapEntry<String, String>> adminOptionsMap = {
-    1: MapEntry("Add a new member", AppAssets.addMember),
-    2: MapEntry("Add a new event", AppAssets.addEvent),
-    3:MapEntry("Add a new Post",AppAssets.addPost),
-    4: MapEntry("Remove a member", AppAssets.removeMember),
-    5: MapEntry("Cancel an event", AppAssets.cancelEvent),
-    6: MapEntry("Remove a post", AppAssets.removePost),
+    1: MapEntry("Add a new member", AppAssets.addMemberIcon),
+    2: MapEntry("Add a new event", AppAssets.addEventIcon),
+    3:MapEntry("Add a new Post",AppAssets.addPostIcon),
+    4: MapEntry("Remove a member", AppAssets.removeMemberIcon),
+    5: MapEntry("Cancel an event", AppAssets.cancelEventIcon),
+    6: MapEntry("Remove a post", AppAssets.removePostIcon),
   };
 
   @override
@@ -81,7 +81,7 @@ class AdminOptionsScreen extends StatelessWidget {
       break;
       case 2: destination=AddEventScreen();
       break;
-      case 3 : destination=const AddPostScreen();
+      case 3 : destination= AddPostScreen();
       break;
       case 4: destination=const RemoveEventScreen();
       break;

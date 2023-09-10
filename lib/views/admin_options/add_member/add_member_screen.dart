@@ -174,6 +174,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
 
                                               },
                                             ),
+
                                             SizedBox(
                                               width: context.width * 0.1,),
                                             CustomDropDownButton(
