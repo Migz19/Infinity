@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 
-import 'files_converter.dart';
+import 'converters.dart';
 
 class CustomFilePicker {
   bool isLoading = false;
@@ -12,7 +12,7 @@ class CustomFilePicker {
       allowMultiple: true, onFileLoading: (p0) => isLoading,type: FileType.image);
     {
       if (result!=null){
-        List<File>files= result.files.map(platformFileToFile).toList();
+        List<File>files= result.files.map(convertPlatformFileToFile).toList();
 
         return files;
       }
@@ -24,7 +24,7 @@ class CustomFilePicker {
         allowMultiple: true, onFileLoading: (p0) => isLoading,type: FileType.any);
     {
       if (result!=null){
-        List<File>files= result.files.map(platformFileToFile).toList();
+        List<File>files= result.files.map(convertPlatformFileToFile).toList();
         print("99999 files not empty");
         return files;
       }

@@ -10,16 +10,33 @@ import 'firebase_storage_handler.dart';
 
 class EventsHandler {
   Future<bool> addNewEvent(EventModel model) async {
-    model.id=generateRandomDocId();
+    model.id = generateRandomDocId();
     if (model.eventFiles != null) {
-      model.imagesUrls=await FirebaseStorageHandler.instance().uploadFiles(
+      model.filesUrls = await FirebaseStorageHandler.instance().uploadFiles(
           model.eventFiles!, AppAssets.stEventPath, model.id);
     }
-     await FirebaseHelper().addEvent(model).then((value) {
+    await FirebaseHelper().addEvent(model).then((value) {
       return true;
     });
     return false;
   }
+
+  Future<List<EventModel>> getAllEvents() async {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>>? eventsSnapshotDocs;
+    List<EventModel> events = [];
+   eventsSnapshotDocs= await FirebaseHelper().getAllItems(AppAssets.fsEventPath);
+
+    print("9999999999 ${eventsSnapshotDocs.first.data().toString()}");
+    if (eventsSnapshotDocs.isNotEmpty) {
+      for (var eventSnapshot in eventsSnapshotDocs) {
+        EventModel model = EventModel.fromJson(json: eventSnapshot.data());
+
+        events.add(model);
+      }
+    }
+
+    return events;
   }
+}
 
 

@@ -9,6 +9,7 @@ class CustomTextFromField extends StatefulWidget {
     this.textInputType,this.maxLength,this.prefixIcon,this.suffixIcon,
     this.backgroundColor,
     this.obscureText,
+    this.ontap,
     this.validateText,
     this.hintColor,
   this.enabled});
@@ -23,6 +24,7 @@ class CustomTextFromField extends StatefulWidget {
   Widget? suffixIcon;
   int? maxLength;
   bool?obscureText;
+  VoidCallback? ontap;
   String? validateText;
   bool ? enabled;
   @override
@@ -40,6 +42,7 @@ class _CustomTextFromFieldState extends State<CustomTextFromField> {
       margin: EdgeInsets.only(bottom: 16),
       alignment: Alignment.center,
       child: TextFormField(
+        onTap: widget.ontap,
         validator: widget.validator , obscureText: widget.obscureText??false,
         keyboardType: widget.textInputType,
         controller: widget.textEditingController,

@@ -189,13 +189,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                         ),
                                         CustomTypeButton(
                                           text: "Add new member",
-                                          isLoading: !context
-                                              .read<AddMemberProvider>()
-                                              .isAdded
-                                              ? context
-                                              .watch<AddMemberProvider>()
-                                              .isLoading
-                                              : false,
+                                          isLoading: !context.read<AddMemberProvider>().isAdded ? context.watch<AddMemberProvider>().isLoading : false,
                                           textColor: Colors.white,
                                           buttonColor:
                                           AppColor.primary.withOpacity(0.7),

@@ -55,7 +55,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               background: MediaDetails(
-                images: _event.imagesUrls!,
+                images: _event.filesUrls!,
                 eventID: 0,
               ),
             ),

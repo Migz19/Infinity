@@ -50,7 +50,7 @@ class _EventCardState extends State<EventCard> {
             flex: 3,
             child: Stack(
               children: [
-                _event!.imagesUrls!.isNotEmpty
+                _event!.filesUrls.isNotEmpty
                     ? PageView.builder(
                         onPageChanged: (index) => setState(() {
                           _selectedIndex = index;
@@ -61,7 +61,7 @@ class _EventCardState extends State<EventCard> {
                               CachedNetworkImage(
                                 width: context.width,
                                 height: context.height,
-                                imageUrl: _event.imagesUrls![index],
+                                imageUrl: _event.filesUrls![index],
                                 fit: BoxFit.fill,
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) => Align(
@@ -91,7 +91,7 @@ class _EventCardState extends State<EventCard> {
                             ],
                           );
                         },
-                        itemCount: _event.imagesUrls?.length,
+                        itemCount: _event.filesUrls?.length,
                       )
                     : Image.asset(
                         AppAssets.logo,
@@ -103,7 +103,7 @@ class _EventCardState extends State<EventCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        _event.imagesUrls!.length < 2 ? 0 : _event.imagesUrls!.length,
+                        _event.filesUrls!.length < 2 ? 0 : _event.filesUrls!.length,
                         (index) => CustomIndicator(
                           isSelected: index == _selectedIndex,
                           size: 10.0,

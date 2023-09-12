@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/data/remote/helpers/event_handler.dart';
+import 'package:infinity/models/event/event_model.dart';
 
-import '../../models/event/event_model.dart';
 
 class EventsProvider extends ChangeNotifier {
-  late List<EventModel> upcomingEvents;
-  late List<EventModel> pastEvents;
-  EventsHandler eventsHandler=EventsHandler();
 
+ Future<List<EventModel>>getAllEvents()async{
+   List<EventModel> eventsList=[];
+   eventsList =await EventsHandler().getAllEvents().then((value) => eventsList);
+
+    notifyListeners();
+return  eventsList;
+  }
+  Future<void> getUpcomingEvents()async{
+
+  }
 }

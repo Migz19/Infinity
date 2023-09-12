@@ -16,22 +16,21 @@ class AddEventProvider extends ChangeNotifier {
 
   CustomImagePicker imagePicker=CustomImagePicker();
   Future<void> addNewEvent({
-    required String title,
-    required String description,
-    required String location,
-    required String date,
+required EventModel eventModel
   }) async {
     isLoading = true;
     notifyListeners();
-    EventModel eventModel= EventModel(title: title,  date: date, location: location, description: description);
     isAdded = await EventsHandler().addNewEvent(eventModel);
     isLoading = false;
     notifyListeners();
   }
   Future<List<File>?> pickFiles ()async{
+    addFilesState=true;
+    isLoading=true;
     notifyListeners();
-     addFilesState=true;
+
     List<File>?imageFiles=await CustomFilePicker().pickMultipleImages();
+    isLoading=false;
     addFilesState=false;
     notifyListeners();
     return imageFiles;

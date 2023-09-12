@@ -2,7 +2,7 @@ import 'dart:io';
 
 class EventModel {
   String title;
-  List<String> _imagesUrls=[];
+  List<String> _filesUrls=[];
   List<File>? eventFiles;
   String date;
   String location;
@@ -16,10 +16,10 @@ class EventModel {
     _id = value;
   }
 
-  List<String> get imagesUrls => _imagesUrls;
+  List<String> get filesUrls => _filesUrls;
 
-  set imagesUrls(List<String> value) {
-    _imagesUrls = value;
+  set filesUrls(List<String> value) {
+    _filesUrls = value;
   }
 
   EventModel({required this.title,
@@ -40,7 +40,7 @@ class EventModel {
     data['location']=location;
     data['date']=date;
     data['description']=description;
-    data['imagesUrls']=imagesUrls;
+    data['Files urls']=_filesUrls;
     return data;
   }
 

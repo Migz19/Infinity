@@ -34,4 +34,9 @@ class AppAssets{
   static String stPostPath='post-images';
   static String stProfilePath='profile-images';
   static String stEventPath='event-images';
+  /// st stands for firestore
+  static String fsPostPath='posts';
+  static String fsAdminPath='admin';
+  static String fsEventPath='events';
+  static String fsMemberPath='users';
 }

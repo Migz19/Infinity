@@ -136,11 +136,11 @@ class FirebaseHelper {
 
   Future <void> addEvent(EventModel model) async {
 
-    await FirebaseFirestore.instance.collection("event").doc(model.id).set(model.toJson());
+    await FirebaseFirestore.instance.collection("events").doc(model.id).set(model.toJson());
 
     try {
-      await FirebaseFirestore.instance.collection("event").doc(model.id).update({
-        'Files url': model.imagesUrls,
+      await FirebaseFirestore.instance.collection("events").doc(model.id).update({
+        'Files urls': model.filesUrls,
       });
     } catch (error){
       print(error);
@@ -160,5 +160,23 @@ class FirebaseHelper {
     } catch (error){
       print(error);
     }
+  }
+  Future<String>deleteDocument(String collectionName,String docID)async{
+    try {
+      FirebaseFirestore.instance.collection(collectionName).doc(docID)
+          .delete().whenComplete;
+    }catch(error){
+      return error.toString();
+    }
+    return "$collectionName deleted successfully";
+  }
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>getAllItems(String collectionPath)async {
+     return await FirebaseFirestore.instance.collection(collectionPath).get().then((
+        querySnapshot) async {
+       print("00000000000 ${querySnapshot.docs.toList().elementAt(0).data().toString()}");
+      return await querySnapshot.docs.toList();
+    }
+    );
+
   }
 }

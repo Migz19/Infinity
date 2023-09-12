@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 18.0),
-                            child: CachedNetworkImage(imageUrl: events[index].imagesUrls!.first,width: 300,height: 100,),
+                            child: CachedNetworkImage(imageUrl: events[index].filesUrls!.first,width: 300,height: 100,),
                           ),
                           Container(
                             width: 50,

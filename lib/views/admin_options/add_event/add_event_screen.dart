@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:infinity/controller/converters.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/provider/profile/profile_provider.dart';
+import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/custom_type_button.dart';
 import 'package:provider/provider.dart';
 
@@ -8,13 +11,15 @@ import '../../../core/utils/app_assets.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../provider/admin_options/add_event/add_event_provider.dart';
 import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
+import '../../../widgets/toast/enum.dart';
+import '../../../widgets/toast/toast.dart';
 
 class AddEventScreen extends StatelessWidget {
   TextEditingController title = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController location = TextEditingController();
   TextEditingController description = TextEditingController();
-
+  List<File>? eventFiles;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -76,13 +81,6 @@ class AddEventScreen extends StatelessWidget {
                                           height: 8,
                                         ),
                                         Container(
-                                          height: 15,
-                                          width: 15,
-                                          child: IconButton(
-                                              icon: Icon(Icons.image_rounded),
-                                              onPressed:()=>_displayPickImageDialogue(context)),
-                                        ),
-                                        Container(
                                           width: context.width * 0.6,
                                           child: const Text(
                                             maxLines: 2,
@@ -102,7 +100,7 @@ class AddEventScreen extends StatelessWidget {
                                         CustomTextFromField(
                                           backgroundColor: Colors.white,
                                           hintColor:
-                                          AppColor.primary.withOpacity(0.6),
+                                              AppColor.primary.withOpacity(0.6),
                                           validator: (value) {
                                             if (value!.isEmpty) return '';
 
@@ -117,15 +115,30 @@ class AddEventScreen extends StatelessWidget {
                                             backgroundColor: Colors.white,
                                             hintColor: AppColor.primary
                                                 .withOpacity(0.6),
-                                            textInputType: TextInputType.number,
                                             validator: (value) {
                                               if (value!.isEmpty) {
                                                 return '';
                                               }
                                               return null;
                                             },
+                                            ontap: () => {
+                                                  showDatePicker(
+                                                    context: context,
+                                                    initialDate: DateTime.now(),
+                                                    firstDate: DateTime(2000),
+                                                    lastDate: DateTime(2101),
+                                                  ).then((value) => {
+                                                        date.text =
+                                                            convertDateToString(
+                                                                value!, true)
+                                                      }),
+                                                  debugPrint(
+                                                      "00000000000 ${date.text}")
+                                                },
                                             textEditingController: date,
-                                            hint: "Event day ex:20",
+                                            hint: date.text.isNotEmpty
+                                                ? date.text
+                                                : "Event day ex:20-09-2023",
                                             label: "Event day"),
                                         //Phone
                                         CustomTextFromField(
@@ -157,11 +170,48 @@ class AddEventScreen extends StatelessWidget {
                                           height: context.height * 0.025,
                                         ),
                                         CustomTypeButton(
+                                          text: "Pick Files",
+                                          width: context.width * 0.4,
+                                          buttonColor: AppColor.primary,
+                                          onTap: () async{
+                                           eventFiles=await context
+                                                .read<AddEventProvider>()
+                                                .pickFiles();
+                                          },
+                                        ),
+                                        CustomTypeButton(
                                           text: "Add new event",
+                                          isLoading: !context
+                                                  .read<AddEventProvider>()
+                                                  .isAdded
+                                              ? context
+                                                  .watch<AddEventProvider>()
+                                                  .isLoading
+                                              : false,
                                           textColor: Colors.white,
-                                          buttonColor: Colors.transparent
-                                              .withOpacity(0.2),
-                                        )
+                                          buttonColor:
+                                              AppColor.primary.withOpacity(0.7),
+                                          onTap: () async {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              await _addNewEvent(context);
+                                              ToastConfig.showToast(
+                                                  context: context,
+                                                  msg:
+                                                      "Added event successfully",
+                                                  toastStates:
+                                                      ToastStates.Success);
+                                            } else {
+                                              ToastConfig.showToast(
+                                                context: context,
+                                                msg:
+                                                    "Please enter required data",
+                                                toastStates: ToastStates.Error,
+                                              );
+                                            }
+                                            Navigator.pop(context);
+                                          },
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -182,69 +232,16 @@ class AddEventScreen extends StatelessWidget {
     );
   }
 
-  Future _displayPickImageDialogue(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: context.height * 0.7,
-            alignment: Alignment.bottomCenter,
-            child: AlertDialog(
-              alignment: Alignment.bottomCenter,
-              title: const Text(
-                "Choose where to pick image from",
-                style: TextStyle(fontSize: 15),
-              ),
-              content: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            context
-                                .read<ProfileProvider>()
-                                .uploadImage("camera");
-                            Navigator.pop(context);
-                          },
-                          focusColor: Colors.grey,
-                          icon: Image.asset(AppAssets.cameraIcon)),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Camera",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            context
-                                .read<ProfileProvider>()
-                                .uploadImage("gallery");
-                            Navigator.pop(context);
-                          },
-                          focusColor: Colors.grey,
-                          icon: Image.asset(AppAssets.galleryIcon)),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "Gallery",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        });
+ Future <bool> _addNewEvent(BuildContext context) async{
+    EventModel event = EventModel(
+        title: title.text,
+        date: date.text,
+        location: location.text,
+        description: description.text);
+    event.eventFiles = eventFiles;
+
+    await context.read<AddEventProvider>().addNewEvent(eventModel: event);
+    return true;
+
   }
 }

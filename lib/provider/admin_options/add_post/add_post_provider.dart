@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity/controller/files_converter.dart';
+import 'package:infinity/controller/converters.dart';
 import 'package:infinity/controller/random_id_generator.dart';
 import 'package:infinity/data/remote/helpers/posts_handler.dart';
 import 'package:infinity/models/post/post_model.dart';
