@@ -4,16 +4,16 @@ import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/views/events/widgets/media_details.dart';
 import 'package:infinity/widgets/dynamic_text_widget.dart';
 
-class ServiceDetailsScreen extends StatefulWidget {
-  const ServiceDetailsScreen({Key? key, required this.event})
+class EventDetailsScreen extends StatefulWidget {
+  const EventDetailsScreen({Key? key, required this.event})
       : super(key: key);
   final EventModel event;
 
   @override
-  State<ServiceDetailsScreen> createState() => _ServiceDetailsScreenState();
+  State<EventDetailsScreen> createState() => _EventDetailsScreenState();
 }
 
-class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
+class _EventDetailsScreenState extends State<EventDetailsScreen> {
   late EventModel _event;
 
 
@@ -33,7 +33,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).bottomAppBarColor,
-        title:  Text(
+        title:  const Text(
           "Event Details",
           style: TextStyle(color: Colors.black87),
         ),
@@ -55,7 +55,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               background: MediaDetails(
-                images: _event.filesUrls!,
+
+                images: _event.filesUrls,
                 eventID: 0,
               ),
             ),
@@ -83,7 +84,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       children: [
                         DynamicTextWidget(
                           length: 150,
-                          //todo add to localization
                           text: _event.description.isEmpty ? 'No Description':_event.description,
                         ),
                         const SizedBox(
@@ -100,7 +100,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             ),
                             Expanded(
                               child: Text(
-                                _event.location ?? '',
+                                _event.location,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(

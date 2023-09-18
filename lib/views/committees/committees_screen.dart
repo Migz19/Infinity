@@ -1,52 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/views/committees/details_committess_screen.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
+import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:infinity/views/committees/widgets/committee_card.dart';
 import 'package:infinity/widgets/naviagtion.dart';
+import 'package:provider/provider.dart';
 
-class CommitteeScreen extends StatelessWidget {
+class CommitteeScreen extends StatefulWidget {
+  @override
+  State<CommitteeScreen> createState() => _CommitteeScreenState();
+  List<CommitteeModel> committeesList = [];
+}
 
-  List<CommitteeModel> committeesList = [
-    CommitteeModel(
-        name: "HR", description: "HR Committee", photoUri: AppAssets.hrIcon),
-    CommitteeModel(
-        name: "Media",
-        description: "Media Committee",
-        photoUri: AppAssets.mediaIcon),
-    CommitteeModel(
-        name: "Marketing",
-        description: "Marketing Committee",
-        photoUri: AppAssets.marketingIcon),
-    CommitteeModel(
-        name: "Platforms",
-        description: "Platforms Committee",
-        photoUri: AppAssets.platformsIcon),
-    CommitteeModel(
-        name: "HighBoard",
-        description: "HighBoard Committee",
-        photoUri: AppAssets.boardIcon),
-    CommitteeModel(
-        name: "FR",
-        description: "Fund Raising Committee",
-        photoUri: AppAssets.fundIcon),
-    CommitteeModel(
-        name: "AC",
-        description: "AC Committee",
-        photoUri: AppAssets.acIcon),
-    CommitteeModel(
-        name: "PR",
-        description: "PR Committee",
-        photoUri: AppAssets.prIcon),
-    CommitteeModel(
-        name: "Events",
-        description: "Events Committee",
-        photoUri: AppAssets.eventsIcon),
-  ];
+class _CommitteeScreenState extends State<CommitteeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getCommitteesDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -62,7 +36,7 @@ class CommitteeScreen extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 20,
-                children: committeesList
+                children: widget.committeesList
                     .map(
                       (data) => GestureDetector(
                         child: CustomCard(data.name, data.photoUri),
@@ -83,5 +57,11 @@ class CommitteeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void>getCommitteesDetails()async{
+  await context
+        .read<CommitteeDetailsProvider>()
+        .getCommitteesList()
+        .then((value) => widget.committeesList);
   }
 }

@@ -8,30 +8,19 @@ import '../../models/event/event_model.dart';
 import 'widgets/event_list.dart';
 
 class EventScreen extends StatefulWidget {
-  List<EventModel> eventsList = [];
 
   @override
   State<EventScreen> createState() => _EventScreenState();
 }
 
 class _EventScreenState extends State<EventScreen> {
-  @override
+  List<EventModel> eventsList = [];
+@override
   void initState() {
     super.initState();
-    context
-        .read<EventsProvider>()
-        .getAllEvents()
-        .then((value) => widget.eventsList);
+    getAllEvents();
   }
-@override
-  void didUpdateWidget(covariant EventScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    context
-        .read<EventsProvider>()
-        .getAllEvents()
-        .then((value) => widget.eventsList);
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +40,16 @@ class _EventScreenState extends State<EventScreen> {
         width: context.width,
         height: context.height,
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: EventsList(eventList: widget.eventsList),
+        child: EventsList(eventList: eventsList),
       ),
     );
+  }
+  Future<void>getAllEvents()async{
+    await context.read<EventsProvider>().getAllEvents().whenComplete(() {
+      context.read<EventsProvider>().notifyListeners();
+    });
+    setState(() {
+      eventsList =  context.read<EventsProvider>().allEventsList;
+    });
   }
 }

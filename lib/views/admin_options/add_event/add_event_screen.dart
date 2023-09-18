@@ -121,6 +121,7 @@ class AddEventScreen extends StatelessWidget {
                                               }
                                               return null;
                                             },
+                                            textInputType: TextInputType.none,
                                             ontap: () => {
                                                   showDatePicker(
                                                     context: context,
@@ -130,10 +131,17 @@ class AddEventScreen extends StatelessWidget {
                                                   ).then((value) => {
                                                         date.text =
                                                             convertDateToString(
-                                                                value!, true)
+                                                                value!, true),
+                                                        showTimePicker(
+                                                                context:
+                                                                    context,
+                                                                initialTime:
+                                                                    TimeOfDay
+                                                                        .now())
+                                                            .then((val) => date
+                                                                    .text =
+                                                                "${date.text} 0${val?.hour.toString()}:${val?.minute.toString()}:00"),
                                                       }),
-                                                  debugPrint(
-                                                      "00000000000 ${date.text}")
                                                 },
                                             textEditingController: date,
                                             hint: date.text.isNotEmpty
@@ -173,8 +181,8 @@ class AddEventScreen extends StatelessWidget {
                                           text: "Pick Files",
                                           width: context.width * 0.4,
                                           buttonColor: AppColor.primary,
-                                          onTap: () async{
-                                           eventFiles=await context
+                                          onTap: () async {
+                                            eventFiles = await context
                                                 .read<AddEventProvider>()
                                                 .pickFiles();
                                           },
@@ -232,7 +240,7 @@ class AddEventScreen extends StatelessWidget {
     );
   }
 
- Future <bool> _addNewEvent(BuildContext context) async{
+  Future<bool> _addNewEvent(BuildContext context) async {
     EventModel event = EventModel(
         title: title.text,
         date: date.text,
@@ -242,6 +250,5 @@ class AddEventScreen extends StatelessWidget {
 
     await context.read<AddEventProvider>().addNewEvent(eventModel: event);
     return true;
-
   }
 }

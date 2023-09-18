@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
+import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';
@@ -26,7 +27,6 @@ class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
     final _event = widget.event;
-
     return Container(
       height: 140.0,
       margin: const EdgeInsets.only(
@@ -61,7 +61,7 @@ class _EventCardState extends State<EventCard> {
                               CachedNetworkImage(
                                 width: context.width,
                                 height: context.height,
-                                imageUrl: _event.filesUrls![index],
+                                imageUrl: _event.filesUrls[index],
                                 fit: BoxFit.fill,
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) => Align(
@@ -91,7 +91,7 @@ class _EventCardState extends State<EventCard> {
                             ],
                           );
                         },
-                        itemCount: _event.filesUrls?.length,
+                        itemCount: _event.filesUrls.length,
                       )
                     : Image.asset(
                         AppAssets.logo,
@@ -103,7 +103,9 @@ class _EventCardState extends State<EventCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        _event.filesUrls!.length < 2 ? 0 : _event.filesUrls!.length,
+                        _event.filesUrls.length < 2
+                            ? 0
+                            : _event.filesUrls.length,
                         (index) => CustomIndicator(
                           isSelected: index == _selectedIndex,
                           size: 10.0,
@@ -126,8 +128,7 @@ class _EventCardState extends State<EventCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      // 'Microfiber Towel' * 10,
-                      _event.title!,
+                      _event.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall,
@@ -136,19 +137,19 @@ class _EventCardState extends State<EventCard> {
                       height: 4.0,
                     ),
                     Text(
-                      "${_event.title}",
+                      _event.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 8.0,
-                          ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 14.0, color: Colors.black),
                     ),
                     // const SizedBox(
                     //   height: 8.0,
                     // ),
                     Spacer(),
                     Text(
-                      // 'Ultra-absorbent microfiber hand towel in good state.',
                       _event.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -156,7 +157,7 @@ class _EventCardState extends State<EventCard> {
                             fontSize: 12.0,
                           ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       children: [
                         Expanded(
@@ -189,7 +190,7 @@ class _EventCardState extends State<EventCard> {
                         Expanded(
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 size: 16.0,
                                 Icons.timelapse,
                                 // color: AppColors.lightGrey,

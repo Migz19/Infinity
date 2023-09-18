@@ -1,11 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
+  String imageUri, title;
 
-  String imageUri,title;
-
-
-  CustomCard(this.title,this.imageUri, );
+  CustomCard(
+    this.title,
+    this.imageUri,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +16,18 @@ class CustomCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: CircleAvatar(child: Image.asset(imageUri,),radius: 20,backgroundColor: Colors.transparent),
+            child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.transparent,
+                child: CachedNetworkImage(
+                  imageUrl: imageUri,
+                )),
           ),
-          Text(title,style: TextStyle(color: Colors.black,fontSize: 15),),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.black, fontSize: 15),
+          ),
         ],
       ),
     );

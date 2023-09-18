@@ -28,7 +28,7 @@ class EventsList extends StatelessWidget {
 
                 AppNavigator.customNavigator(
                   context: context,
-                  screen: ServiceDetailsScreen(
+                  screen: EventDetailsScreen(
                     event: eventList[index],
                   ),
                   finish: false,

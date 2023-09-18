@@ -171,7 +171,6 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                                   .committeesList,
                                               onItemSelected: (String val) {
                                                 committee.text=val;
-
                                               },
                                             ),
 
@@ -180,10 +179,17 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                             CustomDropDownButton(
                                               height: context.height * 0.05,
                                               width: context.width * 0.32,
-                                              context.watch<AddMemberProvider>().rolesList,
+
+                                              context.read<AddMemberProvider>().rolesList,
                                               onItemSelected: (String val) {
-                                                role.text = val;
+                                                setState(() {
+                                                  context.read<AddMemberProvider>().role=val;
+                                                  role.text = val;
+
+                                                });
+
                                               },
+
                                             ),
                                           ],
                                         ),

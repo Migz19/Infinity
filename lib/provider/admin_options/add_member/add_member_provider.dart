@@ -15,7 +15,6 @@ class AddMemberProvider extends ChangeNotifier{
  async {
    isLoading=true;
    notifyListeners();
-
    if(role!='Role'&&role!='Member') {
      isAdmin=true;
    }

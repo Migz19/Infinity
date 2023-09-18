@@ -26,7 +26,7 @@ class FirebaseHelper {
   Future<bool> userRegister(UserModel user, bool isAdmin) async {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-        email: user.email, password: user.password)
+            email: user.email, password: user.password)
         .then((value) {
       user.id = value.user!.uid;
       if (isAdmin) {
@@ -47,6 +47,13 @@ class FirebaseHelper {
           .set(user.toJson())
           .then((value) {
         print("User added  $uId");
+      });
+      await FirebaseFirestore.instance
+          .collection("committees")
+          .doc(user.committee)
+          .update({
+        "members_ids": FieldValue.arrayUnion([user.id])
+      }).then((value) {
         return true;
       });
     } catch (error) {
@@ -116,10 +123,10 @@ class FirebaseHelper {
         docId: FirebaseAuth.instance.currentUser!.uid);
   }
 
-
-  Future<void> uploadImage({required File imageFile,
-    required String collectionName,
-    String? docId}) async {
+  Future<void> uploadImage(
+      {required File imageFile,
+      required String collectionName,
+      String? docId}) async {
     final image_url = await FirebaseStorageHandler.instance().uploadImage(
         image: imageFile, id: docId, collectionName: collectionName);
     await FirebaseFirestore.instance
@@ -129,54 +136,82 @@ class FirebaseHelper {
   }
 
   Future<Reference> fetchProfileImage() async {
-
     return await FirebaseStorageHandler.instance()
         .getProfImg(FirebaseAuth.instance.currentUser!.uid);
   }
 
-  Future <void> addEvent(EventModel model) async {
-
-    await FirebaseFirestore.instance.collection("events").doc(model.id).set(model.toJson());
+  Future<void> addEvent(EventModel model) async {
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(model.id)
+        .set(model.toJson());
 
     try {
-      await FirebaseFirestore.instance.collection("events").doc(model.id).update({
+      await FirebaseFirestore.instance
+          .collection("events")
+          .doc(model.id)
+          .update({
         'Files urls': model.filesUrls,
       });
-    } catch (error){
+    } catch (error) {
       print(error);
     }
   }
-  Future<void> addPost(PostModel model)async{
 
-      await FirebaseFirestore.instance.collection("posts").doc(model.postId).set(
-          {
-            'Post details': model.postDetails,
-          });
+  Future<void> addPost(PostModel model) async {
+    await FirebaseFirestore.instance.collection("posts").doc(model.postId).set({
+      'Post details': model.postDetails,
+    });
 
     try {
-      await FirebaseFirestore.instance.collection("posts").doc(model.postId).update({
+      await FirebaseFirestore.instance
+          .collection("posts")
+          .doc(model.postId)
+          .update({
         'Files url': model.filesDownloadUrl,
       });
-    } catch (error){
+    } catch (error) {
       print(error);
     }
   }
-  Future<String>deleteDocument(String collectionName,String docID)async{
+
+  Future<String> deleteDocument(String collectionName, String docID) async {
     try {
-      FirebaseFirestore.instance.collection(collectionName).doc(docID)
-          .delete().whenComplete;
-    }catch(error){
+      FirebaseFirestore.instance
+          .collection(collectionName)
+          .doc(docID)
+          .delete()
+          .whenComplete;
+    } catch (error) {
       return error.toString();
     }
     return "$collectionName deleted successfully";
   }
-  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>getAllItems(String collectionPath)async {
-     return await FirebaseFirestore.instance.collection(collectionPath).get().then((
-        querySnapshot) async {
-       print("00000000000 ${querySnapshot.docs.toList().elementAt(0).data().toString()}");
-      return await querySnapshot.docs.toList();
-    }
-    );
 
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllItems(
+      String collectionPath) async {
+    return await FirebaseFirestore.instance
+        .collection(collectionPath)
+        .get()
+        .then((querySnapshot) async {
+      return await querySnapshot.docs.toList();
+    });
+  }
+
+  Future<Map<String, dynamic>?> getDocument(
+      String collectionName, String docID) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("Committees")
+          .doc(docID)
+          .get()
+          .then((querySnapShot) async {
+        if (querySnapShot.exists) {
+          return await querySnapShot.data();
+        }
+      });
+    } catch (error) {
+      return null;
+    }
   }
 }
