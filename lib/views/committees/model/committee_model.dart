@@ -7,7 +7,7 @@ class CommitteeModel{
   factory CommitteeModel.fromJson({required dynamic json}){
     CommitteeModel model= CommitteeModel(name: json['name'] ?? '',
         description: json['description']??'',
-        photoUri: json['photoUri']??'',
+        photoUri: json['photo_url']??'',
       membersIds:(json['members_ids'] is Iterable ? List.from(json?['members_ids']):[]));
     return model;
   }

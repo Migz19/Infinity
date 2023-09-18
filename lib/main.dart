@@ -13,6 +13,7 @@ import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/src/app_root.dart';
+import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -56,6 +57,7 @@ void main() async {
           ChangeNotifierProvider<EventsProvider>(
             create: (_) => EventsProvider(),
           ),
+          ChangeNotifierProvider<CommitteeDetailsProvider>(create:(_) =>CommitteeDetailsProvider()),
         ],
         child: const AppRoot()));
 }

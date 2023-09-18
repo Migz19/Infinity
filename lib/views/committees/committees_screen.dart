@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/views/committees/details_committess_screen.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
+
+
 import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:infinity/views/committees/widgets/committee_card.dart';
 import 'package:infinity/widgets/naviagtion.dart';
@@ -36,10 +38,11 @@ class _CommitteeScreenState extends State<CommitteeScreen> {
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 20,
+                shrinkWrap: true,
                 children: widget.committeesList
                     .map(
                       (data) => GestureDetector(
-                        child: CustomCard(data.name, data.photoUri),
+                        child: CustomCard(data.name, data.photoUri,true),
                         onTap: () {
                           AppNavigator.customNavigator(
                               context: context,
@@ -61,7 +64,10 @@ class _CommitteeScreenState extends State<CommitteeScreen> {
   Future<void>getCommitteesDetails()async{
   await context
         .read<CommitteeDetailsProvider>()
-        .getCommitteesList()
-        .then((value) => widget.committeesList);
+        .getCommitteesList();
+  setState(() {
+    widget.committeesList=context.read<CommitteeDetailsProvider>().committeesList;
+  });
+
   }
 }

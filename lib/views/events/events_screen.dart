@@ -45,9 +45,7 @@ class _EventScreenState extends State<EventScreen> {
     );
   }
   Future<void>getAllEvents()async{
-    await context.read<EventsProvider>().getAllEvents().whenComplete(() {
-      context.read<EventsProvider>().notifyListeners();
-    });
+    await context.read<EventsProvider>().getAllEvents();
     setState(() {
       eventsList =  context.read<EventsProvider>().allEventsList;
     });

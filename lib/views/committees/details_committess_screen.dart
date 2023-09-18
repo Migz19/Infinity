@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
@@ -39,7 +40,7 @@ class DetailsCommitteeScreen extends StatelessWidget {
             leading: Container(),
             backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(committeeModel.photoUri),
+              background: CachedNetworkImage(imageUrl: committeeModel.photoUri),
             ),
           ),
           SliverToBoxAdapter(

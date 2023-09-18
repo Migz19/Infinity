@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
   String imageUri, title;
+  bool isNetworkImage;
 
   CustomCard(
     this.title,
     this.imageUri,
+      this.isNetworkImage
   );
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,9 @@ class CustomCard extends StatelessWidget {
             child: CircleAvatar(
                 radius: 20,
                 backgroundColor: Colors.transparent,
-                child: CachedNetworkImage(
+                child: isNetworkImage ?CachedNetworkImage(
                   imageUrl: imageUri,
-                )),
+                ):Image.asset(imageUri)),
           ),
           Text(
             title,

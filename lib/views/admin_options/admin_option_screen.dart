@@ -60,7 +60,7 @@ class AdminOptionsScreen extends StatelessWidget {
                 final imageUri = entry.value.value;
                 return GridTile(
                   child: GestureDetector(
-                    child: CustomCard(title, imageUri),
+                    child: CustomCard(title, imageUri,false),
                     onTap: () {
                       openAdminOption(index,context);
                     },

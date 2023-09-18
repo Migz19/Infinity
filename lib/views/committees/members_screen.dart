@@ -40,7 +40,7 @@ class MembersScreen extends StatelessWidget {
                 children: members
                     .map(
                       (data) => GestureDetector(
-                    child: CustomCard(data, AppAssets.backgroundLogo),
+                    child: CustomCard(data, AppAssets.backgroundLogo,false),
                   ),
                 )
                     .toList(),
