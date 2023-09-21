@@ -92,12 +92,12 @@ class FirebaseHelper {
           .collection(collectionName)
           .doc(UId)
           .get();
-      print("${value.data()}");
+      print("*/*/*/*/*/${value.data()}");
       if (collectionName == 'admin') {
         admin = value.data()!;
       }
       userModel = UserModel.fromJson(json: value.data()!);
-      return value;
+      return value.data();
     } catch (error) {
       print("error1: ${error}");
       return error;

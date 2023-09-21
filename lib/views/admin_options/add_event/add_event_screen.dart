@@ -19,6 +19,7 @@ class AddEventScreen extends StatelessWidget {
   TextEditingController date = TextEditingController();
   TextEditingController location = TextEditingController();
   TextEditingController description = TextEditingController();
+  String eventTime = "";
   List<File>? eventFiles;
   final _formKey = GlobalKey<FormState>();
 
@@ -110,7 +111,7 @@ class AddEventScreen extends StatelessWidget {
                                           label: "Title",
                                           hint: 'Title',
                                         ),
-                                        //Email
+                                        //Date
                                         CustomTextFromField(
                                             backgroundColor: Colors.white,
                                             hintColor: AppColor.primary
@@ -133,14 +134,15 @@ class AddEventScreen extends StatelessWidget {
                                                             convertDateToString(
                                                                 value!, true),
                                                         showTimePicker(
-                                                                context:
-                                                                    context,
-                                                                initialTime:
-                                                                    TimeOfDay
-                                                                        .now())
-                                                            .then((val) => date
-                                                                    .text =
-                                                                "${date.text} 0${val?.hour.toString()}:${val?.minute.toString()}:00"),
+                                                          context: context,
+                                                          initialTime:
+                                                              TimeOfDay.now(),
+                                                        ).then((val) {
+                                                          if (val != null) {
+                                                            eventTime =
+                                                                "${val.hour}:${val.minute}:00";
+                                                          }
+                                                        }),
                                                       }),
                                                 },
                                             textEditingController: date,
@@ -148,7 +150,7 @@ class AddEventScreen extends StatelessWidget {
                                                 ? date.text
                                                 : "Event day ex:20-09-2023",
                                             label: "Event day"),
-                                        //Phone
+                                        //Location
                                         CustomTextFromField(
                                             backgroundColor: Colors.white,
                                             hintColor: AppColor.primary
@@ -161,7 +163,7 @@ class AddEventScreen extends StatelessWidget {
                                             textEditingController: location,
                                             hint: "Event Location",
                                             label: "Event location"),
-                                        //Phone
+                                        //Description
                                         CustomTextFromField(
                                             backgroundColor: Colors.white,
                                             hintColor: AppColor.primary
@@ -241,6 +243,10 @@ class AddEventScreen extends StatelessWidget {
   }
 
   Future<bool> _addNewEvent(BuildContext context) async {
+    if (eventTime.isEmpty) {
+      eventTime = "00:00:00";
+    }
+    date.text += eventTime;
     EventModel event = EventModel(
         title: title.text,
         date: date.text,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/models/post/post_model.dart';
 import 'package:infinity/provider/home/home_provider.dart';
 import 'package:infinity/views/events/widgets/event_details_screen.dart';
 import 'package:infinity/widgets/naviagtion.dart';
@@ -20,11 +21,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<EventModel> events = [];
+  List<PostModel> announcements = [];
 
   @override
   void initState() {
     super.initState();
     getUpcomingEvents();
+    getAllPosts();
   }
 
   @override
@@ -114,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 5,
             child: ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: context.read<HomeProvider>().postsList.length,
+              itemCount: announcements.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: BoxDecoration(
@@ -124,34 +127,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
-                  height: context.height * 0.3,
+                  height: context.height * 0.4,
                   width: context.width * 0.3,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Stack(
-                    children: [
-                      Card(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                context
-                                    .read<HomeProvider>()
-                                    .postsList[index]
-                                    .postDetails,
-                                maxLines: 7,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
+                  child: Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          textAlign: TextAlign.center,
+                          announcements[index].postDetails.toString(),
+                          maxLines: 7,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      Image.asset(
-                        AppAssets.logo,
-                        width: 60,
-                        height: 60,
-                      ),
-                    ],
+                        CachedNetworkImage(
+                            height: context.height * 0.3,
+                            imageUrl:
+                                announcements[index].filesDownloadUrl.first,
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -169,9 +172,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getUpcomingEvents() async {
     await context.read<EventsProvider>().getUpcomingEvents().whenComplete(() {
       context.read<EventsProvider>().notifyListeners();
+      setState(() {
+        events = context.read<EventsProvider>().upComingEvents;
+      });
+
     });
-    setState(() {
-      events = context.read<EventsProvider>().upComingEvents;
+
+  }
+
+  Future<void> getAllPosts() async {
+    await context.read<HomeProvider>().getAllPosts().whenComplete(() {
+      context.read<HomeProvider>().notifyListeners();
+      setState(() {
+        announcements = context.read<HomeProvider>().postsList;
+      });
     });
   }
 }

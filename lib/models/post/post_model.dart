@@ -21,4 +21,9 @@ class PostModel{
   set postId(String value) {
     _postId = value;
   }
+ factory PostModel.fromJson({required dynamic json}){
+  PostModel model= PostModel(postDetails: json['Post Details'] ?? '',);
+  model._filesDownloadUrl=(json['Files url'] is Iterable ? List.from(json?['Files url']):[]);
+  return model;
+ }
 }

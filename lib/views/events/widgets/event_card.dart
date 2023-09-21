@@ -136,18 +136,6 @@ class _EventCardState extends State<EventCard> {
                     const SizedBox(
                       height: 4.0,
                     ),
-                    Text(
-                      _event.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontSize: 14.0, color: Colors.black),
-                    ),
-                    // const SizedBox(
-                    //   height: 8.0,
-                    // ),
                     Spacer(),
                     Text(
                       _event.description,

@@ -20,6 +20,7 @@ required EventModel eventModel
   }) async {
     isLoading = true;
     notifyListeners();
+
     isAdded = await EventsHandler().addNewEvent(eventModel);
     isLoading = false;
     notifyListeners();

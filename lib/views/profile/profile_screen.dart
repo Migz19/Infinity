@@ -1,7 +1,12 @@
+import 'dart:js';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
+import 'package:infinity/data/remote/firebase_helper.dart';
+import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
 import 'package:infinity/widgets/custom_type_button.dart';
@@ -10,24 +15,13 @@ import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
 
-class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreen extends StatelessWidget {
   String email = "5645";
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      context.watch<ProfileProvider>().getUserEmail().then((value) {
-        email = value.toString();
-      });
-    });
-
     return Scaffold(
       body: Stack(
         children: [
@@ -185,5 +179,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         });
+  }
+  Future<UserModel> fetchUserData(BuildContext context)async {
+    return await context.read<ProfileProvider>().getUserData();
   }
 }

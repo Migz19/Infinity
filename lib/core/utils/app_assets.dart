@@ -24,6 +24,7 @@ class AppAssets{
   static String eventsIcon="${pngPath}event.png";
   static String galleryIcon="${pngPath}gallery.png";
   static String cameraIcon="${pngPath}camera.png";
+  static String notFoundIcon='${pngPath}not_found.png';
   // Svg Images
   //static String logo="${svgPath}.....";
 
@@ -39,4 +40,8 @@ class AppAssets{
   static String fsAdminPath='admin';
   static String fsEventPath='events';
   static String fsMemberPath='users';
+
+
+  /// Warning and error messages
+  static String noDataCheckConnection="No data found \n Please check your internet connection and try again";
 }

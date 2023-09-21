@@ -1,18 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
+import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:infinity/widgets/dynamic_text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/custom_type_button.dart';
 import '../../widgets/naviagtion.dart';
 import 'members_screen.dart';
 
 class DetailsCommitteeScreen extends StatelessWidget {
-  const DetailsCommitteeScreen({Key? key, required this.committeeModel})
+   DetailsCommitteeScreen({Key? key, required this.committeeModel})
       : super(key: key);
   final CommitteeModel committeeModel;
-
+  List<UserModel> committeeMembers = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +68,7 @@ class DetailsCommitteeScreen extends StatelessWidget {
                       children: [
                         DynamicTextWidget(
                           length: 150,
-                          text:  committeeModel.description,
+                          text: committeeModel.description,
                         ),
                         const SizedBox(
                           height: 20.0,
@@ -73,17 +76,21 @@ class DetailsCommitteeScreen extends StatelessWidget {
                         Row(
                           children: [
                             CustomTypeButton(
-                              text: "Members",
-                              buttonColor: Colors.yellow.withOpacity(0.3),
-                              textColor: Colors.black,
-                              isLoading: false,
-                              width: 150,
-                           onTap:() {
-                             AppNavigator.customNavigator(context: context,
-                                 screen: MembersScreen(),
-                                 finish: false);
-                           }),
-                            SizedBox(width: 20,),
+                                text: "Members",
+                                buttonColor: Colors.yellow.withOpacity(0.3),
+                                textColor: Colors.black,
+                                isLoading: false,
+                                width: 150,
+                                onTap: () {
+
+                                  AppNavigator.customNavigator(
+                                      context: context,
+                                      screen: MembersScreen(committeeModel),
+                                      finish: false);
+                                }),
+                            SizedBox(
+                              width: 20,
+                            ),
                             CustomTypeButton(
                               text: "Tasks",
                               isLoading: false,
@@ -105,4 +112,5 @@ class DetailsCommitteeScreen extends StatelessWidget {
       ),
     );
   }
+
 }
