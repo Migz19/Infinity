@@ -9,7 +9,7 @@ class HomeProvider extends ChangeNotifier {
   bool postsLoaded = false;
   List<EventModel> upcomingEvents = [];
   List<PostModel> postsList =[];
-  Future<void> getAllPosts()async{
+  Future<List<PostModel>> getAllPosts()async{
     if(postsList.isEmpty) {
       var eventsSnapshotDocs = await FirebaseHelper().getAllItems("posts");
       if (eventsSnapshotDocs.isNotEmpty) {
@@ -19,6 +19,8 @@ class HomeProvider extends ChangeNotifier {
         }
       }
     }
+
     notifyListeners();
+    return postsList;
 }
 }

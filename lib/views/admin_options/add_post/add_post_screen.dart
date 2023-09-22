@@ -5,8 +5,6 @@ import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/post/post_model.dart';
 import 'package:infinity/provider/admin_options/add_post/add_post_provider.dart';
-import 'package:infinity/provider/profile/profile_provider.dart';
-import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatelessWidget {

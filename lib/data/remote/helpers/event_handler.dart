@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:infinity/controller/random_id_generator.dart';
 import 'package:infinity/models/event/event_model.dart';

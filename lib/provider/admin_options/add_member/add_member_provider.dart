@@ -25,6 +25,6 @@ class AddMemberProvider extends ChangeNotifier{
    notifyListeners();
  }
  List<String>committeesList=['Committee','HR','Media','PR','Events','HighBoard','Marketing','FR','AC','Platform'];
- List<String>rolesList=['Role','Head','Vice Head','Highboard','Member'];
+ List<String>rolesList=['Role','Head','Vice Head','High Board','Member'];
 
 }

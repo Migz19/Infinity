@@ -20,14 +20,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<NavigatorProvider>(
-      builder: (context, provider , _) => Scaffold(
+      builder: (context, provider, _) => Scaffold(
         appBar: AppBar(
-          title:  Text(
-            context.watch<NavigatorProvider>().screenTitles[context.read<NavigatorProvider>().currentIndex],
+          shadowColor: Colors.black38,
+          title: Text(
+            context
+                .watch<NavigatorProvider>()
+                .screenTitles[context.read<NavigatorProvider>().currentIndex],
             textAlign: TextAlign.start,
-            style: TextStyle(fontWeight: FontWeight.w500,color: AppColor.primary),
+            style:
+                TextStyle(fontWeight: FontWeight.w500, color: AppColor.primary),
           ),
-          toolbarHeight: context.height*0.08,
+          toolbarHeight: context.height * 0.08,
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -38,9 +42,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 alignment: Alignment.topRight,
               ),
             ),
-
           ],
-          elevation: 0,
+          elevation: 3,
           backgroundColor: Colors.white,
         ),
         body: provider.screens[provider.currentIndex],
@@ -76,8 +79,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               label: "Profile",
             ),
-
-
           ],
           elevation: 0.0,
           unselectedItemColor: AppColor.primary.withOpacity(0.5),
@@ -91,13 +92,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
         floatingActionButton: context.read<LoginTypeProvider>().isAdmin
             ? FloatingActionButton(
                 onPressed: () {
-                  AppNavigator.customNavigator(context: context, screen: AdminOptionsScreen(), finish: false);
+                  AppNavigator.customNavigator(
+                      context: context,
+                      screen: AdminOptionsScreen(),
+                      finish: false);
                 },
                 backgroundColor: AppColor.primary,
                 child: const Icon(
                   Icons.admin_panel_settings_outlined,
                   color: Colors.white,
-
                 ),
               )
             : Container(),

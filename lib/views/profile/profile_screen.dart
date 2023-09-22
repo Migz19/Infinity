@@ -1,11 +1,8 @@
-import 'dart:js';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
-import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';

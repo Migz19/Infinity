@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
-import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';

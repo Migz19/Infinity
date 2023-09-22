@@ -1,14 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:js_util';
 
-
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:infinity/controller/custom_file_picker.dart';
-import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/controller/custom_image_picker.dart';
+import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/models/user/user_model.dart';
 
 class ProfileProvider extends ChangeNotifier{

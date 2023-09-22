@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:intl/intl.dart';
 
 File convertPlatformFileToFile(PlatformFile platformFile) {
 

@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
-import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:infinity/widgets/dynamic_text_widget.dart';
-import 'package:provider/provider.dart';
 
 import '../../widgets/custom_type_button.dart';
 import '../../widgets/naviagtion.dart';

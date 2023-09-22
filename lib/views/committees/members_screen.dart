@@ -58,6 +58,7 @@ class MembersScreen extends StatelessWidget {
                               children: snapshot.data!
                                   .map(
                                     (data) => GestureDetector(
+
                                       child: data.photo!.isNotEmpty
                                           ? CustomCard(
                                               data.username, data.photo!, true)
