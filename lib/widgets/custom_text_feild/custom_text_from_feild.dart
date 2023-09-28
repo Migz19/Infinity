@@ -38,8 +38,7 @@ class _CustomTextFromFieldState extends State<CustomTextFromField> {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       alignment: Alignment.center,
       child: TextFormField(
         onTap: widget.ontap,

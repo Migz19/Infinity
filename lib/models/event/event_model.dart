@@ -35,6 +35,7 @@ class EventModel {
           date: json['date']??'',
           location: json['location']??'',
           description: json['description']??'');
+     model.id=json['id']??'';
      model.filesUrls=(json['Files urls'] is Iterable ? List.from(json?['Files urls']):[]);
      return model;
   }

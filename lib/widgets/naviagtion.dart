@@ -14,4 +14,5 @@ class AppNavigator {
         : Navigator.push(
             context, MaterialPageRoute(builder: (context) => screen));
   }
+
 }

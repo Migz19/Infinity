@@ -18,28 +18,16 @@ class MemberLoginProvider extends ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        print("Login Member Success : ${value.user!.uid}");
-
         try{
           await _fireHelper.getUserData(UId: value.user!.uid, collectionName: "users");
-          print("val : ${_fireHelper.admin}");
-          if(_fireHelper.admin.isEmpty){
-            isLogin=false;
-            return;
-          }
-             userModel=_fireHelper.userModel;
+             userModel=FirebaseHelper().userModel;
             isLogin = true;
           if(isSelected){
             await CacheHelper.setData(key: "loginType", value: 'member');
             await CacheHelper.setData(key: "email", value: userModel!.email);
-            await CacheHelper.setData(
-                key: "password", value: userModel!.password);
+            await CacheHelper.setData(key: "password", value: userModel!.password);
           }
-          print("Login Member success");
           }
-
-
-
         catch(error){
           print("Login FireStore Member Error: ${error}");
         }

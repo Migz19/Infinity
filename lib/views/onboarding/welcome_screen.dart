@@ -33,7 +33,6 @@ class WelcomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                // const Text("Infinity Club is 37485478743587348yfdsjhfjsdhufhiush8ry4289ry8owhdufhiwhfuhwuiehfiuhweiufhiu234hiufhweiuhefiuhweiuhfiuwehefuhwuehfuwhewiufhweiuhf"),
               ],
             ),
             const Align(

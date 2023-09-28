@@ -88,6 +88,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           iconSize: 25.0,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
           showUnselectedLabels: true,
+
         ),
         floatingActionButton: context.read<LoginTypeProvider>().isAdmin
             ? FloatingActionButton(

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/data/remote/helpers/firebase_storage_handler.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/models/post/post_model.dart';
@@ -11,7 +12,7 @@ import 'package:infinity/models/user/user_model.dart';
 class FirebaseHelper {
   static FirebaseHelper? _firebaseHelper;
 
-  Map<String, dynamic> admin = {};
+   Map<String, dynamic> admin = {};
 
   FirebaseHelper._();
 
@@ -81,23 +82,21 @@ class FirebaseHelper {
 
   UserModel? userModel;
 
+
   Future<dynamic> getUserData(
       {required String UId, required String collectionName}) async {
     try {
-      print("getUserData");
       DocumentSnapshot<Map<String, dynamic>> value = await FirebaseFirestore
           .instance
           .collection(collectionName)
           .doc(UId)
           .get();
-      print("*/*/*/*/*/${value.data()}");
       if (collectionName == 'admin') {
         admin = value.data()!;
       }
       userModel = UserModel.fromJson(json: value.data()!);
       return value.data();
     } catch (error) {
-      print("error1: ${error}");
       return error;
     }
   }
@@ -125,17 +124,17 @@ class FirebaseHelper {
       {required File imageFile,
       required String collectionName,
       String? docId}) async {
-    final image_url = await FirebaseStorageHandler.instance().uploadImage(
+    final imageUrl = await FirebaseStorageHandler.instance().uploadImage(
         image: imageFile, id: docId, collectionName: collectionName);
     await FirebaseFirestore.instance
         .collection(collectionName)
         .doc(docId)
-        .update({"photo": image_url});
+        .update({"photo": imageUrl});
   }
 
-  Future<Reference> fetchProfileImage() async {
+  Future<Reference> fetchProfileImage(String userId) async {
     return await FirebaseStorageHandler.instance()
-        .getProfImg(FirebaseAuth.instance.currentUser!.uid);
+        .getProfImg(userId);
   }
 
   Future<void> addEvent(EventModel model) async {
@@ -173,17 +172,19 @@ class FirebaseHelper {
     }
   }
 
-  Future<String> deleteDocument(String collectionName, String docID) async {
+  Future<Map<bool,String>> deleteDocument(String collectionName, String docID) async {
     try {
       FirebaseFirestore.instance
           .collection(collectionName)
           .doc(docID)
           .delete()
-          .whenComplete;
+          .then((value)  {
+          return {true:"$collectionName deleted successfully"};
+      });
     } catch (error) {
-      return error.toString();
+      return {false:error.toString()};
     }
-    return "$collectionName deleted successfully";
+    return {false:"Couldn't delete item"};
   }
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getAllItems(
@@ -191,25 +192,9 @@ class FirebaseHelper {
     return await FirebaseFirestore.instance
         .collection(collectionPath)
         .get()
-        .then((querySnapshot) async {
-      return await querySnapshot.docs.toList();
+        .then((querySnapshot) {
+      return querySnapshot.docs.toList();
     });
   }
 
-  Future<Map<String, dynamic>?> getDocument(
-      String collectionName, String docID) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection("Committees")
-          .doc(docID)
-          .get()
-          .then((querySnapShot) async {
-        if (querySnapShot.exists) {
-          return await querySnapShot.data();
-        }
-      });
-    } catch (error) {
-      return null;
-    }
-  }
 }

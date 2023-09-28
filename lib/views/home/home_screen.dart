@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Image.asset(
                             AppAssets.notFoundIcon,
                             width: 40,
-                            height: 50,
+                            height: 40,
                           ),
                           SizedBox(),
                           Text("No Upcoming Events"),
@@ -151,22 +151,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(AppAssets.notFoundIcon,
-                            width: context.width * 0.3),
-                        SizedBox(
-                          height: context.height * 0.1,
-                        ),
-                        Text(
-                          AppAssets.noDataCheckConnection,
-                          textAlign: TextAlign.center,
-                          style:
-                              TextStyle(color: AppColor.second, fontSize: 20),
-                        ),
-                      ],
+                    return Container(
+                      height: 40,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(AppAssets.notFoundIcon,
+                              width: context.width * 0.1),
+                          Text(
+                            AppAssets.noDataCheckConnection,
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: AppColor.second, fontSize: 15),
+                          ),
+                        ],
+                      ),
                     );
                   }
                 } else {
@@ -175,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               },
-              future: getUpcomingEvents(context),
+              future: getUpcomingEvents(),
             ),
           ),
           const SizedBox(height: 40),
@@ -284,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               },
-              future: getAllPosts(context),
+              future: getAllPosts(),
             ),
           ),
         ],
@@ -292,11 +293,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<List<PostModel>> getAllPosts(BuildContext context) async {
+  Future<List<PostModel>> getAllPosts() async {
     return await context.read<HomeProvider>().getAllPosts();
   }
 
-  Future<List<EventModel>> getUpcomingEvents(BuildContext context) async {
+  Future<List<EventModel>> getUpcomingEvents() async {
     return await context.read<EventsProvider>().getUpcomingEvents();
   }
+
 }

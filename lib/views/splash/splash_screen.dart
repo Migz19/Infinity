@@ -4,7 +4,6 @@ import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
-import 'package:infinity/views/onboarding/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
@@ -19,8 +18,6 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
   String? loginType;
   @override
   void initState() {
-
-
     super.initState();
      init();
   }
@@ -60,15 +57,16 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
   void startAnimation() async {
     // Start Animation of logo
     await _logoController.forward();
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     if(loginType==null)
       {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen(),));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationScreen(),));
       }
     else
       {
-        if (!mounted)
+        if (!mounted) {
           return;
+        }
         if(loginType=='admin') {
           context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
         }

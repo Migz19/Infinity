@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/events/events_provider.dart';
+import 'package:infinity/views/events/widgets/event_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/event/event_model.dart';
@@ -46,6 +47,7 @@ class _EventScreenState extends State<EventScreen> {
   }
   Future<void>getAllEvents()async{
     await context.read<EventsProvider>().getAllEvents();
+
     setState(() {
       eventsList =  context.read<EventsProvider>().allEventsList;
     });

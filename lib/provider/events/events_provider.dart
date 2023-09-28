@@ -5,7 +5,7 @@ import 'package:infinity/models/event/event_model.dart';
 class EventsProvider extends ChangeNotifier {
   List<EventModel> allEventsList = [];
   List<EventModel> upComingEvents = [];
-
+  Map<bool,String> isEventDeleted={};
   Future<List<EventModel>> getAllEvents() async {
     allEventsList = await EventsHandler().getAllEvents();
     notifyListeners();
@@ -13,9 +13,17 @@ class EventsProvider extends ChangeNotifier {
   }
 
   Future<List<EventModel>> getUpcomingEvents() async {
-    upComingEvents = await EventsHandler().getUpcomingEvents();
-
+    await EventsHandler().getUpcomingEvents().then((value) => upComingEvents);
     notifyListeners();
     return upComingEvents;
+  }
+  Map<bool,String> deleteEvent(String eventId){
+     EventsHandler().removeEvent(eventId).then((value) {
+       isEventDeleted=value;
+       notifyListeners();
+      return value;
+    });
+     notifyListeners();
+  return {};
   }
 }

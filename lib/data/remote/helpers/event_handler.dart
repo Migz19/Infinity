@@ -36,20 +36,21 @@ class EventsHandler {
   }
 
   Future<List<EventModel>> getUpcomingEvents() async {
-    List<EventModel> upcomingEvents = [];
+    List<EventModel>  upcomingEvents = [];
     await getAllEvents();
     if (eventsSnapshotDocs!.isNotEmpty) {
       for (var eventSnapshot in eventsSnapshotDocs!) {
         EventModel model = EventModel.fromJson(json: eventSnapshot.data());
-
         if (DateTime.parse(model.date).isAfter(DateTime.now())) {
           model.date = model.date.substring(0, 10);
           upcomingEvents.add(model);
         }
       }
     }
-
     return upcomingEvents;
   }
+Future<Map<bool,String>>removeEvent(String eventId)async{
 
+    return await FirebaseHelper().deleteDocument("events", eventId);
+  }
 }

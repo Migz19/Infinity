@@ -218,20 +218,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onTap: () async {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              if (context
-                                                  .read<LoginTypeProvider>()
-                                                  .isAdmin) {
-                                               // context.read<LoginTypeProvider>().setISAdmin( isAdmin: false);
-                                                await context
-                                                    .read<AdminLoginProvider>()
-                                                    .loginAdmin(
+                                              if (context.read<LoginTypeProvider>().isAdmin) {
+                                                await context.read<AdminLoginProvider>().loginAdmin(
                                                         email: email.text,
                                                         password: password.text,
                                                         isSelected: isSelected);
                                                 if (!mounted) return;
-                                                if (context
-                                                    .read<AdminLoginProvider>()
-                                                    .isLogin) {
+                                                if (context.read<AdminLoginProvider>().isLogin) {
                                                   Navigator.pushReplacement(
                                                       context,
                                                       MaterialPageRoute(
@@ -254,18 +247,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   );
                                                 }
                                               } else {
-                                                // todo check member login
                                                 await context
-                                                    .read<MemberLoginProvider>()
-                                                    .loginMember(
+                                                    .read<MemberLoginProvider>().loginMember(
                                                         email: email.text,
                                                         password: password.text,
                                                         isSelected: isSelected);
                                                 if(mounted) {
                                                   if (context
-                                                      .read<
-                                                      MemberLoginProvider>()
-                                                      .isLogin) {
+                                                      .read<MemberLoginProvider>().isLogin) {
                                                     Navigator.pushReplacement(
                                                         context,
                                                         MaterialPageRoute(
@@ -293,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ToastConfig.showToast(
                                                 context: context,
                                                 msg:
-                                                    "please enter required data",
+                                                    "Please enter required data",
                                                 toastStates: ToastStates.Error,
                                               );
                                             }
@@ -322,9 +311,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void cacheUser(String? email, String? password) {
-    if (email == null || password == null) return;
-    // CacheHelper.init();
-
-  }
 }

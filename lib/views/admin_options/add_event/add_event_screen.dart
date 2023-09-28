@@ -139,8 +139,14 @@ class AddEventScreen extends StatelessWidget {
                                                               TimeOfDay.now(),
                                                         ).then((val) {
                                                           if (val != null) {
-                                                            eventTime =
-                                                                "${val.hour}:${val.minute}:00";
+                                                            if(val.hour>=10) {
+                                                              eventTime =
+                                                                " ${val.hour}:${val.minute}:00";
+                                                            }
+                                                            else {
+                                                              eventTime =
+                                                            " 0${val.hour}:${val.minute}:00";
+                                                            }
                                                           }
                                                         }),
                                                       }),

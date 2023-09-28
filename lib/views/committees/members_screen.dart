@@ -12,7 +12,7 @@ import 'model/committee_model.dart';
 class MembersScreen extends StatelessWidget {
   CommitteeModel committeeModel;
 
-  MembersScreen(this.committeeModel);
+  MembersScreen(this.committeeModel, {super.key});
 
   @override
   Widget build(BuildContext context) {

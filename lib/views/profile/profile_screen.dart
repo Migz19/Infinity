@@ -1,8 +1,7 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
@@ -12,104 +11,163 @@ import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
 
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+  UserModel? currentUser;
+}
 
-class ProfileScreen extends StatelessWidget {
-  String email = "5645";
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData().then((value) {
+      setState(() {
+        widget.currentUser = context.read<ProfileProvider>().currentUser;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColor.primary.withOpacity(0.5),
-              borderRadius: BorderRadius.only(
-                bottomLeft:
-                    Radius.circular(MediaQuery.of(context).size.height * 0.25),
-                bottomRight:
-                    Radius.circular(MediaQuery.of(context).size.height * 0.25),
-              ),
-            ),
-          ),
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: context.height * 0.3,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              context.read<ProfileProvider>().imageNotNull
-                                  ? FileImage(
-                                      context.watch<ProfileProvider>().profImg!)
-                                  : null,
+      backgroundColor: Colors.white,
+      body: context.watch<ProfileProvider>().isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : context.read<ProfileProvider>().currentUser != null
+              ? Stack(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColor.primary.withOpacity(0.8),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(
+                              MediaQuery.of(context).size.height * 0.5),
+                          bottomRight: Radius.circular(
+                              MediaQuery.of(context).size.height * 0.5),
                         ),
-                        Column(
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: context.height * 0.2,
+                          left: context.width * 0.35,
+                          right: context.width * 0.3),
+                      child: SingleChildScrollView(
+                        child: Column(
                           children: [
-                            TextButton(
-                              onPressed: () =>
-                                  _displayPickImageDialogue(context),
-                              child: const Text(
-                                "Add image",
-                                style: TextStyle(fontSize: 10),
+                            Stack(children: [
+                              CircleAvatar(
+                                backgroundColor: AppColor.primary,
+                                radius: 70,
+
+                                child: widget.currentUser!.photo != null &&
+                                        widget.currentUser!.photo!.isNotEmpty
+                                    ? CachedNetworkImage(
+                                        imageUrl: widget.currentUser!.photo!,
+                                      )
+                                    : Image.asset(
+                                        AppAssets.logo,
+                                        color: Colors.white,
+                                      ),
                               ),
+                              Positioned(
+                                bottom: 5,
+                                right: 12,
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      _displayPickImageDialogue(context),
+                                  child: const CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 15,
+                                    child: Icon(Icons.edit, size: 18),
+                                  ),
+                                ),
+                              )
+                            ]),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: Text(
+                                widget.currentUser!.username,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 20),
+                              ),
+                            ),
+                            Text(
+                              widget.currentUser!.email,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 20),
+                            ),
+                            CustomTypeButton(
+                              text: "Log out",
+                              width: 90,
+                              buttonColor: AppColor.primary.withOpacity(0.7),
+                              textColor: Colors.white,
+                              onTap: () {
+                                context.read<ProfileProvider>().logout();
+                                AppNavigator.customNavigator(
+                                    context: context,
+                                    screen: WelcomeScreen(),
+                                    finish: true);
+                              },
                             )
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      email,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 20),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Container(
+                      height: context.height,
+                      width: context.width,
+                      color: Colors.white,
                     ),
-                  ),
-                  const Text(
-                    'Email',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20),
-                  ),
-                  CustomTypeButton(
-                    text: "Log out",
-                    width: 90,
-                    buttonColor: AppColor.primary.withOpacity(0.7),
-                    textColor: Colors.white,
-                    onTap: () {
-                      remove();
-                      AppNavigator.customNavigator(
-                          context: context,
-                          screen: WelcomeScreen(),
-                          finish: true);
-                    },
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            size: 100,
+                            Icons.lock,
+                            color: AppColor.primary,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            color: AppColor.primary,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  AppNavigator.customNavigator(
+                                      context: context,
+                                      screen: WelcomeScreen(),
+                                      finish: true);
+                                },
+                                child: const Text(
+                                  "Login required \n Press to login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      wordSpacing: 3,
+                                      height: 1.4),
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
     );
-  }
-
-  void remove() {
-    CacheHelper.clear();
   }
 
   Future _displayPickImageDialogue(BuildContext context) {
@@ -177,7 +235,8 @@ class ProfileScreen extends StatelessWidget {
           );
         });
   }
-  Future<UserModel> fetchUserData(BuildContext context)async {
+
+  Future<UserModel?> fetchUserData() async {
     return await context.read<ProfileProvider>().getUserData();
   }
 }
