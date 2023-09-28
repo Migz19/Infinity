@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/data/remote/firebase_helper.dart';
-import 'package:infinity/data/remote/helpers/notification_handler.dart';
 import 'package:infinity/models/user/user_model.dart';
 
 class AddMemberProvider extends ChangeNotifier{
  FirebaseHelper  _firebaseHelper=FirebaseHelper();
- NotificationHandler notificationHandler=NotificationHandler();
  bool? isLoading;
  bool isAdded=false;
  String? committee;

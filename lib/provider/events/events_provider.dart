@@ -11,7 +11,6 @@ class EventsProvider extends ChangeNotifier {
     notifyListeners();
     return allEventsList;
   }
-
   Future<List<EventModel>> getUpcomingEvents() async {
     await EventsHandler().getUpcomingEvents().then((value) => upComingEvents);
     notifyListeners();
