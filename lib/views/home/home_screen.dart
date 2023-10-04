@@ -1,3 +1,5 @@
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
@@ -70,21 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .upComingEvents[index]),
                                   finish: false);
                             },
-                            child: Column(
-                              children: [
-                                Text(
-                                  context
-                                      .read<EventsProvider>()
-                                      .upComingEvents[index]
-                                      .title,
-                                  style: TextStyle(
-                                      color: AppColor.second,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                Container(
-                                  width: context.width * 0.55,
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: Stack(
+                            child: Container(
+                              width: context.width * 0.55,
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: [
+                                  Stack(
                                     children: [
                                       Padding(
                                         padding:
@@ -109,30 +102,70 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 100,
                                               ),
                                       ),
-                                      Container(
-                                        width: 100,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: AppColor.second
-                                                .withOpacity(0.5)),
-                                        padding: const EdgeInsets.only(
-                                            top: 10, left: 10),
-                                        child: Text(
-                                            context
-                                                .read<EventsProvider>()
-                                                .upComingEvents[index]
-                                                .date
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black)),
+                                      // Container(
+                                      //   width: 100,
+                                      //   height: 30,
+                                      //   decoration: BoxDecoration(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(5),
+                                      //       color: AppColor.second
+                                      //           .withOpacity(0.5)),
+                                      //   padding: const EdgeInsets.only(
+                                      //       top: 10, left: 10),
+                                      //   child: Text(
+                                      //       context
+                                      //           .read<EventsProvider>()
+                                      //           .upComingEvents[index]
+                                      //           .date
+                                      //           .toString(),
+                                      //       style: const TextStyle(
+                                      //           fontWeight: FontWeight.w400,
+                                      //           color: Colors.black)),
+                                      // ),
+                                      SizedBox(
+                                        width: 40,
+                                        height: 50,
+                                        child: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '10\n',
+                                                style: TextStyle(
+                                                  color: Color(0xFFEF635A),
+                                                  fontSize: 18,
+                                                  fontFamily: 'Ballet',
+                                                  fontWeight: FontWeight.w400,
+                                                  height: 0.02,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: context.read<EventsProvider>().upComingEvents[index].date,
+                                                style: TextStyle(
+                                                  color: Color(0xFFEF635A),
+                                                  fontSize: 10,
+                                                  fontFamily: 'Actor',
+                                                  fontWeight: FontWeight.w400,
+                                                  height: 0.14,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ],
                                   ),
-                                )
-                              ],
+                                  Text(
+                                    context
+                                        .read<EventsProvider>()
+                                        .upComingEvents[index]
+                                        .title,
+                                    style: TextStyle(
+                                        color: AppColor.second,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },
