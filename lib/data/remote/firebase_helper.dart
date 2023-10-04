@@ -9,6 +9,8 @@ import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/models/post/post_model.dart';
 import 'package:infinity/models/user/user_model.dart';
 
+import 'notification_helper/notification_helper.dart';
+
 class FirebaseHelper {
   static FirebaseHelper? _firebaseHelper;
 
@@ -166,6 +168,22 @@ class FirebaseHelper {
           .doc(model.postId)
           .update({
         'Files url': model.filesDownloadUrl,
+      }).then((value) async {
+        List<String> listOfTokens = [];
+        FirebaseHelper().getAllItems('token');
+        List<QueryDocumentSnapshot<Map<String, dynamic>>>? SnapshotDocs =
+            await FirebaseHelper().getAllItems('token');
+        for (QueryDocumentSnapshot documentSnapshot in SnapshotDocs) {
+          listOfTokens.add(documentSnapshot.id);
+          print("isAdded : ${documentSnapshot.id}");
+        }
+        print("image${model.filesDownloadUrl[0]}");
+        NotificationBaseHelper.sendNotificationToUsers(
+          content: model.postDetails,
+          title: 'Post',
+          listOfTokens: listOfTokens,
+          image: model.filesDownloadUrl[0],
+        );
       });
     } catch (error) {
       print(error);
