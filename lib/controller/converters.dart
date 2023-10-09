@@ -35,5 +35,21 @@ String convertDateToString(DateTime date, bool isDayOnly){
     return "$year-$month-$day";
   }
 
-
+  String getDateFromNum(int month){
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    return months[month-1];
+  }
 

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatelessWidget {
   TextEditingController postController = TextEditingController();
-   List<File>? post_files;
+  List<File>? post_files;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,9 @@ class AddPostScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed: () { Navigator.pop(context); },
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           "Cancel",
                           textAlign: TextAlign.start,
@@ -36,6 +38,17 @@ class AddPostScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(width: 120,),
+                      IconButton(onPressed: () {
+                        context
+                            .read<AddPostProvider>()
+                            .pickFiles()
+                            .then((files) =>
+                        {
+                          post_files = files,
+
+                        });
+                      },  icon: Icon(Icons.attachment_outlined,color: AppColor.second,size: 30,),),
                       Container(
                         width: 70,
                         height: 35,
@@ -44,7 +57,10 @@ class AddPostScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(7)),
                         alignment: Alignment.center,
                         child: TextButton(
-                          onPressed: ()  {_submitPost(context);Navigator.pop(context);},
+                          onPressed: () {
+                            _submitPost(context);
+                            Navigator.pop(context);
+                          },
                           child: Text(
                             "Post",
                             selectionColor: AppColor.primary,
@@ -74,26 +90,6 @@ class AddPostScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Align(
-              // Todo ozbot el design
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                onPressed: () {
-                  context
-                      .read<AddPostProvider>()
-                      .pickFiles()
-                      .then((files) => {
-                    post_files=files,
-                  {print("99999 images in widget not empty ${files?.first.path}")},
-                      });
-                },
-                backgroundColor: AppColor.second,
-                child: const Icon(
-                  Icons.image,
-                  color: Colors.white,
-                ),
-              ),
-            )
           ],
         ),
       ),

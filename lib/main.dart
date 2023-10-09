@@ -7,6 +7,7 @@ import 'package:infinity/data/remote/helpers/fcm_token.dart';
 import 'package:infinity/provider/admin_options/add_event/add_event_provider.dart';
 import 'package:infinity/provider/admin_options/add_member/add_member_provider.dart';
 import 'package:infinity/provider/admin_options/add_post/add_post_provider.dart';
+import 'package:infinity/provider/admin_options/add_task/add_task_provider.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/authentication/login/member_login_provider.dart';
 import 'package:infinity/provider/events/events_provider.dart';
@@ -61,6 +62,9 @@ void main() async {
           ),
           ChangeNotifierProvider<EventsProvider>(
             create: (_) => EventsProvider(),
+          ),
+          ChangeNotifierProvider<AddTaskProvider>(
+            create: (_) => AddTaskProvider(),
           ),
           ChangeNotifierProvider<CommitteeDetailsProvider>(create:(_) =>CommitteeDetailsProvider()),
         ],

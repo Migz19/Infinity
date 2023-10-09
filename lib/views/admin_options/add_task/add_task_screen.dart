@@ -1,26 +1,27 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:infinity/controller/converters.dart';
+import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/models/event/event_model.dart';
-import 'package:infinity/widgets/custom_type_button.dart';
+import 'package:infinity/models/task/task_model.dart';
+import 'package:infinity/provider/admin_options/add_task/add_task_provider.dart';
+import 'package:infinity/widgets/custom_text_feild/custom_text_from_feild.dart';
 import 'package:provider/provider.dart';
 
+import '../../../controller/converters.dart';
+import '../../../controller/random_id_generator.dart';
 import '../../../core/utils/app_assets.dart';
-import '../../../core/utils/app_color.dart';
 import '../../../provider/admin_options/add_event/add_event_provider.dart';
-import '../../../widgets/custom_text_feild/custom_text_from_feild.dart';
+import '../../../provider/admin_options/add_member/add_member_provider.dart';
+import '../../../widgets/custom_type_button.dart';
+import '../../../widgets/drop_down_list.dart';
 import '../../../widgets/toast/enum.dart';
 import '../../../widgets/toast/toast.dart';
 
-class AddEventScreen extends StatelessWidget {
+class AddTaskScreen extends StatelessWidget {
   TextEditingController title = TextEditingController();
-  TextEditingController date = TextEditingController();
-  TextEditingController location = TextEditingController();
   TextEditingController description = TextEditingController();
+  TextEditingController deadline = TextEditingController();
+  TextEditingController committee = TextEditingController();
   var eventTime = "";
-  List<File>? eventFiles;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -85,7 +86,7 @@ class AddEventScreen extends StatelessWidget {
                                           width: context.width * 0.6,
                                           child: const Text(
                                             maxLines: 2,
-                                            "Add new event",
+                                            "Assign new task",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -130,7 +131,7 @@ class AddEventScreen extends StatelessWidget {
                                                     firstDate: DateTime(2000),
                                                     lastDate: DateTime(2101),
                                                   ).then((value) => {
-                                                        date.text =
+                                                        deadline.text =
                                                             convertDateToString(
                                                                 value!, true),
                                                         showTimePicker(
@@ -139,50 +140,28 @@ class AddEventScreen extends StatelessWidget {
                                                               TimeOfDay.now(),
                                                         ).then((val) {
                                                           if (val != null) {
-                                                            if(val.hour>=10) {
+                                                            if (val.hour >=
+                                                                10) {
                                                               eventTime =
-                                                                " ${val.hour}";
-                                                              print("more than 10------>"+eventTime);
-                                                            }
-                                                            else {
+                                                                  " ${val.hour}:${val.minute}:00";
+                                                            } else {
                                                               eventTime =
-                                                            " 0${val.hour}";
-                                                              print("less than 10------>"+eventTime);
-                                                            }
-                                                            if(val.minute>=10) {
-                                                              eventTime ="$eventTime:${val.minute}:00";
-                                                              print("more than 10------>"+eventTime);
-                                                            }
-                                                            else {
-                                                              eventTime =
-                                                                  eventTime ="$eventTime:0${val.minute}:00";
-                                                              print("less than 10------>"+eventTime);
+                                                                  " 0${val.hour}:${val.minute}:00";
                                                             }
                                                           }
                                                         }),
                                                       }),
                                                 },
-                                            textEditingController: date,
-                                            hint: date.text.isNotEmpty
-                                                ? date.text
-                                                : "Event day ex:20-09-2023",
-                                            label: "Event day"),
-                                        //Location
-                                        CustomTextFromField(
-                                            backgroundColor: Colors.white,
-                                            hintColor: AppColor.primary
-                                                .withOpacity(0.6),
-                                            validator: (value) {
-                                              if (value!.isEmpty) return '';
+                                            textEditingController: deadline,
+                                            hint: deadline.text.isNotEmpty
+                                                ? deadline.text
+                                                : "Task deadline ex:20-09-2023",
+                                            label: "Task deadline"),
 
-                                              return null;
-                                            },
-                                            textEditingController: location,
-                                            hint: "Event Location",
-                                            label: "Event location"),
                                         //Description
                                         CustomTextFromField(
                                             backgroundColor: Colors.white,
+                                            height: 100,
                                             hintColor: AppColor.primary
                                                 .withOpacity(0.6),
                                             validator: (value) {
@@ -191,23 +170,22 @@ class AddEventScreen extends StatelessWidget {
                                             },
                                             textEditingController: description,
                                             hint: "Description",
-                                            label: "Event description"),
-
+                                            label: "Task description"),
+                                        CustomDropDownButton(
+                                          height: context.height * 0.05,
+                                          width: context.width * 0.5,
+                                          context
+                                              .read<AddMemberProvider>()
+                                              .committeesList,
+                                          onItemSelected: (String val) {
+                                            committee.text = val;
+                                          },
+                                        ),
                                         SizedBox(
                                           height: context.height * 0.025,
                                         ),
                                         CustomTypeButton(
-                                          text: "Pick Files",
-                                          width: context.width * 0.4,
-                                          buttonColor: AppColor.primary,
-                                          onTap: () async {
-                                            eventFiles = await context
-                                                .read<AddEventProvider>()
-                                                .pickFiles();
-                                          },
-                                        ),
-                                        CustomTypeButton(
-                                          text: "Add new event",
+                                          text: "Assign new task",
                                           isLoading: !context
                                                   .read<AddEventProvider>()
                                                   .isAdded
@@ -218,16 +196,11 @@ class AddEventScreen extends StatelessWidget {
                                           textColor: Colors.white,
                                           buttonColor:
                                               AppColor.primary.withOpacity(0.7),
-                                          onTap: () async {
+                                          onTap: ()  {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              await _addNewEvent(context);
-                                              ToastConfig.showToast(
-                                                  context: context,
-                                                  msg:
-                                                      "Added event successfully",
-                                                  toastStates:
-                                                      ToastStates.Success);
+                                               _addNewTask(context);
+                                              Navigator.pop(context);
                                             } else {
                                               ToastConfig.showToast(
                                                 context: context,
@@ -236,7 +209,7 @@ class AddEventScreen extends StatelessWidget {
                                                 toastStates: ToastStates.Error,
                                               );
                                             }
-                                            Navigator.pop(context);
+
                                           },
                                         ),
                                       ],
@@ -259,21 +232,30 @@ class AddEventScreen extends StatelessWidget {
     );
   }
 
-  Future<bool> _addNewEvent(BuildContext context) async {
-    if (eventTime.isEmpty) {
-      eventTime = "00:00:00";
-    }
-    if(date.text.length<=10) {
-      date.text += eventTime;
-    }
-    EventModel event = EventModel(
+  Future<void> _addNewTask(BuildContext context) async {
+    TaskModel task = TaskModel(
+        description: description.text,
         title: title.text,
-        date: date.text,
-        location: location.text,
-        description: description.text);
-    event.eventFiles = eventFiles;
-
-    await context.read<AddEventProvider>().addNewEvent(eventModel: event);
-    return true;
+        committeeName: committee.text,
+        isFinished: false,
+        id:generateRandomDocId(),
+        deadLine: deadline.text);
+    await context.read<AddTaskProvider>().addTask(task);
+    if (context
+        .read<AddTaskProvider>()
+        .isAdded) {
+      ToastConfig.showToast(
+          context: context,
+          msg:
+          "Added task successfully",
+          toastStates:
+          ToastStates.Success);
+    } else {
+      ToastConfig.showToast(
+          context: context,
+          msg: "Failed to add Task ",
+          toastStates:
+          ToastStates.Warning);
+    }
   }
 }

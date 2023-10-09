@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/models/user/user_model.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
@@ -64,23 +65,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               CircleAvatar(
                                 backgroundColor: AppColor.primary,
                                 radius: 70,
-
-                                child: widget.currentUser!.photo != null &&
-                                        widget.currentUser!.photo!.isNotEmpty
-                                    ? CachedNetworkImage(
-                                        imageUrl: widget.currentUser!.photo!,
-                                      )
-                                    : Image.asset(
-                                        AppAssets.logo,
-                                        color: Colors.white,
-                                      ),
+                                child: ClipOval(
+                                  child: SizedBox(
+                                    height: 140,
+                                      width: 140,
+                                      child: widget.currentUser!.photo != null &&
+                                              widget
+                                                  .currentUser!.photo!.isNotEmpty
+                                          ? CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                              imageUrl:
+                                                  widget.currentUser!.photo!)
+                                          : Image.asset(AppAssets.logo,fit: BoxFit.cover,)),
+                                ),
                               ),
                               Positioned(
                                 bottom: 5,
                                 right: 12,
                                 child: GestureDetector(
-                                  onTap: () =>
-                                      _displayPickImageDialogue(context),
+                                  onTap: () {
+                                    _displayPickImageDialogue(context);
+                                    setState(() {
+                                      widget.currentUser = context.read<ProfileProvider>().currentUser;
+                                    });
+                                  },
                                   child: const CircleAvatar(
                                     backgroundColor: Colors.white,
                                     radius: 15,
@@ -111,12 +119,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 90,
                               buttonColor: AppColor.primary.withOpacity(0.7),
                               textColor: Colors.white,
-                              onTap: () {
-                                context.read<ProfileProvider>().logout();
-                                AppNavigator.customNavigator(
+                              onTap: () async{
+                                await context.read<ProfileProvider>().logout();
+                                if(mounted) {
+                                  AppNavigator.customNavigator(
                                     context: context,
                                     screen: WelcomeScreen(),
                                     finish: true);
+                                }
                               },
                             )
                           ],
@@ -147,11 +157,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Container(
                             color: AppColor.primary,
                             child: ElevatedButton(
-                                onPressed: () {
-                                  AppNavigator.customNavigator(
-                                      context: context,
-                                      screen: WelcomeScreen(),
-                                      finish: true);
+                                onPressed: () async{
+                                  await context.read<ProfileProvider>().logout();
+                                  if(mounted) {
+                                    AppNavigator.customNavigator(
+                                        context: context,
+                                        screen: WelcomeScreen(),
+                                        finish: true);
+                                  }
                                 },
                                 child: const Text(
                                   "Login required \n Press to login",
@@ -191,11 +204,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: () {
-                            context
+                          onPressed: ()async {
+                            await context
                                 .read<ProfileProvider>()
                                 .uploadImage("camera");
-                            Navigator.pop(context);
+                            if(mounted) {
+                              Navigator.pop(context);
+                            }
                           },
                           focusColor: Colors.grey,
                           icon: Image.asset(AppAssets.cameraIcon)),
@@ -212,11 +227,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: () {
-                            context
+                          onPressed: () async{
+                           await context
                                 .read<ProfileProvider>()
                                 .uploadImage("gallery");
-                            Navigator.pop(context);
+                            if(mounted) {
+                              Navigator.pop(context);
+                            }
                           },
                           focusColor: Colors.grey,
                           icon: Image.asset(AppAssets.galleryIcon)),
@@ -239,4 +256,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<UserModel?> fetchUserData() async {
     return await context.read<ProfileProvider>().getUserData();
   }
+
 }

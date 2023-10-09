@@ -12,7 +12,9 @@ class EventsProvider extends ChangeNotifier {
     return allEventsList;
   }
   Future<List<EventModel>> getUpcomingEvents() async {
-    await EventsHandler().getUpcomingEvents().then((value) => upComingEvents);
+    EventsHandler().getUpcomingEvents().then((value){ upComingEvents=value;});
+    print("getUpcoming events in provider");
+    print("983948938${upComingEvents.isEmpty}");
     notifyListeners();
     return upComingEvents;
   }

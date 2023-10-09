@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 
+import '../../../core/utils/app_constants.dart';
+
 class FirebaseStorageHandler {
   static FirebaseStorageHandler? _storageHandler;
 
@@ -20,9 +22,9 @@ class FirebaseStorageHandler {
     required String collectionName}) async {
     String reference;
     if (collectionName == 'events') {
-      reference = AppAssets.stEventPath;
+      reference = AppConstants.stEventPath;
     } else {
-      reference = AppAssets.stProfilePath;
+      reference = AppConstants.stProfilePath;
     }
     final ref = FirebaseStorage.instance.ref(reference).child("$id.jpg");
     ref
@@ -33,20 +35,20 @@ class FirebaseStorageHandler {
 
   //Access user profile image ( setter and getter ) by user id
   Future<String> addProfImg(File image, String userId) async {
-    final ref = FirebaseStorage.instance.ref(AppAssets.stProfilePath).child("$userId.jpg");
+    final ref = FirebaseStorage.instance.ref(AppConstants.stProfilePath).child("$userId.jpg");
     await ref.putFile(image).whenComplete;
     return await ref.getDownloadURL();
   }
 
   Future<Reference> getProfImg(String userId) async {
     return FirebaseStorage.instance
-        .ref(AppAssets.stProfilePath)
+        .ref(AppConstants.stProfilePath)
         .child("$userId.jpg");
   }
 
   Future<String> addEventImg(File image, String eventID) async {
     final ref = FirebaseStorage.instance
-        .ref(AppAssets.stEventPath)
+        .ref(AppConstants.stEventPath)
         .child("$eventID.jpg");
     await ref
         .putFile(image)

@@ -19,7 +19,6 @@ class HomeProvider extends ChangeNotifier {
         }
       }
     }
-
     notifyListeners();
     return postsList;
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:infinity/views/admin_options/add_event/add_event_screen.dart';
 import 'package:infinity/views/admin_options/add_member/add_member_screen.dart';
 import 'package:infinity/views/admin_options/add_post/add_post_screen.dart';
-import 'package:infinity/views/admin_options/remove_event/remove_event.dart';
-import 'package:infinity/views/admin_options/remove_post/remove_post.dart';
+import 'package:infinity/views/admin_options/add_task/add_task_screen.dart';
+
 import 'package:infinity/widgets/naviagtion.dart';
 
 import '../../core/utils/app_assets.dart';
@@ -15,9 +15,7 @@ class AdminOptionsScreen extends StatelessWidget {
     1: MapEntry("Add a new member", AppAssets.addMemberIcon),
     2: MapEntry("Add a new event", AppAssets.addEventIcon),
     3:MapEntry("Add a new Post",AppAssets.addPostIcon),
-    4: MapEntry("Remove a member", AppAssets.removeMemberIcon),
-    5: MapEntry("Cancel an event", AppAssets.cancelEventIcon),
-    6: MapEntry("Remove a post", AppAssets.removePostIcon),
+    4: MapEntry("Add a new Task", AppAssets.removeMemberIcon),
   };
 
   @override
@@ -83,10 +81,9 @@ class AdminOptionsScreen extends StatelessWidget {
       break;
       case 3 : destination= AddPostScreen();
       break;
-      case 4: destination=const RemoveEventScreen();
+      case 4: destination= AddTaskScreen();
       break;
-      case 5: destination=const RemovePostScreen();
-      break;
+
     }
     AppNavigator.customNavigator(context: context, screen: destination, finish: false);
   }

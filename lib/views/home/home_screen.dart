@@ -1,7 +1,6 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:infinity/controller/converters.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/post/post_model.dart';
@@ -11,6 +10,7 @@ import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
+import '../../core/utils/app_constants.dart';
 import '../../models/event/event_model.dart';
 import '../../provider/events/events_provider.dart';
 
@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .read<EventsProvider>()
                         .upComingEvents
                         .isNotEmpty) {
+                      print("snapshot has data ");
                       return ListView.separated(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -73,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   finish: false);
                             },
                             child: Container(
-                              width: context.width * 0.55,
+                              width: context.width * 0.45,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColor.second)),
                               margin: const EdgeInsets.only(top: 10),
                               child: Column(
                                 children: [
@@ -102,53 +106,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 100,
                                               ),
                                       ),
-                                      // Container(
-                                      //   width: 100,
-                                      //   height: 30,
-                                      //   decoration: BoxDecoration(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(5),
-                                      //       color: AppColor.second
-                                      //           .withOpacity(0.5)),
-                                      //   padding: const EdgeInsets.only(
-                                      //       top: 10, left: 10),
-                                      //   child: Text(
-                                      //       context
-                                      //           .read<EventsProvider>()
-                                      //           .upComingEvents[index]
-                                      //           .date
-                                      //           .toString(),
-                                      //       style: const TextStyle(
-                                      //           fontWeight: FontWeight.w400,
-                                      //           color: Colors.black)),
-                                      // ),
-                                      SizedBox(
-                                        width: 40,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: AppColor.second
+                                                .withOpacity(0.4)),
+                                        alignment: Alignment.center,
+                                        width: 60,
                                         height: 50,
-                                        child: Text.rich(
-                                          TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: '10\n',
-                                                style: TextStyle(
-                                                  color: Color(0xFFEF635A),
-                                                  fontSize: 18,
-                                                  fontFamily: 'Ballet',
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0.02,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: context.read<EventsProvider>().upComingEvents[index].date,
-                                                style: TextStyle(
-                                                  color: Color(0xFFEF635A),
-                                                  fontSize: 10,
-                                                  fontFamily: 'Actor',
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0.14,
-                                                ),
-                                              ),
-                                            ],
+                                        child: Text(
+                                         getDateInSpecialFormat(context
+                                             .read<EventsProvider>()
+                                             .upComingEvents[index]
+                                             .date),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Actor',
+                                            fontWeight: FontWeight.w400,
+
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -161,6 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .upComingEvents[index]
                                         .title,
                                     style: TextStyle(
+                                      fontSize: 15,
+                                        overflow: TextOverflow.ellipsis,
                                         color: AppColor.second,
                                         fontWeight: FontWeight.w500),
                                   )
@@ -171,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       );
                     } else {
+                      print("snapshot doesn't have data ");
                       return Column(
                         children: [
                           Image.asset(
@@ -184,6 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   } else {
+                    print("connection state failed");
                     return Container(
                       height: 40,
                       child: Column(
@@ -194,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Image.asset(AppAssets.notFoundIcon,
                               width: context.width * 0.1),
                           Text(
-                            AppAssets.noDataCheckConnection,
+                            AppConstants.noDataCheckConnection,
                             textAlign: TextAlign.center,
                             style:
                                 TextStyle(color: AppColor.second, fontSize: 15),
@@ -214,7 +195,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 40),
           Padding(
-            padding: const EdgeInsets.only(left: 18.0,right: 18,),
+            padding: const EdgeInsets.only(
+              left: 18.0,
+              right: 18,
+            ),
             child: Text('Announcements',
                 style: TextStyle(
                     color: AppColor.primary,
@@ -304,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: context.height * 0.1,
                         ),
                         Text(
-                          AppAssets.noDataCheckConnection,
+                          AppConstants.noDataCheckConnection,
                           textAlign: TextAlign.center,
                           style:
                               TextStyle(color: AppColor.second, fontSize: 20),
@@ -333,5 +317,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<EventModel>> getUpcomingEvents() async {
     return await context.read<EventsProvider>().getUpcomingEvents();
   }
-
+  String getDateInSpecialFormat(String formattedString){
+    var date = DateTime.parse(formattedString);
+    return  "${date.day} ${getDateFromNum(date.month)}";
+  }
 }

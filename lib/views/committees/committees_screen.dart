@@ -9,6 +9,8 @@ import 'package:infinity/views/committees/widgets/committee_card.dart';
 import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/utils/app_constants.dart';
+
 class CommitteeScreen extends StatelessWidget {
 
 
@@ -64,7 +66,8 @@ class CommitteeScreen extends StatelessWidget {
                   Image.asset(AppAssets.notFoundIcon,width: context.width*0.3),
                   SizedBox(height: context.height*0.1,),
                   Text(
-                    AppAssets.noDataCheckConnection,
+                    AppConstants.noDataCheckConnection,
+
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColor.second,fontSize:20),
                   ),

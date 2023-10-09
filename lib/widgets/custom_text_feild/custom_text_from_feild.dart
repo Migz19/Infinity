@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:infinity/core/utils/media_query.dart';
 
 
 
@@ -7,11 +10,14 @@ class CustomTextFromField extends StatefulWidget {
   CustomTextFromField({required this.textEditingController,
     required this.hint, required this.label, this.validator,
     this.textInputType,this.maxLength,this.prefixIcon,this.suffixIcon,
+
     this.backgroundColor,
     this.obscureText,
     this.ontap,
     this.validateText,
     this.hintColor,
+    this.height,
+    this.width,
   this.enabled});
   final TextEditingController textEditingController;
   final String hint;
@@ -26,6 +32,8 @@ class CustomTextFromField extends StatefulWidget {
   bool?obscureText;
   VoidCallback? ontap;
   String? validateText;
+  double ?width;
+  double ?height=50;
   bool ? enabled;
   @override
   State<CustomTextFromField> createState() => _CustomTextFromFieldState();
@@ -33,13 +41,13 @@ class CustomTextFromField extends StatefulWidget {
 
 class _CustomTextFromFieldState extends State<CustomTextFromField> {
 
-  //Color ?colorBackground=Colors.grey.shade600;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: widget.height??50,
+      width: widget.width??context.width,
       margin: const EdgeInsets.only(bottom: 16),
-      alignment: Alignment.center,
       child: TextFormField(
         onTap: widget.ontap,
         validator: widget.validator , obscureText: widget.obscureText??false,
@@ -64,7 +72,8 @@ class _CustomTextFromFieldState extends State<CustomTextFromField> {
           ),
           hintText: widget.hint,
           hintStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.normal,
-              color:widget.hintColor==null?Colors.white:widget.hintColor),
+              color:widget.hintColor ?? Colors.white,),
+
         ),
       ),
     );

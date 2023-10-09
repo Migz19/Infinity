@@ -13,6 +13,9 @@ class TaskItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(task.title),
+          SizedBox(height: 10,),
+          Text(task.description),
+          SizedBox(height: 10,),
         ],
       ),
     );

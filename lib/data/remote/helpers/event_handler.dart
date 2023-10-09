@@ -13,7 +13,7 @@ import '../../../core/utils/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class EventsHandler {
-  static List<QueryDocumentSnapshot<Map<String, dynamic>>>? eventsSnapshotDocs;
+
 
 
 
@@ -21,7 +21,7 @@ class EventsHandler {
     model.id = generateRandomDocId();
     if (model.eventFiles != null) {
       model.filesUrls = await FirebaseStorageHandler.instance()
-          .uploadFiles(model.eventFiles!, AppAssets.stEventPath, model.id);
+          .uploadFiles(model.eventFiles!, AppConstants.stEventPath, model.id);
     }
 
     await FirebaseHelper().addEvent(model).then((value) async {
@@ -47,10 +47,10 @@ class EventsHandler {
 
   Future<List<EventModel>> getAllEvents() async {
     List<EventModel> events = [];
-    eventsSnapshotDocs ??=
-        await FirebaseHelper().getAllItems(AppAssets.fsEventPath);
-    if (eventsSnapshotDocs!.isNotEmpty) {
-      for (var eventSnapshot in eventsSnapshotDocs!) {
+    var eventsSnapshotDocs =
+        await FirebaseHelper().getAllItems(AppConstants.fsEventPath);
+    if (eventsSnapshotDocs.isNotEmpty) {
+      for (var eventSnapshot in eventsSnapshotDocs) {
         EventModel model = EventModel.fromJson(json: eventSnapshot.data());
         model.date = model.date.substring(0, 10);
         events.add(model);
@@ -62,17 +62,22 @@ class EventsHandler {
 
   Future<List<EventModel>> getUpcomingEvents() async {
     List<EventModel> upcomingEvents = [];
-    await getAllEvents();
-    if (eventsSnapshotDocs!.isNotEmpty) {
-      for (var eventSnapshot in eventsSnapshotDocs!) {
-        EventModel model = EventModel.fromJson(json: eventSnapshot.data());
-        if (DateTime.parse(model.date).isAfter(DateTime.now())) {
-          model.date = model.date.substring(0, 10);
-          upcomingEvents.add(model);
+    var eventsSnapshotDocs =
+    await FirebaseHelper().getAllItems(AppConstants.fsEventPath);
+    if (eventsSnapshotDocs.isNotEmpty) {
+      for (var eventSnapshot in eventsSnapshotDocs) {
+        EventModel model =EventModel.fromJson(json: eventSnapshot.data());
+        try {
+          if (DateTime.parse(model.date).isAfter(DateTime.now())) {
+            model.date = model.date.substring(0, 10);
+            upcomingEvents.add(model);
+          }
+        }catch(error){
+              continue;
         }
       }
     }
-    return upcomingEvents;
+    return  upcomingEvents;
   }
 
   Future<Map<bool, String>> removeEvent(String eventId) async {

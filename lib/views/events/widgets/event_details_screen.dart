@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/provider/events/events_provider.dart';
 import 'package:infinity/views/events/widgets/media_details.dart';
@@ -144,13 +145,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               ),
             ],
           ),
-          Positioned(
+         FirebaseHelper().admin.isNotEmpty? Positioned(
               bottom: 50,
               right: 20,
               child: FloatingActionButton(
                   backgroundColor: Colors.red,
                   onPressed: () {
-                    //TODO solve toast doesn't appear error
+
                     if ( context
                         .read<EventsProvider>()
                         .deleteEvent(_event.id)
@@ -174,7 +175,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     Icons.delete,
                     color: Colors.white,
                     size: 35,
-                  ))),
+                  ))):SizedBox(),
         ],
       ),
     );

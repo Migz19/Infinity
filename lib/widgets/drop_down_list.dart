@@ -3,16 +3,16 @@ import 'package:infinity/core/utils/app_color.dart';
 
 class CustomDropDownButton extends StatefulWidget {
   late List<String> list;
-
+  String?  currentIndex;
   double width = 20, height = 1;
-  final Function(String) onItemSelected;
+   Function(String) onItemSelected;
 
   CustomDropDownButton(this.list,
       {super.key,
       required this.onItemSelected,
       required this.width,
-      required this.height}) {
-
+      required this.height}){
+    currentIndex=list.first;
   }
 
   @override
@@ -24,7 +24,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
 
   @override
   Widget build(BuildContext context) {
-    String  currentIndex = widget.list.first;
+
     return Container(
       width: widget.width,
       height: widget.height,
@@ -34,22 +34,21 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
           borderRadius: BorderRadius.circular(5)),
       child: DropdownButton<String>(
 
-        // borderRadius: const BorderRadius.all(Radius.circular(10)),
         focusColor: AppColor.second,
         items: widget.list.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value,
-                style:  TextStyle(color: AppColor.primary, fontSize: widget.width*0.12)),
+                style:  TextStyle(color: AppColor.primary, fontSize: widget.height*0.4)),
           );
         }).toList(),
         elevation: 5,
         isExpanded: true,
-        value: currentIndex,
+        value: widget.currentIndex,
         underline: const SizedBox(),
         onChanged: (String? value) {
           setState(() {
-            currentIndex = value!;
+            widget.currentIndex = value!;
             widget.onItemSelected(value);
           });
         },

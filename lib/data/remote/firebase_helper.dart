@@ -214,5 +214,12 @@ class FirebaseHelper {
       return querySnapshot.docs.toList();
     });
   }
-
+  Future<bool>addItem({required String collectionPath,required Map<String,dynamic>data,required String docId})async{
+    try{
+      await FirebaseFirestore.instance.collection(collectionPath).doc(docId).set(data);
+      return true;
+    }catch(error){
+      return false;
+    }
+  }
 }

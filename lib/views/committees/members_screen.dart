@@ -7,6 +7,7 @@ import 'package:infinity/views/committees/providers/committee_details_provider.d
 import 'package:infinity/views/committees/widgets/committee_card.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/utils/app_constants.dart';
 import 'model/committee_model.dart';
 
 class MembersScreen extends StatelessWidget {
@@ -101,7 +102,7 @@ class MembersScreen extends StatelessWidget {
                     height: context.height * 0.1,
                   ),
                   Text(
-                    AppAssets.noDataCheckConnection,
+                    AppConstants.noDataCheckConnection,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColor.second, fontSize: 20),
                   ),
