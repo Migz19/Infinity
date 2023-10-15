@@ -90,7 +90,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           showUnselectedLabels: true,
 
         ),
-        floatingActionButton: context.read<LoginTypeProvider>().isAdmin
+        floatingActionButton: context.read<LoginTypeProvider>().loginType==1
             ? FloatingActionButton(
                 onPressed: () {
                   AppNavigator.customNavigator(

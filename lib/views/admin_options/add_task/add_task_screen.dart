@@ -21,7 +21,7 @@ class AddTaskScreen extends StatelessWidget {
   TextEditingController description = TextEditingController();
   TextEditingController deadline = TextEditingController();
   TextEditingController committee = TextEditingController();
-  var eventTime = "";
+  var taskTime = "";
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -142,10 +142,10 @@ class AddTaskScreen extends StatelessWidget {
                                                           if (val != null) {
                                                             if (val.hour >=
                                                                 10) {
-                                                              eventTime =
+                                                              taskTime =
                                                                   " ${val.hour}:${val.minute}:00";
                                                             } else {
-                                                              eventTime =
+                                                              taskTime =
                                                                   " 0${val.hour}:${val.minute}:00";
                                                             }
                                                           }
@@ -196,10 +196,27 @@ class AddTaskScreen extends StatelessWidget {
                                           textColor: Colors.white,
                                           buttonColor:
                                               AppColor.primary.withOpacity(0.7),
-                                          onTap: ()  {
+                                          onTap: () {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                               _addNewTask(context);
+                                              _addNewTask(context);
+                                              if (context
+                                                  .read<AddTaskProvider>()
+                                                  .isAdded) {
+                                                ToastConfig.showToast(
+                                                    context: context,
+                                                    msg:
+                                                        "Added task successfully",
+                                                    toastStates:
+                                                        ToastStates.Success);
+                                              } else {
+                                                ToastConfig.showToast(
+                                                    context: context,
+                                                    msg: "Failed to add Task ",
+                                                    toastStates:
+                                                        ToastStates.Warning);
+                                              }
+
                                               Navigator.pop(context);
                                             } else {
                                               ToastConfig.showToast(
@@ -209,7 +226,6 @@ class AddTaskScreen extends StatelessWidget {
                                                 toastStates: ToastStates.Error,
                                               );
                                             }
-
                                           },
                                         ),
                                       ],
@@ -233,29 +249,19 @@ class AddTaskScreen extends StatelessWidget {
   }
 
   Future<void> _addNewTask(BuildContext context) async {
+    if (taskTime.isEmpty) {
+      taskTime = "00:00:00";
+    }
+    if(deadline.text.length<=10) {
+      deadline.text += taskTime;
+    }
     TaskModel task = TaskModel(
         description: description.text,
         title: title.text,
         committeeName: committee.text,
         isFinished: false,
-        id:generateRandomDocId(),
+        id: generateRandomDocId(),
         deadLine: deadline.text);
     await context.read<AddTaskProvider>().addTask(task);
-    if (context
-        .read<AddTaskProvider>()
-        .isAdded) {
-      ToastConfig.showToast(
-          context: context,
-          msg:
-          "Added task successfully",
-          toastStates:
-          ToastStates.Success);
-    } else {
-      ToastConfig.showToast(
-          context: context,
-          msg: "Failed to add Task ",
-          toastStates:
-          ToastStates.Warning);
-    }
   }
 }

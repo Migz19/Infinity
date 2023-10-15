@@ -6,6 +6,7 @@ class AddMemberProvider extends ChangeNotifier{
  FirebaseHelper  _firebaseHelper=FirebaseHelper();
  bool? isLoading;
  bool isAdded=false;
+ String addMemberMsg="";
  String? committee;
  String?role;
  bool isAdmin=false;
@@ -17,7 +18,10 @@ class AddMemberProvider extends ChangeNotifier{
      isAdmin=true;
    }
 
-   isAdded =await _firebaseHelper.userRegister(userModel,isAdmin);
+   await _firebaseHelper.userRegister(userModel,isAdmin).then((value) {
+     isAdded=value.entries.first.key;
+     addMemberMsg=value.entries.first.value;
+   });
 
    isLoading=false;
    notifyListeners();

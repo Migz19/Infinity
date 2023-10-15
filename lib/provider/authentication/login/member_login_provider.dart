@@ -23,9 +23,11 @@ class MemberLoginProvider extends ChangeNotifier {
              userModel=FirebaseHelper().userModel;
             isLogin = true;
           if(isSelected){
-            await CacheHelper.setData(key: "loginType", value: 'member');
+            await CacheHelper.clear();
+            await CacheHelper.setData(key: "loginType", value: 2);
             await CacheHelper.setData(key: "email", value: userModel!.email);
             await CacheHelper.setData(key: "password", value: userModel!.password);
+            print('00000000000000000  '+CacheHelper.getData(key: 'email').toString());
           }
           }
         catch(error){

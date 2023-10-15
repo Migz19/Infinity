@@ -1,9 +1,9 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/data/remote/helpers/firebase_storage_handler.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/models/post/post_model.dart';
@@ -24,7 +24,7 @@ class FirebaseHelper {
     return _firebaseHelper!;
   }
 
-  Future<bool> userRegister(UserModel user, bool isAdmin) async {
+  Future<Map<bool,String>> userRegister(UserModel user, bool isAdmin) async {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
             email: user.email, password: user.password)
@@ -36,35 +36,32 @@ class FirebaseHelper {
         return _createUser(user, value.user!.uid);
       }
     });
-    return false;
+    return {false:"None"};
   }
 
-  Future<bool> _createUser(UserModel user, String uId) async {
+  Future<Map<bool,String>> _createUser(UserModel user, String uId) async {
     user.id = uId;
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uId)
-          .set(user.toJson())
-          .then((value) {
-        print("User added  $uId");
-      });
-      await FirebaseFirestore.instance
-          .collection("committees")
-          .doc(user.committee)
-          .update({
-        "members_ids": FieldValue.arrayUnion([user.id])
-      }).then((value) {
-        return true;
+          .set(user.toJson()).then((value) async {
+        await FirebaseFirestore.instance
+            .collection("committees")
+            .doc(user.committee)
+            .update({
+          "members_ids": FieldValue.arrayUnion([user.id])
+        }).then((value) {
+          return {true: "Member added"};
+        });
       });
     } catch (error) {
-      print(error);
-      return false;
+      return {false:error.toString()} ;
     }
-    return false;
+    return {false:"None"};
   }
 
-  Future<bool> _createAdmin(UserModel user, String uId) async {
+  Future<Map<bool,String>> _createAdmin(UserModel user, String uId) async {
     user.id = uId;
     try {
       await FirebaseFirestore.instance
@@ -72,14 +69,12 @@ class FirebaseHelper {
           .doc(uId)
           .set(user.toJson())
           .then((value) {
-        print("Admin added  $uId");
-        return true;
+        return {true:"Admin added"};
       });
     } catch (error) {
-      print(error);
-      return false;
+      return {false:error.toString()} ;
     }
-    return false;
+    return {false:"None"};
   }
 
   UserModel? userModel;
@@ -214,12 +209,26 @@ class FirebaseHelper {
       return querySnapshot.docs.toList();
     });
   }
-  Future<bool>addItem({required String collectionPath,required Map<String,dynamic>data,required String docId})async{
+  Future<bool>addTask({required String committee,required String collectionPath,required Map<String,dynamic>data,required String docId})async{
     try{
       await FirebaseFirestore.instance.collection(collectionPath).doc(docId).set(data);
+      await FirebaseFirestore.instance.collection("committees").doc(committee).update(
+          {
+            'tasks_ids': FieldValue.arrayUnion([docId])
+          });
       return true;
     }catch(error){
       return false;
     }
+  }
+  Future<DocumentSnapshot<Map<String, dynamic>>> getItem(
+      String collectionPath,String docID) async {
+    return await FirebaseFirestore.instance
+        .collection(collectionPath)
+    .doc(docID)
+        .get()
+        .then((docSnapshot) {
+      return docSnapshot;
+    });
   }
 }

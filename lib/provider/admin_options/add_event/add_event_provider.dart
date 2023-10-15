@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/data/remote/helpers/event_handler.dart';

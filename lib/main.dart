@@ -1,9 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:infinity/data/local/cache_helper.dart';
-import 'package:infinity/data/remote/helpers/fcm_token.dart';
 import 'package:infinity/provider/admin_options/add_event/add_event_provider.dart';
 import 'package:infinity/provider/admin_options/add_member/add_member_provider.dart';
 import 'package:infinity/provider/admin_options/add_post/add_post_provider.dart';
@@ -16,6 +13,7 @@ import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
 import 'package:infinity/provider/notifications/notification_provider.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
+import 'package:infinity/provider/tasks/TasksProvider.dart';
 import 'package:infinity/src/app_root.dart';
 import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:provider/provider.dart';
@@ -63,8 +61,13 @@ void main() async {
           ChangeNotifierProvider<EventsProvider>(
             create: (_) => EventsProvider(),
           ),
-          ChangeNotifierProvider<AddTaskProvider>(
+          ChangeNotifierProvider<
+              AddTaskProvider>(
             create: (_) => AddTaskProvider(),
+          ),
+          ChangeNotifierProvider<
+                TasksProvider>(
+            create: (_) => TasksProvider(),
           ),
           ChangeNotifierProvider<CommitteeDetailsProvider>(create:(_) =>CommitteeDetailsProvider()),
         ],

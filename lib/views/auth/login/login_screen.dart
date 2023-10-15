@@ -4,6 +4,7 @@ import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/authentication/login/admin_login_provider.dart';
 import 'package:infinity/provider/authentication/login/member_login_provider.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
+import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_color.dart';
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         if (context
                                             .read<LoginTypeProvider>()
-                                            .isAdmin)
+                                            .loginType==1)
                                           Container(
                                             width: context.width * 0.6,
                                             child: Text(
@@ -106,9 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   color: Colors.white),
                                             ),
                                           ),
-                                        if (!context
+                                        if (context
                                             .read<LoginTypeProvider>()
-                                            .isAdmin)
+                                            .loginType==2)
                                           Container(
                                             width: context.width * 0.6,
                                             child: const Text(
@@ -137,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               return null;
                                             },
                                             textEditingController: email,
-                                            hint: " enter email",
+                                            hint: "Enter email",
                                             label: "email"),
                                         CustomTextFromField(
                                             obscureText: hidePassword,
@@ -165,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               return null;
                                             },
                                             textEditingController: password,
-                                            hint: "enter password",
+                                            hint: "Enter password",
                                             label: "password"),
                                         Row(
                                           children: [
@@ -191,23 +192,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
-                                            const Spacer(),
-                                            Text(
-                                              "Forgot password",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: AppColor.primary,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                            ),
                                           ],
                                         ),
                                         CustomTypeButton(
                                           text: "Login Now",
                                           isLoading: context
                                                   .read<LoginTypeProvider>()
-                                                  .isAdmin
+                                                  .loginType==1
                                               ? context
                                                   .watch<AdminLoginProvider>()
                                                   .isLoading
@@ -218,19 +209,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                           onTap: () async {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              if (context.read<LoginTypeProvider>().isAdmin) {
+                                              if (context.read<LoginTypeProvider>().loginType==1) {
                                                 await context.read<AdminLoginProvider>().loginAdmin(
                                                         email: email.text,
                                                         password: password.text,
                                                         isSelected: isSelected);
                                                 if (!mounted) return;
                                                 if (context.read<AdminLoginProvider>().isLogin) {
-                                                  Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            NavigationScreen(),
-                                                      ));
+                                                 AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
                                                   ToastConfig.showToast(
                                                     context: context,
                                                     msg:
@@ -255,12 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 if(mounted) {
                                                   if (context
                                                       .read<MemberLoginProvider>().isLogin) {
-                                                    Navigator.pushReplacement(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              NavigationScreen(),
-                                                        ));
+                                                   AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
                                                     ToastConfig.showToast(
                                                       context: context,
                                                       msg:

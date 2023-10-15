@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/data/remote/firebase_helper.dart';
 import 'package:infinity/models/user/user_model.dart';
+import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/provider/profile/profile_provider.dart';
 import 'package:infinity/views/onboarding/welcome_screen.dart';
 import 'package:infinity/widgets/custom_type_button.dart';
@@ -24,162 +24,167 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    fetchUserData().then((value) {
-      setState(() {
+    if (context.read<LoginTypeProvider>().loginType != 3) {
+      print("-------------->");
+      fetchUserData().then((value) {
         widget.currentUser = context.read<ProfileProvider>().currentUser;
       });
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: context.watch<ProfileProvider>().isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : context.read<ProfileProvider>().currentUser != null
-              ? Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColor.primary.withOpacity(0.8),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(
-                              MediaQuery.of(context).size.height * 0.5),
-                          bottomRight: Radius.circular(
-                              MediaQuery.of(context).size.height * 0.5),
-                        ),
-                      ),
+      body: context.watch<LoginTypeProvider>().loginType != 3
+          ?isLoading? Container(height: context.height*0.01,width: context.width*0.01,child: CircularProgressIndicator(
+        color: AppColor.primary,
+      ),):Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColor.primary.withOpacity(0.8),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(
+                          MediaQuery.of(context).size.height * 0.5),
+                      bottomRight: Radius.circular(
+                          MediaQuery.of(context).size.height * 0.5),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: context.height * 0.2,
-                          left: context.width * 0.35,
-                          right: context.width * 0.3),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Stack(children: [
-                              CircleAvatar(
-                                backgroundColor: AppColor.primary,
-                                radius: 70,
-                                child: ClipOval(
-                                  child: SizedBox(
-                                    height: 140,
-                                      width: 140,
-                                      child: widget.currentUser!.photo != null &&
-                                              widget
-                                                  .currentUser!.photo!.isNotEmpty
-                                          ? CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                              imageUrl:
-                                                  widget.currentUser!.photo!)
-                                          : Image.asset(AppAssets.logo,fit: BoxFit.cover,)),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 5,
-                                right: 12,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _displayPickImageDialogue(context);
-                                    setState(() {
-                                      widget.currentUser = context.read<ProfileProvider>().currentUser;
-                                    });
-                                  },
-                                  child: const CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 15,
-                                    child: Icon(Icons.edit, size: 18),
-                                  ),
-                                ),
-                              )
-                            ]),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                widget.currentUser!.username,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 20),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: context.height * 0.2,
+                      left: context.width * 0.35,
+                      right: context.width * 0.3),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Stack(children: [
+                          CircleAvatar(
+                            backgroundColor: AppColor.primary,
+                            radius: 70,
+                            child: ClipOval(
+                              child: SizedBox(
+                                  height: 140,
+                                  width: 140,
+                                  child: widget.currentUser?.photo != null &&
+                                          widget.currentUser!.photo!.isNotEmpty
+                                      ? CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: widget.currentUser!.photo!)
+                                      : Image.asset(
+                                          AppAssets.logo,
+                                          color: Colors.white,
+                                          fit: BoxFit.cover,
+                                        )),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 5,
+                            right: 12,
+                            child: GestureDetector(
+                              onTap: () {
+                                _displayPickImageDialogue(context);
+                                setState(() {
+                                  widget.currentUser = context
+                                      .read<ProfileProvider>()
+                                      .currentUser;
+                                });
+                              },
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 15,
+                                child: Icon(Icons.edit, size: 18),
                               ),
                             ),
-                            Text(
-                              widget.currentUser!.email,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 20),
-                            ),
-                            CustomTypeButton(
-                              text: "Log out",
-                              width: 90,
-                              buttonColor: AppColor.primary.withOpacity(0.7),
-                              textColor: Colors.white,
-                              onTap: () async{
-                                await context.read<ProfileProvider>().logout();
-                                if(mounted) {
-                                  AppNavigator.customNavigator(
+                          )
+                        ]),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            widget.currentUser!.username,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 20),
+                          ),
+                        ),
+                        Text(
+                          widget.currentUser!.email,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                        CustomTypeButton(
+                          text: "Log out",
+                          width: 90,
+                          buttonColor: AppColor.primary.withOpacity(0.7),
+                          textColor: Colors.white,
+                          onTap: () async {
+                            await context.read<ProfileProvider>().logout();
+                            if (mounted) {
+                              AppNavigator.customNavigator(
+                                  context: context,
+                                  screen: WelcomeScreen(),
+                                  finish: true);
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Stack(
+              children: [
+                Container(
+                  height: context.height,
+                  width: context.width,
+                  color: Colors.white,
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        size: 100,
+                        Icons.lock,
+                        color: AppColor.primary,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        color: AppColor.primary,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              await context.read<ProfileProvider>().logout();
+                              if (mounted) {
+                                AppNavigator.customNavigator(
                                     context: context,
                                     screen: WelcomeScreen(),
                                     finish: true);
-                                }
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Stack(
-                  children: [
-                    Container(
-                      height: context.height,
-                      width: context.width,
-                      color: Colors.white,
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            size: 100,
-                            Icons.lock,
-                            color: AppColor.primary,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            color: AppColor.primary,
-                            child: ElevatedButton(
-                                onPressed: () async{
-                                  await context.read<ProfileProvider>().logout();
-                                  if(mounted) {
-                                    AppNavigator.customNavigator(
-                                        context: context,
-                                        screen: WelcomeScreen(),
-                                        finish: true);
-                                  }
-                                },
-                                child: const Text(
-                                  "Login required \n Press to login",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      wordSpacing: 3,
-                                      height: 1.4),
-                                )),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                              }
+                            },
+                            child: const Text(
+                              "Login required \n Press to login",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  wordSpacing: 3,
+                                  height: 1.4),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
+              ],
+            ),
     );
   }
 
@@ -204,11 +209,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: ()async {
+                          onPressed: () async {
                             await context
                                 .read<ProfileProvider>()
                                 .uploadImage("camera");
-                            if(mounted) {
+                            if (mounted) {
                               Navigator.pop(context);
                             }
                           },
@@ -227,11 +232,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: () async{
-                           await context
+                          onPressed: () async {
+                            await context
                                 .read<ProfileProvider>()
                                 .uploadImage("gallery");
-                            if(mounted) {
+                            if (mounted) {
                               Navigator.pop(context);
                             }
                           },
@@ -253,8 +258,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
-  Future<UserModel?> fetchUserData() async {
-    return await context.read<ProfileProvider>().getUserData();
-  }
+  bool isLoading = false;
 
+  Future<UserModel?> fetchUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    UserModel? model =await context
+        .read<ProfileProvider>()
+        .getUserData(context.read<LoginTypeProvider>().loginType);
+    setState(() {
+      isLoading = false;
+    });
+    return model;
+  }
 }

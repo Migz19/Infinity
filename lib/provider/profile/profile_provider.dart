@@ -15,29 +15,26 @@ class ProfileProvider extends ChangeNotifier {
   File? profImg;
    UserModel? currentUser;
 
-  Future<UserModel?> getUserData() async {
-    isLoading=true;
-    notifyListeners();
+  Future<UserModel?> getUserData(int loginType) async {
     if (FirebaseAuth.instance.currentUser != null) {
+
      await FirebaseHelper().getUserData(
           UId: FirebaseAuth.instance.currentUser!.uid,
           collectionName:
-          FirebaseHelper().admin.isEmpty ? "users" : "admin");
+          loginType==2 ? "users" : "admin");
 
      currentUser = FirebaseHelper().userModel;
     }
 
-    isLoading=false;
 
-    notifyListeners();
     return currentUser;
   }
 
   Future<void> logout() async {
-    isLoading = true;
     notifyListeners();
     CacheHelper.clear();
     await FirebaseHelper().userLogOut();
+    currentUser=null;
     isLoading = false;
     notifyListeners();
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
+import 'package:infinity/views/navigation/navigation_screen.dart';
+import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 import '../../views/auth/login/login_screen.dart';
@@ -42,7 +44,7 @@ class WelcomeBottomSheet extends StatelessWidget {
               textColor: Colors.white,
               buttonColor:AppColor.primary.withOpacity(0.7),
               onTap: () async {
-                context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
+                context.read<LoginTypeProvider>().setLoginType(loginType: 1);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
               },),
             CustomTypeButton(
@@ -52,8 +54,17 @@ class WelcomeBottomSheet extends StatelessWidget {
               buttonColor:AppColor.primary.withOpacity(0.7),
 
               onTap: () async {
-                context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                context.read<LoginTypeProvider>().setLoginType(loginType: 2);
+                AppNavigator.customNavigator(context: context, screen: LoginScreen(), finish: true);
+              },),
+            CustomTypeButton(
+              text: "Visitor",
+              isLoading: false,
+              textColor: Colors.white,
+              buttonColor:AppColor.primary.withOpacity(0.7),
+              onTap: () async {
+                context.read<LoginTypeProvider>().setLoginType(loginType: 3);
+                AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
               },),
           ],
         ),

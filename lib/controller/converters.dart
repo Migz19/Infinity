@@ -53,3 +53,8 @@ String convertDateToString(DateTime date, bool isDayOnly){
     return months[month-1];
   }
 
+
+String getDateInSpecialFormat(String formattedString){
+  var date = DateTime.parse(formattedString);
+  return  "${date.day} ${getDateFromNum(date.month)}";
+}

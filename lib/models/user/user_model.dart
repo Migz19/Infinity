@@ -39,7 +39,7 @@ class UserModel {
     data['phone_number'] = this.phoneNumber;
     data['email'] = this.email;
     data['role'] = this.role;
-    data['photo'] = this.photo;
+    data['photo'] = this.photo??'';
     data['password'] = this.password;
     return data;
   }

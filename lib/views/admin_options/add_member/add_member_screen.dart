@@ -197,10 +197,19 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               addNewMember();
-                                              ToastConfig.showToast(
+                                              if(context.read<AddMemberProvider>().isAdded) {
+                                                ToastConfig.showToast(
                                                   context: context,
                                                   msg: "Add member successfully",
                                                   toastStates: ToastStates.Success);
+                                                Navigator.pop(context);
+                                              }
+                                              else{
+                                                ToastConfig.showToast(
+                                                    context: context,
+                                                    msg: context.read<AddMemberProvider>().addMemberMsg,
+                                                    toastStates: ToastStates.Error);
+                                              }
 
                                             } else {
                                               ToastConfig.showToast(

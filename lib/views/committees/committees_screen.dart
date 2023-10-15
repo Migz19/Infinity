@@ -45,7 +45,7 @@ class CommitteeScreen extends StatelessWidget {
                                 onTap: () {
                                   AppNavigator.customNavigator(
                                       context: context,
-                                      screen: DetailsCommitteeScreen(
+                                      screen: CommitteeDetailsScreen(
                                         committeeModel: data,
                                       ),
                                       finish: false);

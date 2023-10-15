@@ -1,13 +1,16 @@
 import 'package:flutter/widgets.dart';
 
 class LoginTypeProvider extends ChangeNotifier {
-  bool isAdmin = false;
+  // Visitor =3
+  // Admin =1
+  // Member =2
+  int loginType = 3;
   bool ?isLoading;
 
-  void setISAdmin({required bool isAdmin}) {
+  void setLoginType({required int loginType}) {
     isLoading=true;
     notifyListeners();
-    this.isAdmin = isAdmin;
+    this.loginType = loginType;
     isLoading=false;
     notifyListeners();
   }

@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:infinity/controller/random_id_generator.dart';
 import 'package:infinity/data/remote/notification_helper/notification_helper.dart';
 import 'package:infinity/models/event/event_model.dart';
 
-import '../../../core/utils/app_assets.dart';
+import '../../../core/utils/app_constants.dart';
 import '../firebase_helper.dart';
 import 'firebase_storage_handler.dart';
-import '../../../core/utils/app_constants.dart';
-import 'package:http/http.dart' as http;
 
 class EventsHandler {
 

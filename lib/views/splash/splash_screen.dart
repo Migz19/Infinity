@@ -4,6 +4,7 @@ import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/data/local/cache_helper.dart';
 import 'package:infinity/provider/login_type/login_type_provider.dart';
 import 'package:infinity/views/navigation/navigation_screen.dart';
+import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/utils/app_assets.dart';
@@ -15,15 +16,16 @@ class SplashScreen extends StatefulWidget  {
 }
 
 class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixin {
-  String? loginType;
+  int? loginType;
   @override
   void initState() {
     super.initState();
-     init();
+   //  init();
   }
 
   Future<void>init() async {
-    loginType=await CacheHelper.getData(key: "loginType");
+      loginType=await CacheHelper.getData(key: "loginType");
+
   }
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 4000),
@@ -58,26 +60,30 @@ class _SplashScreenState extends State<SplashScreen>with TickerProviderStateMixi
     // Start Animation of logo
     await _logoController.forward();
     await Future.delayed(const Duration(seconds: 1));
-    if(loginType==null)
-      {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationScreen(),));
-      }
-    else
-      {
+    loginType = await CacheHelper.getData(key: 'loginType')??3;
+    print("Login type--> ${loginType}");
+    if(loginType!=3) {
+      // if (loginType == null) {
+      //   Navigator.pushReplacement(context,
+      //       MaterialPageRoute(builder: (context) => NavigationScreen(),));
+      // }
+      // else {
         if (!mounted) {
           return;
         }
-        if(loginType=='admin') {
-          context.read<LoginTypeProvider>().setISAdmin(isAdmin: true);
+        if (loginType == 1) {
+          context.read<LoginTypeProvider>().setLoginType(loginType: 1);
         }
-        if(loginType=='member') {
-          context.read<LoginTypeProvider>().setISAdmin(isAdmin: false);
+        if (loginType == 2) {
+          context.read<LoginTypeProvider>().setLoginType(loginType: 2);
         }
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) =>  NavigationScreen(),));
-
-      }
-
+        AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
+    //  }
+    }
+    else{
+      context.read<LoginTypeProvider>().setLoginType(loginType: 3);
+      AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
+    }
   }
   @override
   Widget build(BuildContext context) {

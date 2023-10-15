@@ -31,9 +31,11 @@ class AdminLoginProvider extends ChangeNotifier {
           if (email == emailAdmin && password == passwordAdmin) {
             isLogin = true;
             if (isSelected) {
-              await CacheHelper.setData(key: "loginType", value: 'admin');
+              await CacheHelper.clear();
+              await CacheHelper.setData(key: "loginType", value: 1);
               await CacheHelper.setData(key: "email", value: email);
               await CacheHelper.setData(key: "password", value: password);
+
             }
             print("Login Admin success");
           } else {

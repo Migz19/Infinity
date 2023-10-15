@@ -317,8 +317,4 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<EventModel>> getUpcomingEvents() async {
     return await context.read<EventsProvider>().getUpcomingEvents();
   }
-  String getDateInSpecialFormat(String formattedString){
-    var date = DateTime.parse(formattedString);
-    return  "${date.day} ${getDateFromNum(date.month)}";
-  }
 }

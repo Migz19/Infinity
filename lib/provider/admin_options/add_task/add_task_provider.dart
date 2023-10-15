@@ -9,7 +9,10 @@ class AddTaskProvider extends ChangeNotifier{
   Future<void>addTask(TaskModel taskModel)async{
     isLoading=true;
     notifyListeners();
-    isAdded =await FirebaseHelper().addItem(collectionPath: 'tasks', data: taskModel.toJson(),docId: taskModel.id);
+    if (DateTime.parse(taskModel.deadLine).isBefore(DateTime.now())) {
+      taskModel.isFinished=true;
+    }
+    isAdded =await FirebaseHelper().addTask(collectionPath: 'tasks',committee:taskModel.committeeName, data: taskModel.toJson(),docId: taskModel.id);
     isLoading =false;
     notifyListeners();
   }
