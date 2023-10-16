@@ -31,7 +31,11 @@ class MemberLoginProvider extends ChangeNotifier {
           }
           }
         catch(error){
+          isLogin=false;
           print("Login FireStore Member Error: ${error}");
+          isLoading = false;
+          notifyListeners();
+          return;
         }
 
       });
@@ -39,6 +43,7 @@ class MemberLoginProvider extends ChangeNotifier {
       notifyListeners();
     }catch(error)
     {
+      isLogin=false;
       print("Login Auth Member Error: ${error}");
       isLoading = false;
       notifyListeners();

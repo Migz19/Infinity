@@ -26,19 +26,19 @@ class TaskItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 30.0, bottom: 15, right: 10, left: 20),
+                    top: 30.0, bottom: 15, right: 140, left: 20),
                 child: Text(
                   task.title,
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 9),
                 decoration: BoxDecoration(
                     borderRadius:
                     BorderRadius.circular(10),
-                    color: AppColor.second
-                        .withOpacity(0.4)),
+                    color: AppColor.tertiary
+                        .withOpacity(0.7)),
                 alignment: Alignment.center,
                 width: 60,
                 height: 50,
@@ -46,7 +46,7 @@ class TaskItem extends StatelessWidget {
                   getDateInSpecialFormat(task.deadLine),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 17,
                     fontFamily: 'Actor',
                     fontWeight: FontWeight.w400,
 
@@ -58,9 +58,11 @@ class TaskItem extends StatelessWidget {
           ),
           Padding(
             padding:
-                const EdgeInsets.only(top: 5, bottom: 15, right: 10, left: 20),
+                const EdgeInsets.only(top: 5, bottom: 10, right: 10, left: 20),
             child: Text(
               task.description,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
               style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
             ),
           ),

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/tasks/TasksProvider.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
-//import 'package:infinity/views/tasks/task_details_screen.dart';
-import 'package:infinity/widgets/naviagtion.dart';
 import 'package:infinity/widgets/task/task_item.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +24,10 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("${widget.committee.name} committeee tasks"),
+        backgroundColor: AppColor.primary,
+      ),
       body: FutureBuilder<List<TaskModel>>(
         future: fetchTasks(),
         builder: (context, snapshot) {
@@ -33,46 +35,43 @@ class _TasksScreenState extends State<TasksScreen> {
             print("/////// connection is ok}");
             if (snapshot.hasData) {
               print("///////${snapshot.hasData}");
-              return SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    children: List.generate(
+              return Container(
+                alignment: Alignment.center,
+                height: context.height*0.9,
+                width: context.width*0.9,
+                padding: EdgeInsets.only(top: 30,left: 40,bottom: 10),
+                child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount:
                       context.read<TasksProvider>().committeeTasks.length,
-                      (index) => GestureDetector(
-                        child: TaskItem(
-                          task:context.read<TasksProvider>().committeeTasks[index],
-                        ),
-                        onTap: () {
-                          // AppNavigator.customNavigator(
-                          //   context: context,
-                          //   screen: TaskDetailsScreen(
-                          //     taskModel: context.read<TasksProvider>().committeeTasks[index],
-                          //   ),
-                          //   finish: false,
-                          // );
-                        },
-                      ),
-                    ),
-                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return TaskItem(
+                      task: context
+                          .read<TasksProvider>()
+                          .committeeTasks[index],
+                    );
+                  },
                 ),
               );
-            }else  {
+            } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(AppAssets.notFoundIcon,width: context.width*0.3),
-                  SizedBox(height: context.height*0.1,),
+                  Image.asset(AppAssets.notFoundIcon,
+                      width: context.width * 0.3),
+                  SizedBox(
+                    height: context.height * 0.1,
+                  ),
                   Text(
                     AppConstants.noDataCheckConnection,
-
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColor.second,fontSize:20),
+                    style: TextStyle(color: AppColor.second, fontSize: 20),
                   ),
                 ],
               );
             }
-          }else {
+          } else {
             return Center(
               child: CircularProgressIndicator(color: AppColor.primary),
             );
@@ -84,6 +83,8 @@ class _TasksScreenState extends State<TasksScreen> {
 
   Future<List<TaskModel>> fetchTasks() async {
     print(widget.committee.tasksIds);
-    return await context.read<TasksProvider>().fetchCommitteeTasks(widget.committee);
+    return await context
+        .read<TasksProvider>()
+        .fetchCommitteeTasks(widget.committee);
   }
 }

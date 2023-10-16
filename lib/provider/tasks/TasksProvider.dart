@@ -10,22 +10,22 @@ class TasksProvider extends ChangeNotifier {
 
 
   Future<List<TaskModel>> fetchCommitteeTasks(CommitteeModel committee) async {
-    for (var id in committee.tasksIds) {
-      print("239042038432    -> " + id);
-      TaskModel? taskModel;
-      try {
-        await FirebaseHelper()
-            .getItem('tasks', id)
-            .then((value) {
-          print("239042038432    ->" + value.toString());
-          taskModel = TaskModel.fromJson(json: value);
-        });
-      } catch (error) {
-        print(error);
+    if(committeeTasks.isEmpty) {
+      for (var id in committee.tasksIds) {
+        TaskModel? taskModel;
+        try {
+          await FirebaseHelper()
+              .getItem('tasks', id)
+              .then((value) {
+            print("239042038432    ->" + value.toString());
+            taskModel = TaskModel.fromJson(json: value);
+          });
+        } catch (error) {
+          print(error);
+        }
+        committeeTasks.add(taskModel!);
       }
-      committeeTasks.add(taskModel!);
     }
-    print('239042038432    ->${committeeTasks.length}');
     notifyListeners();
     return committeeTasks;
   }

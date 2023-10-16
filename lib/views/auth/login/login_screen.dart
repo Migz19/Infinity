@@ -216,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         isSelected: isSelected);
                                                 if (!mounted) return;
                                                 if (context.read<AdminLoginProvider>().isLogin) {
-                                                 AppNavigator.customNavigator(context: context, screen: NavigationScreen(), finish: true);
+                                                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => NavigationScreen(),), (route) => false);
                                                   ToastConfig.showToast(
                                                     context: context,
                                                     msg:

@@ -45,7 +45,7 @@ class WelcomeBottomSheet extends StatelessWidget {
               buttonColor:AppColor.primary.withOpacity(0.7),
               onTap: () async {
                 context.read<LoginTypeProvider>().setLoginType(loginType: 1);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
               },),
             CustomTypeButton(
               text: "Member",
@@ -55,7 +55,7 @@ class WelcomeBottomSheet extends StatelessWidget {
 
               onTap: () async {
                 context.read<LoginTypeProvider>().setLoginType(loginType: 2);
-                AppNavigator.customNavigator(context: context, screen: LoginScreen(), finish: true);
+                AppNavigator.customNavigator(context: context, screen: LoginScreen(), finish: false);
               },),
             CustomTypeButton(
               text: "Visitor",

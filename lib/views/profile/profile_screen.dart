@@ -26,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     if (context.read<LoginTypeProvider>().loginType != 3) {
-      print("-------------->");
       fetchUserData().then((value) {
         widget.currentUser = context.read<ProfileProvider>().currentUser;
       });
@@ -37,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: context.watch<LoginTypeProvider>().loginType != 3
+      body: context.watch<LoginTypeProvider>().loginType != 3 &&widget.currentUser!=null
           ?isLoading? Container(height: context.height*0.01,width: context.width*0.01,child: CircularProgressIndicator(
         color: AppColor.primary,
       ),):Stack(
@@ -193,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ]),
                        const  SizedBox(height: 16,),
                         Text(
-                          "You Must Know you are login as visitor"*20,
+                          "You are here as a visitor \n break the limits and join us at INFINITY",style: TextStyle(fontSize: 25,color: AppColor.primary,fontWeight: FontWeight.bold),textAlign: TextAlign.center,
                         ),
                         CustomTypeButton(
                           text: "Login Now",
