@@ -21,31 +21,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     return Consumer<NavigatorProvider>(
       builder: (context, provider, _) => Scaffold(
-        appBar: AppBar(
-          shadowColor: Colors.black38,
-          title: Text(
-            context
-                .watch<NavigatorProvider>()
-                .screenTitles[context.read<NavigatorProvider>().currentIndex],
-            textAlign: TextAlign.start,
-            style:
-                TextStyle(fontWeight: FontWeight.w500, color: AppColor.primary),
-          ),
-          toolbarHeight: context.height * 0.08,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Image.asset(
-                AppAssets.logo,
-                width: 100,
-                height: 100,
-                alignment: Alignment.topRight,
-              ),
-            ),
-          ],
-          elevation: 3,
-          backgroundColor: Colors.white,
-        ),
         body: provider.screens[provider.currentIndex],
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(

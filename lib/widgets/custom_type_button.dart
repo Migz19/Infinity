@@ -4,7 +4,7 @@ import 'package:infinity/core/utils/media_query.dart';
 import '../core/utils/app_color.dart';
 
 class CustomTypeButton extends StatelessWidget {
-  CustomTypeButton({Key? key, this.onTap, required this.text,
+  CustomTypeButton({Key? key, this.onTap, required this.text,this.radius,
   this.buttonColor,this.textColor=Colors.white,this.width, this.isLoading}) : super(key: key);
   final void Function()? onTap;
   final String text;
@@ -12,6 +12,7 @@ class CustomTypeButton extends StatelessWidget {
   Color ?textColor;
   double ?width;
   bool  ? isLoading=false;
+  double ?radius;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,7 +25,7 @@ class CustomTypeButton extends StatelessWidget {
         decoration: BoxDecoration(
            //border: Border.all(0),
           border: Border.all(color: Colors.white,width: 2),
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(radius??5),
           color:buttonColor==null?AppColor.primary:
           buttonColor,
         ),

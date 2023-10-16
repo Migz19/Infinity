@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
 import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
+import 'package:infinity/provider/navigator/navigator_provider.dart';
 import 'package:infinity/views/committees/details_committess_screen.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
 import 'package:infinity/views/committees/providers/committee_details_provider.dart';
@@ -17,6 +18,31 @@ class CommitteeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.black38,
+        title: Text(
+          context
+              .watch<NavigatorProvider>()
+              .screenTitles[context.read<NavigatorProvider>().currentIndex],
+          textAlign: TextAlign.start,
+          style:
+          TextStyle(fontWeight: FontWeight.w500, color: AppColor.primary),
+        ),
+        toolbarHeight: context.height * 0.08,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Image.asset(
+              AppAssets.logo,
+              width: 100,
+              height: 100,
+              alignment: Alignment.topRight,
+            ),
+          ),
+        ],
+        elevation: 3,
+        backgroundColor: Colors.white,
+      ),
       backgroundColor: Colors.white,
       body: FutureBuilder<void>(
         future: getCommitteesDetails(context),

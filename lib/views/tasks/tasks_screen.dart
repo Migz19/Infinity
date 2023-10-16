@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/provider/tasks/TasksProvider.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
-import 'package:infinity/views/tasks/task_details_screen.dart';
+//import 'package:infinity/views/tasks/task_details_screen.dart';
 import 'package:infinity/widgets/naviagtion.dart';
 import 'package:infinity/widgets/task/task_item.dart';
 import 'package:provider/provider.dart';
@@ -43,13 +43,13 @@ class _TasksScreenState extends State<TasksScreen> {
                           task:context.read<TasksProvider>().committeeTasks[index],
                         ),
                         onTap: () {
-                          AppNavigator.customNavigator(
-                            context: context,
-                            screen: TaskDetailsScreen(
-                              taskModel: context.read<TasksProvider>().committeeTasks[index],
-                            ),
-                            finish: false,
-                          );
+                          // AppNavigator.customNavigator(
+                          //   context: context,
+                          //   screen: TaskDetailsScreen(
+                          //     taskModel: context.read<TasksProvider>().committeeTasks[index],
+                          //   ),
+                          //   finish: false,
+                          // );
                         },
                       ),
                     ),

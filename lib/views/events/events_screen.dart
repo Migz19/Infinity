@@ -15,7 +15,7 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   List<EventModel> eventsList = [];
-@override
+  @override
   void initState() {
     super.initState();
     getAllEvents();
@@ -29,7 +29,7 @@ class _EventScreenState extends State<EventScreen> {
           "Events",
           textAlign: TextAlign.start,
           style:
-              TextStyle(fontWeight: FontWeight.w500, color: AppColor.tertiary),
+          TextStyle(fontWeight: FontWeight.w500, color: AppColor.tertiary),
         ),
         toolbarHeight: 0.0,
         elevation: 0,
