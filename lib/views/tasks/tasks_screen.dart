@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/media_query.dart';
-import 'package:infinity/provider/tasks/TasksProvider.dart';
 import 'package:infinity/views/committees/model/committee_model.dart';
+import 'package:infinity/views/committees/providers/committee_details_provider.dart';
 import 'package:infinity/widgets/task/task_item.dart';
 import 'package:provider/provider.dart';
 
@@ -25,16 +25,14 @@ class _TasksScreenState extends State<TasksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.committee.name} committeee tasks"),
-        backgroundColor: AppColor.primary,
+        title: Text("${widget.committee.name} committeee tasks",style: TextStyle(color: AppColor.primary),),
+        backgroundColor: Colors.white,
       ),
       body: FutureBuilder<List<TaskModel>>(
         future: fetchTasks(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            print("/////// connection is ok}");
             if (snapshot.hasData) {
-              print("///////${snapshot.hasData}");
               return Container(
                 alignment: Alignment.center,
                 height: context.height*0.9,
@@ -43,12 +41,11 @@ class _TasksScreenState extends State<TasksScreen> {
                 child: ListView.builder(
                   physics: AlwaysScrollableScrollPhysics(),
                   itemCount:
-                      context.read<TasksProvider>().committeeTasks.length,
+                      widget.tasksList.length,
+
                   itemBuilder: (BuildContext context, int index) {
                     return TaskItem(
-                      task: context
-                          .read<TasksProvider>()
-                          .committeeTasks[index],
+                      task: widget.tasksList[index],
                     );
                   },
                 ),
@@ -82,9 +79,9 @@ class _TasksScreenState extends State<TasksScreen> {
   }
 
   Future<List<TaskModel>> fetchTasks() async {
-    print(widget.committee.tasksIds);
-    return await context
-        .read<TasksProvider>()
-        .fetchCommitteeTasks(widget.committee);
+    widget.tasksList=   await context
+        .read<CommitteeDetailsProvider>()
+        .getCommitteeTasks(widget.committee);
+     return widget.tasksList;
   }
 }

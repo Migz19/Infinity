@@ -1,0 +1,14 @@
+
+import * as admin from 'firebase-admin';
+admin.initializeApp({
+   credential: admin.credential.applicationDefault()
+});
+exports.downloadFile = httpRequest.onRequest((req, res) => {
+  const bucket = admin.storage().bucket('my_bucket');                   // initialize storage as admin
+  const stream = bucket.file('path/to/file.jpg').createReadStream();    // create stream of the file in bucket
+
+  // pipe stream on 'end' event to the response
+  return stream
+    .on('end', (data: any) => {})
+    .pipie(res);
+});

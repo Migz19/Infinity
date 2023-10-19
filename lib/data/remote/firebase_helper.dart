@@ -221,14 +221,13 @@ class FirebaseHelper {
       return false;
     }
   }
-  Future<DocumentSnapshot<Map<String, dynamic>>> getItem(
-      String collectionPath,String docID) async {
-    return await FirebaseFirestore.instance
-        .collection(collectionPath)
-    .doc(docID)
-        .get()
-        .then((docSnapshot) {
-      return docSnapshot;
-    });
+  Future<List<DocumentSnapshot<Map<String, dynamic>>>> getAllItemsById(
+      String collectionPath,List<String> docsIds) async {
+    List<Future<DocumentSnapshot<Map<String, dynamic>>>>futures=[];
+    for(String docId in docsIds){
+      futures.add(FirebaseFirestore.instance.collection(collectionPath).doc(docId).get());
+    }
+    List<DocumentSnapshot<Map<String,dynamic>>> docs=await Future.wait(futures);
+    return docs;
   }
 }

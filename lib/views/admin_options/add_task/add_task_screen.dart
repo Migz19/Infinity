@@ -196,10 +196,10 @@ class AddTaskScreen extends StatelessWidget {
                                           textColor: Colors.white,
                                           buttonColor:
                                               AppColor.primary.withOpacity(0.7),
-                                          onTap: () {
+                                          onTap: ()async {
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              _addNewTask(context);
+                                              await _addNewTask(context);
                                               if (context
                                                   .read<AddTaskProvider>()
                                                   .isAdded) {

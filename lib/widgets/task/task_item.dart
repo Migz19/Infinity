@@ -93,47 +93,29 @@ class TaskItem extends StatelessWidget {
               ),
             ),
           ):
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-               Container(
-                height: 40,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.amberAccent,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Row(
-                  children: [
-                  Text(
-                      "   Running",
-                      style: TextStyle(color: Colors.black, fontSize: 12),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.running_with_errors,
-                      color: Colors.black,
-                      size: 17,
-                    )
-                  ],
-                ),
+          Container(
+           height: 40,
+           width: 120,
+           decoration: BoxDecoration(
+               color: Colors.amberAccent,
+               borderRadius: BorderRadius.circular(15)),
+           child: Row(
+             children: [
+             Text(
+                 "   Running",
+                 style: TextStyle(color: Colors.black, fontSize: 12),
+               ),
+               SizedBox(
+                 width: 10,
+               ),
+               Icon(
+                 Icons.running_with_errors,
+                 color: Colors.black,
+                 size: 17,
+               )
+             ],
+           ),
               ),
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.black),
-                child: TextButton(
-                    child: Text(
-                      "Finish",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {}),
-              ),
-            ],
-          ),
         ],
       ),
     );
