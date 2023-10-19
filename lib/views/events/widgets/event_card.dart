@@ -6,13 +6,13 @@ import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';
 
 class EventCard extends StatefulWidget {
-  final Color? color;
+  final Color? iconColor;
   final EventModel? event;
 
   const EventCard({
     Key? key,
     // this.text,
-    this.color,
+    this.iconColor,
     required this.event,
   }) : super(key: key);
 
@@ -33,12 +33,12 @@ class _EventCardState extends State<EventCard> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(
           20.0,
         ),
         border: Border.all(
-          color: Colors.grey[300]!,
+          color: Colors.white,
           width: 1.0,
         ),
       ),

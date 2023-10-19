@@ -24,7 +24,6 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   void initState() {
     super.initState();
     _event = widget.event;
-    print("349085098340985934850${_event.id}");
   }
 
   @override
