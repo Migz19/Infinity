@@ -19,13 +19,7 @@ Members receive notifications for new announcements and events.
 ### Firebase Cloud Storage :
 Cloud Storage is used to upload images and files related to announcements and events in addition to user profile images
 
-
-
-### Usage Terms
-
-- You are allowed to use this code for personal projects.
-- Commercial use and distribution are strictly prohibited.
-- For inquiries or permissions beyond these terms, please contact me at [Migz2304@gmail.com].
+[![APK](https://thumbs.dreamstime.com/b/modern-flat-design-apk-file-icon-web-simple-style-217030587.jpg)](https://drive.google.com/drive/u/0/folders/1V7w6rfcpoVNzTWHqa_eFb4oWZsRA5NHO)
 
 ## Screenshots
 <table>
@@ -50,5 +44,11 @@ Cloud Storage is used to upload images and files related to announcements and ev
         </tr>
 </table>
 
+
+### Usage Terms
+
+- You are allowed to use this code for personal projects.
+- Commercial use and distribution are strictly prohibited.
+- For inquiries or permissions beyond these terms, please contact me at [Migz2304@gmail.com].
 
 
