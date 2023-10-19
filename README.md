@@ -29,7 +29,7 @@ Cloud Storage is used to upload images and files related to announcements and ev
 
 ## Screenshots
 
-<img src="/Screenshots/home.jpg" alt="Home" width="70" height="100">
+<img src="/Screenshots/home.jpg" alt="Home" width="150" height="300">
 ![Events Details](/Screenshots/events_details.jpg?width=100){:width="70" height="100"}
 ![Notification](/Screenshots/notification.jpg){:width="70" height="100"}
 ![Admin Panel](/Screenshots/admin_panel.jpg){:width="70" height="100"}
