@@ -29,13 +29,13 @@ Cloud Storage is used to upload images and files related to announcements and ev
 
 ## Screenshots
 
-![Home](/Screenshots/home.jpg)
-![Events Details](/Screenshots/events_details.jpg?width=100)
-![Notification](/Screenshots/notification.jpg)
-![Admin Panel](/Screenshots/admin_panel.jpg)
-![Add Event](/Screenshots/add_event.jpg)
-![Events](/Screenshots/events.jpg)
-![Profile](/Screenshots/profile.jpg)
-![Onboarding](/Screenshots/onboarding.jpg)
+![Home](/Screenshots/home.jpg){:width="70" height="100"}
+![Events Details](/Screenshots/events_details.jpg?width=100){:width="70" height="100"}
+![Notification](/Screenshots/notification.jpg){:width="70" height="100"}
+![Admin Panel](/Screenshots/admin_panel.jpg){:width="70" height="100"}
+![Add Event](/Screenshots/add_event.jpg){:width="70" height="100"}
+![Events](/Screenshots/events.jpg){:width="70" height="100"}
+![Profile](/Screenshots/profile.jpg){:width="70" height="100"}
+![Onboarding](/Screenshots/onboarding.jpg){:width="70" height="100"}
 
 
