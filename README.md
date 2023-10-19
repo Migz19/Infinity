@@ -28,14 +28,31 @@ Cloud Storage is used to upload images and files related to announcements and ev
 - For inquiries or permissions beyond these terms, please contact me at [Migz2304@gmail.com].
 
 ## Screenshots
+<table>
+  <tr>
+    <td><img src="/Screenshots/home.jpg" alt="Home" width="170" height="350"></td>
+        <img src="/Screenshots/events_details.jpg" alt="Events Details" width="170" height="350"></td>
+        </tr>
+</table>
 
-<img src="/Screenshots/home.jpg" alt="Home" width="170" height="350">
-![Events Details](/Screenshots/events_details.jpg?width=100){:width="70" height="100"}
-![Notification](/Screenshots/notification.jpg){:width="70" height="100"}
-![Admin Panel](/Screenshots/admin_panel.jpg){:width="70" height="100"}
-![Add Event](/Screenshots/add_event.jpg){:width="70" height="100"}
-![Events](/Screenshots/events.jpg){:width="70" height="100"}
-![Profile](/Screenshots/profile.jpg){:width="70" height="100"}
-![Onboarding](/Screenshots/onboarding.jpg){:width="70" height="100"}
+<table>
+  <tr>
+    <td><img src="/Screenshots/notification.jpg" alt="Notification" width="170" height="350"></td>
+        <img src="/Screenshots/admin_panel.jpg" alt="Admin Panel" width="170" height="350"></td>
+        </tr>
+</table>
+<table>
+  <tr>
+    <td><img src="/Screenshots/add_event.jpg" alt="Add Event" width="170" height="350"></td>
+        <img src="/Screenshots/events.jpg" alt="Events" width="170" height="350"></td>
+        </tr>
+</table>
+<table>
+  <tr>
+    <td><img src="/Screenshots/profile.jpg" alt="Profile" width="170" height="350"></td>
+        <img src="/Screenshots/onboarding.jpg" alt="Onboarding" width="170" height="350"></td>
+        </tr>
+</table>
+
 
 
