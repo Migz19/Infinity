@@ -31,26 +31,26 @@ Cloud Storage is used to upload images and files related to announcements and ev
 <table>
   <tr>
     <td><img src="/Screenshots/home.jpg" alt="Home" width="170" height="350"></td>
-        <img src="/Screenshots/events_details.jpg" alt="Events Details" width="170" height="350"></td>
+      <td>  <img src="/Screenshots/events_details.jpg" alt="Events Details" width="170" height="350"></td>
         </tr>
 </table>
 
 <table>
   <tr>
     <td><img src="/Screenshots/notification.jpg" alt="Notification" width="170" height="350"></td>
-        <img src="/Screenshots/admin_panel.jpg" alt="Admin Panel" width="170" height="350"></td>
+       <td> <img src="/Screenshots/admin_panel.jpg" alt="Admin Panel" width="170" height="350"></td>
         </tr>
 </table>
 <table>
   <tr>
     <td><img src="/Screenshots/add_event.jpg" alt="Add Event" width="170" height="350"></td>
-        <img src="/Screenshots/events.jpg" alt="Events" width="170" height="350"></td>
+       <td> <img src="/Screenshots/events.jpg" alt="Events" width="170" height="350"></td>
         </tr>
 </table>
 <table>
   <tr>
     <td><img src="/Screenshots/profile.jpg" alt="Profile" width="170" height="350"></td>
-        <img src="/Screenshots/onboarding.jpg" alt="Onboarding" width="170" height="350"></td>
+      <td>  <img src="/Screenshots/onboarding.jpg" alt="Onboarding" width="170" height="350"></td>
         </tr>
 </table>
 
