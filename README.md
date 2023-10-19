@@ -20,8 +20,9 @@ Members receive notifications for new announcements and events.
 Cloud Storage is used to upload images and files related to announcements and events in addition to user profile images
 
 <a href="https://drive.google.com/drive/u/0/folders/1V7w6rfcpoVNzTWHqa_eFb4oWZsRA5NHO">
-  <img src="https://thumbs.dreamstime.com/b/modern-flat-design-apk-file-icon-web-simple-style-217030587.jpg" alt="APK" width="300" height="200">
+  <img src="https://thumbs.dreamstime.com/b/modern-flat-design-apk-file-icon-web-simple-style-217030587.jpg" alt="APK" width="100" height="100">
 </a>
+
 ## Screenshots
 <table>
   <tr>
