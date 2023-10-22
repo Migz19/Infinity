@@ -52,7 +52,7 @@ Cloud Storage is used to upload images and files related to announcements and ev
 #
 ### Usage Terms
 
-- You are allowed to use this code for personal projects.
+- You are not allowed to use this code for personal projects.
 - Commercial use and distribution are strictly prohibited.
 - For inquiries or permissions beyond these terms, please contact me at [Migz2304@gmail.com].
 
