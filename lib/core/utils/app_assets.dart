@@ -1,6 +1,6 @@
 const String pngPath = 'assets/images/png/';
 const String svgPath = 'assets/images/svg/';
-
+const String jpgPath = 'assets/images/jpg/';
 class AppAssets{
   /// PNG Images
   static String logo="${pngPath}logo.png";
@@ -25,8 +25,12 @@ class AppAssets{
   static String galleryIcon="${pngPath}gallery.png";
   static String cameraIcon="${pngPath}camera.png";
   static String notFoundIcon='${pngPath}not_found.png';
-  // Svg Images
+  static String tiktokIcon='${pngPath}tiktok_icon.png';
+  /// Svg Images
+   static String ThreadIcon='${pngPath}threads_icon.png';
   //static String logo="${svgPath}.....";
 
-
+/// JPG Images
+  static String instragramIcon='${jpgPath}instragram_icon.jpg';
+  static String QRCodeImage='${jpgPath}qr_code.jpeg';
 }

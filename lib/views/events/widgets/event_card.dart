@@ -1,18 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinity/core/utils/app_assets.dart';
+import 'package:infinity/core/utils/app_color.dart';
 import 'package:infinity/core/utils/media_query.dart';
 import 'package:infinity/models/event/event_model.dart';
 import 'package:infinity/widgets/indictor/custom_indictor.dart';
 
 class EventCard extends StatefulWidget {
-  final Color? iconColor;
+  final Color? color;
   final EventModel? event;
 
   const EventCard({
     Key? key,
     // this.text,
-    this.iconColor,
+    this.color,
     required this.event,
   }) : super(key: key);
 
@@ -25,7 +26,7 @@ class _EventCardState extends State<EventCard> {
 
   @override
   Widget build(BuildContext context) {
-    final _event = widget.event;
+
     return Container(
       height: 140.0,
       margin: const EdgeInsets.only(
@@ -33,86 +34,43 @@ class _EventCardState extends State<EventCard> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(
           20.0,
         ),
         border: Border.all(
-          color: Colors.white,
+          color: Colors.grey[300]!,
           width: 1.0,
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+
           Expanded(
             flex: 3,
             child: Stack(
               children: [
-                _event!.filesUrls.isNotEmpty
-                    ? PageView.builder(
-                        onPageChanged: (index) => setState(() {
-                          _selectedIndex = index;
-                        }),
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              CachedNetworkImage(
-                                width: context.width,
-                                height: context.height,
-                                imageUrl: _event.filesUrls[index],
-                                fit: BoxFit.fill,
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) => Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: LinearProgressIndicator(
-                                    value: downloadProgress.progress,
-                                    backgroundColor: Colors.grey.shade100,
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  gradient: LinearGradient(
-                                    begin: FractionalOffset.topCenter,
-                                    end: FractionalOffset.bottomCenter,
-                                    colors: [
-                                      Colors.grey.withOpacity(0.0),
-                                      Colors.black,
-                                    ],
-                                    stops: const [0.0, 1.0],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                        itemCount: _event.filesUrls.length,
-                      )
+                widget.event!.filesUrls.isNotEmpty
+                    ?  CachedNetworkImage(
+              width: context.width,
+              height: context.height,
+              imageUrl:  widget.event!.filesUrls[0],
+              fit: BoxFit.fill,
+              progressIndicatorBuilder:
+                  (context, url, downloadProgress) => Align(
+                alignment: Alignment.bottomCenter,
+                child: LinearProgressIndicator(
+                  value: downloadProgress.progress,
+                  backgroundColor: Colors.grey.shade100,
+                ),
+              ),
+              errorWidget: (context, url, error) =>
+                  Icon(Icons.error),
+            )
                     : Image.asset(
                         AppAssets.logo,
                       ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        _event.filesUrls.length < 2
-                            ? 0
-                            : _event.filesUrls.length,
-                        (index) => CustomIndicator(
-                          isSelected: index == _selectedIndex,
-                          size: 10.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -127,7 +85,7 @@ class _EventCardState extends State<EventCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _event.title,
+                      widget.event!.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall,
@@ -137,68 +95,65 @@ class _EventCardState extends State<EventCard> {
                     ),
                     Spacer(),
                     Text(
-                      _event.description,
+                      widget.event!.description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 12.0,
-                          ),
+                        fontSize: 12.0,
+                      ),
                     ),
                     const Spacer(),
                     Row(
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              const Icon(
-                                size: 16.0,
-                                Icons.location_on_outlined,
-                                // color: AppColors.lightGrey,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  _event.location ?? 'No location',
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 12.0,
-                                      ),
-                                ),
-                              ),
-                            ],
+                        Icon(
+                          size: 18.0,
+                          Icons.location_on_outlined,
+                          color: AppColor.primary,
+                          // color: AppColors.lightGrey,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Flexible(
+                          child: Text(
+                            widget.event!.location ?? 'No location',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                              color: AppColor.primary,
+                              fontSize: 12.0,
+                            ),
                           ),
                         ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              const Icon(
-                                size: 16.0,
-                                Icons.timelapse,
-                                // color: AppColors.lightGrey,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  _event.date,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 10.0,
-                                      ),
-                                ),
-                              ),
-                            ],
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          size: 16.0,
+                          Icons.timer,
+                          color: AppColor.primary,
+                          // color: AppColors.lightGrey,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Flexible(
+                          child: Text(
+                            widget.event!.date,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                              color: AppColor.primary,
+
+                              fontSize: 10.0,
+                            ),
                           ),
                         ),
                       ],
@@ -206,6 +161,7 @@ class _EventCardState extends State<EventCard> {
                   ],
                 ),
               )),
+
         ],
       ),
     );

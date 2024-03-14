@@ -9,7 +9,10 @@ class AppRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
+      theme: ThemeData(
+        useMaterial3: false,
+      ),
     );
   }
 }

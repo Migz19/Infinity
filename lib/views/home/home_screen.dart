@@ -7,6 +7,7 @@ import 'package:infinity/models/post/post_model.dart';
 import 'package:infinity/provider/home/home_provider.dart';
 import 'package:infinity/provider/navigator/navigator_provider.dart';
 import 'package:infinity/views/events/widgets/event_details_screen.dart';
+import 'package:infinity/views/posts/post_details_screen.dart';
 import 'package:infinity/widgets/naviagtion.dart';
 import 'package:provider/provider.dart';
 
@@ -254,48 +255,62 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: context.height * 0.4,
                           width: context.width * 0.3,
                           margin: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Card(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  textAlign: TextAlign.start,
-                                  context
-                                      .read<HomeProvider>()
-                                      .postsList[index]
-                                      .postDetails,
-                                  maxLines: 7,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
+                          child: GestureDetector(
+                            child: Card(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    textAlign: TextAlign.start,
+                                    context
+                                        .read<HomeProvider>()
+                                        .postsList[index]
+                                        .postDetails,
+                                    maxLines: 7,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: context
-                                          .read<HomeProvider>()
-                                          .postsList[index]
-                                          .filesDownloadUrl
-                                          .isNotEmpty
-                                      ? CachedNetworkImage(
-                                          height: context.height * 0.2,
-                                          imageUrl: context
-                                              .read<HomeProvider>()
-                                              .postsList[index]
-                                              .filesDownloadUrl
-                                              .first,
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.contain)
-                                      : const SizedBox(
-                                          height: 0,
-                                          width: 0,
-                                        ),
-                                )
-                              ],
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: context
+                                            .read<HomeProvider>()
+                                            .postsList[index]
+                                            .filesDownloadUrl
+                                            .isNotEmpty
+                                        ? CachedNetworkImage(
+                                            height: context.height * 0.2,
+                                            imageUrl: context
+                                                .read<HomeProvider>()
+                                                .postsList[index]
+                                                .filesDownloadUrl
+                                                .first,
+                                            alignment: Alignment.center,
+                                            fit: BoxFit.contain)
+                                        : const SizedBox(
+                                            height: 0,
+                                            width: 0,
+                                          ),
+                                  )
+                                ],
+                              ),
                             ),
+                            onTap: (){
+
+                              AppNavigator.customNavigator(
+                                context: context,
+                                screen: PostDetailsScreen(
+                                   post:  context.read<HomeProvider>()
+                                       .postsList[index],
+
+                                ),
+                                finish: false,
+                              );
+                            },
                           ),
                         );
                       },

@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child:  CircleAvatar(
                                 backgroundColor: AppColor.primary.withOpacity(0.8),
                                 radius: 15,
-                                child: Icon(Icons.edit, size: 18,color: Colors.white,),
+                                child: const Icon(Icons.edit, size: 18,color: Colors.white,),
                               ),
                             ),
                           )
@@ -112,7 +112,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SettingsRow(text:  widget.currentUser!.email, icon:
                         Icon( Icons.email,color: AppColor.primary,)),
                         const SizedBox(height: 8,),
-
                         SettingsRow(text:  widget.currentUser!.role, icon:
                         Icon( Icons.work,color: AppColor.primary,)),
                         const SizedBox(height: 8,),

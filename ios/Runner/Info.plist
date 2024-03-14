@@ -2,6 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -56,10 +57,16 @@
    <string>fetch</string>
    <string>remote-notification</string>
 </array>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>sms</string>
+  <string>tel</string>
+</array>
 <key>UISupportsDocumentBrowser</key>
 <true/>
 
 <key>LSSupportsOpeningDocumentsInPlace</key>
 <true/>
+
 </dict>
 </plist>

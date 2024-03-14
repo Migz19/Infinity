@@ -1,6 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:infinity/core/utils/app_color.dart';
+import 'package:infinity/widgets/toast/enum.dart';
+import 'package:infinity/widgets/toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DynamicTextWidget extends StatefulWidget {
   const DynamicTextWidget(
@@ -35,42 +39,75 @@ class _DynamicTextWidgetState extends State<DynamicTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: secondHalf.isEmpty
-          ? Text(
-              firstHalf,
-              style:TextStyle(fontSize: 22),
-            )
-          : RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: isExpanded
-                        ? '$firstHalf$secondHalf '
-                        : '$firstHalf ...',
-                    style: TextStyle(color: AppColor.tertiary,fontSize: 20,letterSpacing: 1.01 ,),
-                  ),
-                  TextSpan(
-                    text: isExpanded
-                        ? "see less"
-                        : "see more",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      color: Colors.blue,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        setState(
-                          () {
-                            isExpanded = !isExpanded;
-                          },
-                        );
-                      },
-                  ),
-                ],
+    return Column(
+      children: [
+        Container(
+          child: secondHalf.isEmpty
+              ? Linkify(
+                text: firstHalf,
+                style:const TextStyle(fontSize: 22),
+                onOpen: (link) async {
+                 if (await canLaunch(link.url)) {
+                await launch(link.url);
+              } else {
+                ToastConfig.showToast(context: context,
+                    msg: 'Could not launch $link', toastStates: ToastStates.Warning);
+              }
+            },
+                )
+              :
+
+
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Linkify(
+                onOpen: (link) async {
+
+                  print("Link : ${link.url}");
+                  if (await canLaunch(link.url)) {
+                    await launch(link.url);
+                    
+                  } else {
+                    ToastConfig.showToast(context: context,
+                        msg: 'Could not launch $link', toastStates: ToastStates.Warning);
+                  }
+                },
+               text: isExpanded
+                    ? '$firstHalf$secondHalf '
+                    : '$firstHalf ...',
+                style: TextStyle(color: AppColor.tertiary,fontSize: 20,letterSpacing: 1.01 ,),
+                linkStyle: const TextStyle(color: Colors.blue,
+                    decoration: TextDecoration.underline),
               ),
-            ),
+              const SizedBox(height: 2),
+              GestureDetector(
+                onTap: () {
+                  setState(
+                        () {
+                      isExpanded = !isExpanded;
+                    },
+                  );
+                },
+                child: Text(
+                   isExpanded
+                      ? "see less"
+                      : "see more",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    color: Colors.blue,
+                  ),
+
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Linkify(
+          text: '',),
+      ],
     );
   }
 }
